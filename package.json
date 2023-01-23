@@ -1,0 +1,23 @@
+{
+  "name": "odin-to-do-list",
+  "version": "1.0.0",
+  "description": "Project is a To Do List that keeps track of all required tasks for the specific user.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freshc0w/odin-to-do-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freshc0w/odin-to-do-list/issues"
+  },
+  "homepage": "https://github.com/freshc0w/odin-to-do-list#readme",
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
