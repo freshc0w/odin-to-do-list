@@ -33,10 +33,6 @@ body, html {
     align-items: center;
 }
 
-.body-container > * {
-    /* border: 1px white solid; */
-}
-
 .main-container {
     --default-bg-color: rgba(255, 255, 255, var(--default-opacity));
 
@@ -46,7 +42,7 @@ body, html {
     grid-row: 1 / -1;
     justify-self: center;
 
-    height: max(35rem, 50rem);
+    height: max(35rem, 82.5%);
     width: max(700px, 87.5%);
 
     border-radius: 1rem;
@@ -116,4 +112,38 @@ main .sideBar {
 
 .content {
     flex: 1;
+}
+
+.title-container {
+    align-self: start;
+    padding-top: 10%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 2.5rem;
+    gap: 0.5rem;
+}
+
+.title-container > img {
+    height: 30%;
+    width: 30%;
+}
+
+blockquote.bubble { 
+	background-position: center;
+    background-repeat: no-repeat;
+	background-size: 100% 100%;
+    margin: 0 auto;
+    margin-top: -20px;
+	text-align: center;
+	height: 0;
+	box-sizing: content-box;
+	line-height: 1;
+    font-size: 1.25rem;
+}
+blockquote.speech {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/speech-bubble.svg); 
+    width: 150%;
+    height: 125px;
+    padding-top: 10%;
 }
