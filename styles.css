@@ -1,0 +1,44 @@
+
+
+body, html {
+    height: 100vh;
+    width: 100vw;
+
+    box-sizing: border-box;
+    border: 0;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #333333;
+}
+
+.main {
+    /* border: 1px white solid; */
+    border-radius: 4px;
+    width: max(55rem, 70%);
+    height: 45rem;
+
+    display: grid;
+    grid-template: 15% 85% / 25% 75%;
+}
+
+.main > * {
+    /* border: 1px solid white; */
+}
+
+.header {
+    grid-column: 1 / span 2;
+    background-color: #41A317;
+}
+
+.dashboard {
+    background-color: #3F3F4E;
+}
+
+.content {
+    background-color: #c5c6d0;
+}
