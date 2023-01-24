@@ -9,7 +9,7 @@ function openSideBar() {
 }
 
 function closeSideBar() {
-    sideBar.style.width = '85px';
+    sideBar.style.width = '65px';
 }
 
 console.log('Hello World')
