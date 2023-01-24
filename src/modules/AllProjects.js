@@ -4,12 +4,15 @@ import Project from "./project";
 export default class AllProjects {
     constructor() {
         this.projects = [];
-        this.projects.push(new Project('Inbox'));
+        this.projects.push(new Project('Inbox'))
     };
 
     get projects() {
-        return this.projects;
+        return this._projects;
     };
+    set projects(value) {
+        this._projects = value;
+    }
 
     // Check if project name exists in list of projects.
     contains(projectName) {

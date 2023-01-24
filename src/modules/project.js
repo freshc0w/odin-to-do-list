@@ -5,19 +5,22 @@ export default class Project {
     };
     
     get name() {
-        return this.name;
+        return this._name;
     };
     set name(value) {
-        this.name = value;
+        this._name = value;
     };
     get tasks() {
-        return this.tasks;
+        return this._tasks;
     };
+    set tasks(value) {
+        this._tasks = value;
+    }
     addTask(task) {
-        this.tasks.push(task);        
+        this._tasks.push(task);        
     };
     deleteTask(taskId) {
-        this.tasks = this.tasks.filter(task => task.getId() !== taskId);
+        this._tasks = this._tasks.filter(task => task.getId() !== taskId);
     };
 
     // To be added: Get today's and this week's tasks. 

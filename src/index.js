@@ -1,3 +1,4 @@
-import UI from './modules/UI/UI';
+import UI from './modules/UI';
+const UserInterface = new UI();
 
-UI.loadHomePage();
+UserInterface.loadHomePage();

@@ -5,38 +5,43 @@ export default class Task {
         this.dueDate = dueDate;
         this.priority = priority;
         this.id = id; // To allow deletion of task with the same name;
+        
     }
-    get name() {
-        return this.name;
-    };
-    
     set name(value) {
-        this.name = value;
+        this._name = value;
     };
 
+    get name() {
+        return this._name;
+    };
+    
+
     get id() {
-        return this.id;
+        return this._id;
     };
     set id(value) {
-        this.id = id;
+        this._id = value;
     }
     get priority() {
-        return this.priority;
+        return this._priority;
     }
     set priority(value) {
-        this.priority = value;
+        this._priority = value;
     }
     
     get description() {
-        return this.description;
+        return this._description;
     };
     set description(value) {
-        this.description = value;
+        this._description = value;
     };
 
     get dueDate() {
-        return this.dueDate;
+        return this._dueDate;
     };
+    set dueDate(value) {
+        this._dueDate = value;
+    }
     get dueDateFormatted() {
         const day = this.dueDate.split('/')[0];
         const month = this.dueDate.split('/')[1];
