@@ -1,2 +1,3 @@
-import loadHomePage from './modules/UI';
-loadHomePage()
+import UI from './modules/UI/UI';
+
+UI.loadHomePage();

@@ -5,7 +5,7 @@
 body, html {
     height: 100vh;
     width: 100vw;
-
+    font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     border: 0;
     margin: 0;
@@ -82,7 +82,7 @@ body, html {
 .sideBar a {
     padding: 8px 8px 8px 20px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 1.25rem;
     color: #818181;
     display: block;
   }
@@ -110,7 +110,20 @@ main .sideBar {
 
 .content {
     flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+
 }
+
+.statusBar {
+    /* border: 1px white solid; */
+    height: max(15%, 110px);
+}
+
+img[src$='gif'] {
+    height: 90%;
+    margin-left: 20px;
+};
 
 /* .title-container {
     align-self: start;

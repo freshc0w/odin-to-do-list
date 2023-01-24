@@ -1,9 +1,10 @@
 import Task from "./task";
 import Project from "./project";
 
-export default class toDoList {
+export default class AllProjects {
     constructor() {
         this.projects = [];
+        this.projects.push(new Project('Inbox'));
     };
 
     get projects() {
@@ -31,6 +32,7 @@ export default class toDoList {
         this.projects.splice(this.projects.indexOf(projectToDelete),
                                 1)
     };
+    
 
     // Can add today's and this week's functionality.
 };
