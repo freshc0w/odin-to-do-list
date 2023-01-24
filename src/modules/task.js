@@ -20,6 +20,12 @@ export default class Task {
     set id(value) {
         this.id = id;
     }
+    get priority() {
+        return this.priority;
+    }
+    set priority(value) {
+        this.priority = value;
+    }
     
     get description() {
         return this.description;
