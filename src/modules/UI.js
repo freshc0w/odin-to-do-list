@@ -2,6 +2,7 @@ import Task from "./task";
 import Project from "./project";
 import AllProjects from "./AllProjects";
 import { TaskUI, ProjectUI } from "./UI/ProjectUI";
+import { DrawForm } from "./UI/form";
 
 
 export default class UI {
@@ -29,7 +30,12 @@ export default class UI {
 
 
         this.loadSideBar();
+        const form = DrawForm()
+        const addTaskForm = form.addTask();
     }
+
+    /* Button functionalities */
+    
 
     /* SideBar functionalities */
     loadSideBar() {
