@@ -32,6 +32,14 @@ const DrawForm = () => {
         closeForm.classList.add('closeFormBtn');
         closeForm.src = '../../../imgs/mac-close-btn.png';
         closeForm.alt = 'A button that closes the form.';
+
+        closeForm.addEventListener('click', () => {
+            const form = document.querySelector('form');
+            const overlay = document.querySelector('.face-mask');
+            form.style.visibility = 'hidden';
+            overlay.style.visibility = 'hidden';
+        });
+
         return closeForm;
     };
 
@@ -62,6 +70,10 @@ const DrawForm = () => {
     const addPriorityOptions = () => {
         const inputPriority = document.createElement('div');
 
+        const prioLabel = document.createElement('div');
+        prioLabel.classList.add('prioLabel');
+        prioLabel.textContent = "Level of Importance:"
+
         const lowBtn = document.createElement('button');
         const medBtn = document.createElement('button');
         const highBtn = document.createElement('button');
@@ -74,6 +86,7 @@ const DrawForm = () => {
         medBtn.textContent = 'Med';
         highBtn.textContent = 'High';
 
+        inputPriority.appendChild(prioLabel);
         for(let btn of [lowBtn, medBtn, highBtn]) {
             btn.addEventListener("click", (event) => {
                 event.preventDefault();
