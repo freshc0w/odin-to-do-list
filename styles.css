@@ -10,8 +10,10 @@ body,
 html {
 	/* temp min-width for editing */
 	min-width: 2100px;
-	height: 100vh;
-	width: 100vw;
+	position: relative;
+	/* min-width: 2100px; */
+	height: 100%;
+	width: 100%;
 	font-family: "Montserrat", sans-serif;
 	box-sizing: border-box;
 	border: 0;
@@ -140,6 +142,7 @@ li:hover {
 }
 
 .content {
+	position: relative;
 	flex: 1;
 	display: flex;
 	flex-flow: column nowrap;
@@ -185,8 +188,8 @@ img[src$="gif"]:hover {
 	justify-content: flex-end;
 	align-items: center;
 	gap: 1.85rem;
-	width: 97.5%;
-    padding: 0.65rem 1px;
+	width: 96.5%;
+    padding: 0.65rem 1.5px;
 	font-size: 1.5rem;
     background-color: rgba(0, 0, 0, 0.15);
     border-radius: 0.5rem;
@@ -197,11 +200,15 @@ img[src$="gif"]:hover {
     transition: all ease .35s;
 }
 
+
+/* Task display */
 .task-container.add {
 	justify-content: center;
 	align-items: center;
 	box-shadow: 4px 4px 2px var(--neon-blue),
-	2px 2px 5px rgba(10, 255, 255, .7)
+	2px 2px 5px rgba(10, 255, 255, .7);
+	padding-top: 7px;
+	padding-bottom: 7px;
 }
 
 .task-container:hover {
@@ -372,6 +379,8 @@ input[type="checkbox"]:checked::after {
 }
 
 .uniqueBtn.add {
+	font-weight: 900;
+	padding: 0.2rem 2rem;
 	margin: 0;
 	font-size: 1.25rem;
 	border-radius: 0.8rem;
@@ -408,4 +417,48 @@ input[type="checkbox"]:checked::after {
 		rgba(136, 255, 255, 0.1) 60%,
 		transparent 100%
 	);
+}
+
+
+
+/* Forms */
+.face-mask {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.55);
+}
+
+form {
+	visibility: hidden;
+	--height: 30rem;
+	--width: calc(var(--height)*1.75);
+	height: var(--height);
+	width: var(--width);
+	position: absolute;
+	border: 2px;
+	left: 50%;
+	right: 50%;
+	top: 50%;
+	margin-top: -15rem;
+	margin-left: -26.25rem;
+	bottom: 50%;
+	background-color: rgba(12, 12, 12, .7);
+	backdrop-filter: blur(4px);
+	border: 2px rgba(0, 0, 0, 0.7) solid;
+
+	box-shadow: 0 0 3px white, 
+	0 0 5px var(--neon-green),
+	0 0 8px var(--neon-green);
+}
+
+
+
+.inputTaskTitle,
+.inputTaskDetails {
+	display: flex;
+	flex-flow: column nowrap;
 }
