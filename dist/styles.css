@@ -433,9 +433,13 @@ input[type="checkbox"]:checked::after {
 }
 
 form {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	visibility: hidden;
-	--height: 30rem;
-	--width: calc(var(--height)*1.75);
+	--height: 37.5rem;
+	--width: calc(var(--height)*1.65);
 	height: var(--height);
 	width: var(--width);
 	position: absolute;
@@ -443,8 +447,8 @@ form {
 	left: 50%;
 	right: 50%;
 	top: 50%;
-	margin-top: -15rem;
-	margin-left: -26.25rem;
+	margin-top: -18.75rem;
+	margin-left: -30.9375rem;
 	bottom: 50%;
 	background-color: rgba(12, 12, 12, .7);
 	backdrop-filter: blur(4px);
@@ -455,7 +459,10 @@ form {
 	0 0 8px var(--neon-green);
 }
 
-
+.form-container {
+	height: 90%;
+	width: 90%;
+}
 
 .inputTaskTitle,
 .inputTaskDetails {

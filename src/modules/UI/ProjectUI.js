@@ -99,6 +99,12 @@ class ProjectUI {
         addTaskBtn.classList.add("uniqueBtn");
         addTaskBtn.classList.add("add");
         addTaskBtn.textContent = "ADD";
+        addTaskBtn.addEventListener("click", () => {
+            const form = document.querySelector('form');
+            const overlay = document.querySelector('.face-mask');
+            form.style.visibility = 'visible';
+            overlay.style.visibility = 'visible';
+        })
     
         addTaskContainer.appendChild(addTaskBtn);
         return addTaskContainer

@@ -23,7 +23,12 @@ const DrawForm = () => {
         for(let info of tasksInfo) {
             formContainer.appendChild(info);
         };
-    }
+    };
+
+    // addCloseBtn() {
+    //     const closeBtn = document.createElement('button');
+        
+    // }
 
     const addInputDueDate = () => {
         const dueDate = document.createElement('div');
