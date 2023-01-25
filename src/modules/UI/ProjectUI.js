@@ -16,9 +16,20 @@ class TaskUI {
         
         return name
     };
-    createElements() {
+    createElements(taskContainer) {
         const statusCheck = this.renderInfo('input', 'statusCheck');
         statusCheck.setAttribute('type', 'checkbox');
+        statusCheck.setAttribute('id', 'statusCheck');
+        statusCheck.addEventListener('change', event => {
+            if(event.target.checked) {
+                taskContainer.style.opacity = '40%';
+                taskContainer.style.transform = 'translateY(1px)';
+            } else {
+                taskContainer.style.opacity = '100%';
+                taskContainer.style.transform = 'translateY(-7px)';
+            }
+        })
+
         const name = this.renderInfo('div', 'taskName', this.task.name);
 
         // When clicked, pop up a form where the details of the task is displayed.
@@ -50,7 +61,7 @@ class TaskUI {
     };
     draw() {
         const taskContainer = this.renderInfo('div', 'task-container');
-        const elems = this.createElements();
+        const elems = this.createElements(taskContainer);
         for (let elem of elems) {
             taskContainer.appendChild(elem);
         };
@@ -80,6 +91,11 @@ class ProjectUI {
 
     clear(content) {
         content.innerHTML = '';
+    };
+
+    completeTask() {
+        // Make task container transparent after completing task.
+        const checkBox = document.getElementById()
     }
 };
 

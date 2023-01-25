@@ -16,7 +16,7 @@ export default class UI {
         // Add a task to inbox.
         this.toDoList.getProject('Inbox').addTask(new Task(
             'Walking the dog', 'He is asking for it so this task is a must', 'today',
-            'high', this.toDoList.getProject('Inbox').tasks.length
+            'medium', this.toDoList.getProject('Inbox').tasks.length
         ));
         
         // get the task from inbox

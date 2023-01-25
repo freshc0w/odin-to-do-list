@@ -177,14 +177,13 @@ img[src$="gif"]:hover {
 	width: 97.5%;
     padding: 0.65rem 1px;
 	font-size: 1.5rem;
-    text-shadow: 0 0 5px rgb(100, 255, 100);
     background-color: rgba(0, 0, 0, 0.15);
     border-radius: 0.5rem;
 
     box-shadow: 4px 4px 2px rgba(57, 255, 20, .7),
                 2px 2px 5px rgba(10, 255, 255, .7);
 
-    transition: all ease 0.3s;
+    transition: all ease .35s;
 }
 
 .task-container:hover {
@@ -193,9 +192,14 @@ img[src$="gif"]:hover {
     2px 2px 5px rgba(245, 255, 245, .7);
 }
 
+.taskEdit,
+.taskDel {
+	text-shadow: 0 0 5px rgb(100, 255, 100);
+}
 
 .taskName {
     margin-right: auto;
+	text-shadow: 0 0 3px white;
 }
 
 .taskDate {
@@ -223,21 +227,18 @@ img[src$="gif"]:hover {
 
 .material-icons.high {
     color: #FF3131;
-    text-shadow: var(--default-white-glow),
-                0 0 8px #FF3131,
-                0 0 16px #FF3131;
+    text-shadow: 0 0 4px #FF3131,
+                0 0 8px #FF3131;
 }
 .material-icons.medium {
     color: #FF5F1F;
-    text-shadow: var(--default-white-glow),
-    0 0 8px #FF5F1F,
-    0 0 16px #FF5F1F
+    text-shadow: 0 0 4px #FF5F1F,
+    0 0 8px #FF5F1F
 }
 .material-icons.low {
     color: #39FF14;
-    text-shadow: var(--default-white-glow),
-    0 0 8px #39FF14,
-    0 0 16px #39FF14
+    text-shadow: 0 0 4px #39FF14,
+    0 0 8px #39FF14
 }
 
 /* Custom Checkbox Styling */
