@@ -24,3 +24,7 @@ Dashboard on the side that outlines:
     - Projects
         - Could further extend by sorting by priority.
     - Notes 
+
+For each project, it will be added to sideBar.
+So i.e. the Today and This Week will be added beneath the Inbox tab and any other project will be added beneath the projects tab.
+Also need to create a hover effect that when main tab is hovered, the side bars will be visible.

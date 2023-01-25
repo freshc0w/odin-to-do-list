@@ -8,6 +8,7 @@ export default class UI {
     constructor() {
         this.toDoList = new AllProjects();
     };
+
     loadHomePage() {
         UI.addSideBarFunc();
         console.log(this.toDoList.getProject('Inbox'));
@@ -26,12 +27,34 @@ export default class UI {
 
         const projectDisplay = new ProjectUI(this.toDoList.getProject('Inbox'));
         projectDisplay.draw();
-        console.log(this.toDoList.getProject('Inbox').tasks)
-
+        console.log(this.toDoList.getProject('Inbox').tasks);
+        console.log(this.toDoList.getProject('Today').name)
+        this.addInboxTabs();
     }
+
+    addInboxTabs() {
+        // Add today and this week's task beneath Inbox tab sidebar.
+        const inboxTabs = document.createElement('ul');
+
+        this.addTab(inboxTabs, 'Today');
+        this.addTab(inboxTabs, 'This Week');
+
+        const inboxBar = document.querySelector('.inbox-bar');
+        inboxBar.appendChild(inboxTabs)
+    }
+    addTab(menuTab, projectName) {
+        // Create li and append it to given param elem.
+        const tab = document.createElement('li');
+        
+        tab.textContent = this.toDoList.getProject(projectName).name;
+        menuTab.appendChild(tab);
+    }
+
 
     static addSideBarFunc() {
         const sideBar = document.getElementById('sideBar');
+        const materialIcons = document.querySelectorAll('.material-icons');
+        const iconText = document.querySelectorAll('.icon-text');
         sideBar.addEventListener('mouseover', () => {
             sideBar.style.width = '200px';
         });
@@ -39,6 +62,5 @@ export default class UI {
             sideBar.style.width = '65px';
         });
 
-        document.getElementsByClassName('inbox-bar');
     };
 };

@@ -85,11 +85,14 @@ html {
 	padding: 8px 8px 8px 20px;
 	text-decoration: none;
 	font-size: 1.25rem;
-	color: #818181;
+	color: #a9a7a7;
 	display: block;
 }
-.sideBar a:hover {
-	color: #39ff14;
+
+.material-icons:hover,
+.icon-text:hover {
+	color: white;
+	text-shadow: var(--default-white-glow);
 }
 
 main .sideBar {
@@ -98,6 +101,8 @@ main .sideBar {
 	right: 25px;
 	font-size: 36px;
 	margin-left: 50px;
+	--default-white-glow: 0 0 3px white,
+	0 0 3px whitesmoke;
 }
 
 .material-icons,
@@ -106,10 +111,22 @@ main .sideBar {
 }
 
 .material-icons {
-    --default-white-glow: 0 0 2px white,
-                        0 0 3px whitesmoke;
 	padding-bottom: 3px;
-	margin-right: 25px;
+	margin-right: 20px;
+}
+
+ul {
+	margin: 0;
+	padding-left: 3rem;
+	font-size: 1.1rem;
+}
+li {
+	list-style: none;
+	margin-top: 5px;
+}
+li:hover {
+	color: white;
+	text-shadow: var(--default-white-glow);
 }
 
 .content {
@@ -167,11 +184,11 @@ img[src$="gif"]:hover {
     box-shadow: 4px 4px 2px rgba(57, 255, 20, .7),
                 2px 2px 5px rgba(10, 255, 255, .7);
 
-    transition: all ease 0.4s;
+    transition: all ease 0.3s;
 }
 
 .task-container:hover {
-    transform: translateY(-10px);
+    transform: translateY(-7px);
     box-shadow: 4px 4px 2px rgba(245, 255, 245, .7),
     2px 2px 5px rgba(245, 255, 245, .7);
 }
