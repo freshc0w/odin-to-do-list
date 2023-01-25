@@ -10,7 +10,6 @@ export default class UI {
     };
 
     loadHomePage() {
-        UI.addSideBarFunc();
         console.log(this.toDoList.getProject('Inbox'));
 
         // Add a task to inbox.
@@ -27,12 +26,21 @@ export default class UI {
 
         const projectDisplay = new ProjectUI(this.toDoList.getProject('Inbox'));
         projectDisplay.draw();
-        console.log(this.toDoList.getProject('Inbox').tasks);
-        console.log(this.toDoList.getProject('Today').name)
-        this.addInboxTabs();
+
+
+        this.loadSideBar();
     }
 
-    addInboxTabs() {
+
+
+    /* SideBar functionalities */
+    loadSideBar() {
+        this.addSlideInOut();
+        this.drawInboxTabs();
+        this.drawProjectTabs();
+    }
+
+    drawInboxTabs() {
         // Add today and this week's task beneath Inbox tab sidebar.
         const inboxTabs = document.createElement('ul');
 
@@ -40,7 +48,36 @@ export default class UI {
         this.addTab(inboxTabs, 'This Week');
 
         const inboxBar = document.querySelector('.inbox-bar');
-        inboxBar.appendChild(inboxTabs)
+        inboxBar.appendChild(inboxTabs);
+        this.addDropDownMenu(inboxBar, inboxTabs)
+    };
+
+    drawProjectTabs() {
+        // Find all other projects.
+        const inboxProjects = ['Inbox', 'Today', 'This Week']
+        const customProjects = this.toDoList.projects.filter(
+            project => !inboxProjects.includes(project.name)
+            );
+
+        const projectTabs = document.createElement('ul');
+        for(let project of customProjects) {
+            this.addTab(projectTabs, project.name)
+        };
+
+        const projectBar = document.querySelector('.project-bar');
+        projectBar.appendChild(projectTabs);
+        this.addDropDownMenu(projectBar, projectTabs);
+    }
+
+
+    addDropDownMenu(menuBar, tabs) {
+        // Tabs will be elongated based on tab hovered.
+        menuBar.addEventListener('mouseover', () => {
+            tabs.style.display = "block";
+        });
+        menuBar.addEventListener('mouseout', () => {
+            tabs.style.display = "none";
+        })
     }
     addTab(menuTab, projectName) {
         // Create li and append it to given param elem.
@@ -50,8 +87,7 @@ export default class UI {
         menuTab.appendChild(tab);
     }
 
-
-    static addSideBarFunc() {
+    addSlideInOut() {
         const sideBar = document.getElementById('sideBar');
         const materialIcons = document.querySelectorAll('.material-icons');
         const iconText = document.querySelectorAll('.icon-text');

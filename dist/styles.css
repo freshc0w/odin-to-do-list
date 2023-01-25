@@ -119,6 +119,7 @@ ul {
 	margin: 0;
 	padding-left: 3rem;
 	font-size: 1.1rem;
+	display: none;
 }
 li {
 	list-style: none;

@@ -7,6 +7,7 @@ export default class AllProjects {
         this.projects.push(new Project('Inbox'));
         this.projects.push(new Project('Today'));
         this.projects.push(new Project('This Week'));
+        this.projects.push(new Project('React'));
     };
 
     get projects() {

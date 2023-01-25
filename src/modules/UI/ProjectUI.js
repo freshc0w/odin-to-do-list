@@ -23,10 +23,10 @@ class TaskUI {
         statusCheck.addEventListener('change', event => {
             if(event.target.checked) {
                 taskContainer.style.opacity = '40%';
-                taskContainer.style.transform = 'translateY(1px)';
+                taskContainer.style.transform = 'scale(0.985)';
             } else {
                 taskContainer.style.opacity = '100%';
-                taskContainer.style.transform = 'translateY(-7px)';
+                taskContainer.style.transform = 'scale(1)';
             }
         })
 
