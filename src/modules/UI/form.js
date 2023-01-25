@@ -17,18 +17,23 @@ const DrawForm = () => {
         
         const prioOptions = addPriorityOptions();
         const dueDate = addInputDueDate();
+        const closeFormOption = addCloseFormFunction();
 
-        const tasksInfo = [taskTitle, taskDetails, prioOptions, dueDate];
+        const tasksInfo = [taskTitle, taskDetails, prioOptions, dueDate,
+                            closeFormOption];
 
         for(let info of tasksInfo) {
             formContainer.appendChild(info);
         };
     };
 
-    // addCloseBtn() {
-    //     const closeBtn = document.createElement('button');
-        
-    // }
+    const addCloseFormFunction = () => {
+        const closeForm = document.createElement('img');
+        closeForm.classList.add('closeFormBtn');
+        closeForm.src = '../../../imgs/mac-close-btn.png';
+        closeForm.alt = 'A button that closes the form.';
+        return closeForm;
+    };
 
     const addInputDueDate = () => {
         const dueDate = document.createElement('div');
