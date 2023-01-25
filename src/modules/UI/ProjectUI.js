@@ -23,17 +23,18 @@ class TaskUI {
         statusCheck.addEventListener('change', event => {
             if(event.target.checked) {
                 taskContainer.style.opacity = '40%';
-                taskContainer.style.transform = 'scale(0.985)';
+                // taskContainer.style.transform = 'scale(0.985)';
             } else {
                 taskContainer.style.opacity = '100%';
-                taskContainer.style.transform = 'scale(1)';
+                // taskContainer.style.transform = 'scale(1)';
             }
         })
 
         const name = this.renderInfo('div', 'taskName', this.task.name);
 
         // When clicked, pop up a form where the details of the task is displayed.
-        const detailsBtn = this.renderInfo('button', 'taskDetailsBtn', 'Details');
+        const detailsBtn = this.renderInfo('button', 'uniqueBtn', 'Details');
+        detailsBtn.classList.add('details')
 
         // Priority icon
         const priority = this.renderInfo('div', 'statusPrio');
@@ -81,12 +82,29 @@ class ProjectUI {
         // Use the draw method to get the div container and append it to mainContent.
 
         this.drawTasks(mainContent, this.project.tasks);
+
+        // Draw an add task option lastly
+        const addTaskFunction = document.createElement('div');
+        addTaskFunction.classList.add('task-container');
+        addTaskFunction.classList.add('add');
+    
+
+        const addTaskBtn = document.createElement('button');
+        addTaskBtn.classList.add('uniqueBtn');
+        addTaskBtn.classList.add('add');
+        addTaskBtn.textContent = "ADD";
+
+        addTaskFunction.appendChild(addTaskBtn);
+
+        mainContent.appendChild(addTaskFunction);
+
     }
     drawTasks(container, tasks) {
         for(let task of tasks) {
             const taskDisplay = new TaskUI(task);
             container.appendChild(taskDisplay.draw());
         };
+
     };
 
     clear(content) {

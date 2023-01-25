@@ -31,8 +31,6 @@ export default class UI {
         this.loadSideBar();
     }
 
-
-
     /* SideBar functionalities */
     loadSideBar() {
         this.addSlideInOut();
