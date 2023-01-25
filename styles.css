@@ -457,6 +457,7 @@ form {
 	box-shadow: 0 0 3px white, 
 	0 0 5px var(--neon-green),
 	0 0 8px var(--neon-green);
+	border-radius: .75rem;
 }
 
 .form-container {
@@ -468,4 +469,15 @@ form {
 .inputTaskDetails {
 	display: flex;
 	flex-flow: column nowrap;
+}
+
+.closeFormBtn {
+	position: absolute;
+	top: .65rem;
+	right: .65rem;
+	transform: scale(1.2);
+	cursor: pointer;
+}
+.closeFormBtn:hover {
+	transform: scale(1.4);
 }
