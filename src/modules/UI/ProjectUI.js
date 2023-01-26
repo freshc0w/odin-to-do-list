@@ -86,10 +86,10 @@ class ProjectUI {
         // mainContent container.
 		this.drawTasks(mainContent, this.project.tasks);
 
-        const addTaskOption = this.addTaskFunction();
+        const addTaskOption = this.addTaskOption();
 		mainContent.appendChild(addTaskOption);
 	}
-    addTaskFunction() {
+    addTaskOption() {
         // Draw an add task option beneath all tasks
         const addTaskContainer = document.createElement("div");
         addTaskContainer.classList.add("task-container");
@@ -99,12 +99,6 @@ class ProjectUI {
         addTaskBtn.classList.add("uniqueBtn");
         addTaskBtn.classList.add("add");
         addTaskBtn.textContent = "ADD";
-        addTaskBtn.addEventListener("click", () => {
-            const form = document.querySelector('form');
-            const overlay = document.querySelector('.face-mask');
-            form.style.visibility = 'visible';
-            overlay.style.visibility = 'visible';
-        })
     
         addTaskContainer.appendChild(addTaskBtn);
         return addTaskContainer

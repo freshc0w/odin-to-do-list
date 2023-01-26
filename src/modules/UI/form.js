@@ -5,6 +5,12 @@ const DrawForm = () => {
     // This includes [taskName, details, priorityLevel, Date];
     const formContainer = document.querySelector('.form-container');
 
+    const clear = () => {
+        while(formContainer.firstChild) {
+            formContainer.removeChild(formContainer.lastChild);
+        };
+    }
+    
     const addTask = () => {
         const taskTitle = addInputText('Task Title: ', 'e.g. Learn React in ' +
         '20 days..', 'inputTaskTitle');
@@ -162,7 +168,7 @@ const DrawForm = () => {
         input.appendChild(inputText);
         return input;
     }
-    return { addTask };
+    return { addTask, clear};
 
 
 }
