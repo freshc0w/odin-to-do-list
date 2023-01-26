@@ -8,6 +8,10 @@ import { DrawForm } from "./UI/form";
 export default class UI {
     constructor() {
         this.toDoList = new AllProjects();
+        
+        // Initialise first homePage to be on the "Inbox" page.
+        this.currentProjectPage = 'Inbox';
+        this.currentForm = DrawForm();
     };
 
     loadHomePage() {
@@ -30,63 +34,49 @@ export default class UI {
         this.addTaskFunction();
     }
 
-    /* Draw Forms */
-    drawForm = (() => {
-        const form = DrawForm();
-        const clear = form.clear;
-        const addTask = form.addTask;
-        const collectTaskInfo = form.collectTaskInfo;
-        return {
-            clear,
-            addTask,
-            collectTaskInfo,
-        };
-    })();
-
-
     /* Button functionalities */
     addTaskFunction() {
         const addTaskBtn = document.querySelector('.uniqueBtn.add');
         addTaskBtn.addEventListener("click", () => {
-            this.drawForm.clear();
-            this.drawForm.addTask();
+            this.currentForm.clear();
+            this.currentForm.addTask();
+
             document.querySelector('form').style.visibility = "visible";
             document.querySelector('.face-mask').style.visibility = "visible";
 
             // Set default date input to current day.
             inputDueDate.valueAsDate = new Date();
 
-            // Add functionality to appendTaskBtn
+            // Add draw new task functionality to appendTaskBtn on the form. 
             const appendTaskBtn = document.querySelector(
-                            '.uniqueBtn.appendTaskBtn')
-            appendTaskBtn.addEventListener("click", (event) => {
-                
-                // Collect all information based on user inputs.
-                const info = this.drawForm.collectTaskInfo();
-                console.log(info);
-                
-                // Add a new task to the specific project based on user inputs.
-                this.toDoList.getProject('Inbox').addTask(
-                    new Task(
-                    info['title'],
-                    info['details'],
-                    info['date'],
-                    info['priority'],
-                    this.toDoList.getProject('Inbox').length 
-                ));
-                
-                // Use projectUI class to draw the whole project again on 
-                // the display.
-                const projectDisplay = new ProjectUI(this.toDoList.getProject(
-                    'Inbox'));
-                projectDisplay.draw();
+                            '.uniqueBtn.appendTaskBtn');
+            this.drawNewTask(appendTaskBtn, "Inbox");
+            });
+        };
 
-                this.addTaskFunction();
-                event.preventDefault();
-            })
-        });
+    drawNewTask(btn, projectName) {
+        btn.addEventListener("click", (event) => {
+            const info = this.currentForm.collectTaskInfo();
+
+            this.toDoList.getProject(projectName).addTask(
+                new Task(
+                info['title'],
+                info['details'],
+                info['date'],
+                info['priority'],
+                this.toDoList.getProject(projectName).length 
+            ));
+            this.drawPage(projectName);
+            event.preventDefault();
+        })
     };
 
+    drawPage(projectName) {
+        const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
+        projectDisplay.draw();
+        this.addTaskFunction(); // Reinitialise add task function for new page's btn.
+        
+    }
 
     /* SideBar functionalities */
     loadSideBar() {
