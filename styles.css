@@ -484,7 +484,7 @@ form {
 	width: 90%;
 	display: flex;
 	flex-flow: column nowrap;
-	gap: 1rem;
+	gap: 1.5rem;
 	align-items: center;
 }
 
@@ -494,6 +494,15 @@ form {
 	align-items: center;
 	width: max(200px, 400px);
 	gap: 0.5rem;
+}
+div > label:first-child,
+.prioLabel {
+	font-size: 1.5rem;
+	font-weight: 700;
+	text-shadow: 0 0 1.5px white;
+}
+.prioLabel {
+	font-size: 1.25rem;
 }
 
 .closeFormBtn {
@@ -518,6 +527,10 @@ textarea {
 	font-family: 'Porcelain', 'Montseratt', sans-serif;
 	font-size: 1.35rem;
 	letter-spacing: 2px;
+	outline: none;
+	border: none;
+	box-shadow: 0 0 0.4rem rgba(255, 255, 255, 0.7),
+			0 0 0.5rem rgba(255, 255, 255, 0.4);
 }
 input[type='text'] {
 	text-align: center;
@@ -525,6 +538,18 @@ input[type='text'] {
 }
 textarea {
 	resize: none;
+}
+input[type='text']:focus,
+textarea:focus {
+	box-shadow: 0 0 10px var(--neon-orange),
+	inset 0 0 5px var(--neon-orange);
+	border: solid 0.25px white;
+}
+input[type='text']:not(:placeholder-shown),
+textarea:not(:placeholder-shown) {
+	box-shadow: 0 0 10px var(--neon-green),
+	inset 0 0 5px var(--neon-green);
+	border: solid 0.25px var(--neon-blue);
 }
 
 /* Radio Label styling */
@@ -545,12 +570,13 @@ input[type="radio"] {
 
 input[type="radio"]+label {
 	font-family: luminari, fantasy;
+	font-weight: 400;
 	font-size: 1.3rem;
 	letter-spacing: 1px;
 	color: rgb(241, 241, 241);
 	text-shadow: 0 0 1px white;
 	cursor: pointer;
-	background-color: rgb(125, 125, 125);
+	background-color: #444;
 	padding: 0.35rem 1.75rem;
 	border-radius: 0.5rem;
 	border: 0 0 1px white;
@@ -558,6 +584,7 @@ input[type="radio"]+label {
 	0 0 6px var(--neon-blue),
 	0 0 7px var(--neon-green),
 	0 0 8px var(--neon-red);
+	text-transform: uppercase;
 }
 
 input[type="radio"]+.lowPrio:hover {
@@ -605,6 +632,24 @@ input[type="radio"]:checked+.highPrio {
 	font-size: 1.4rem;
 }
 
-
-
+/* Input date styling */
+input[type="date"]{
+    background-color: #444;
+    padding: 15px;
+    font-family: "Porcelain", monospace;
+    color: #ffffff;
+    font-size: 1.5rem;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+input[type="date"]:focus {
+	box-shadow: 0 0 10px var(--neon-green);
+}
+::-webkit-calendar-picker-indicator{
+    background-color: var(--neon-green);
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
 
