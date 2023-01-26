@@ -67,6 +67,9 @@ export default class UI {
                 this.toDoList.getProject(projectName).length 
             ));
             this.drawPage(projectName);
+
+            document.querySelector('form').style.visibility = "hidden";
+            document.querySelector('.face-mask').style.visibility = "hidden";
             event.preventDefault();
         })
     };

@@ -44,13 +44,19 @@ class TaskUI {
 		priority.appendChild(priorityIcon);
 
 		// Just a mock date for now. Subject to change based on user input.
-		const timeElapsed = Date.now();
-		const today = new Date(timeElapsed);
+		// const timeElapsed = Date.now();
+		// const today = new Date(timeElapsed);
+		// const date = this.renderInfo(
+		// 	"div",
+		// 	"taskDate",
+		// 	`${today.toLocaleDateString()}`
+		// );
+		const dateFormat = this.
 		const date = this.renderInfo(
 			"div",
 			"taskDate",
-			`${today.toLocaleDateString()}`
-		);
+			this.task.dueDateFormatted();
+		)
 
 		// icons
 		const edit = this.renderInfo("div", "taskEdit");
