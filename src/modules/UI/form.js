@@ -31,6 +31,13 @@ const DrawForm = () => {
         for(let info of tasksInfo) {
             formContainer.appendChild(info);
         };
+
+        // Add submit btn.
+        const appendTaskBtn = document.createElement('button');
+        appendTaskBtn.classList.add('uniqueBtn');
+        appendTaskBtn.classList.add('appendTaskBtn');
+        appendTaskBtn.textContent = 'Add Task'
+        formContainer.appendChild(appendTaskBtn);
     };
 
     const addCloseFormFunction = () => {

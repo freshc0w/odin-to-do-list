@@ -31,23 +31,6 @@ export default class UI {
 
         this.loadSideBar();
         this.addTaskFunction();
-        // const form = DrawForm();
-        // const clearForm = form.clear;
-        // const addTaskForm = form.addTask;
-
-        // this.drawForm.addTask();
-        // this.drawForm.clear();
-        // this.drawForm.addTask();
-
-
-        // const addTaskBtn = document.querySelector('.uniqueBtn.add');
-        // addTaskBtn.addEventListener("click", () => {
-        //     ;
-        // });
-
-        // addTaskForm();
-        // clearForm();
-        // addTaskForm();
     }
 
     /* Draw Forms */
@@ -62,17 +45,14 @@ export default class UI {
     })();
 
 
-
     /* Button functionalities */
     addTaskFunction() {
         const addTaskBtn = document.querySelector('.uniqueBtn.add');
         addTaskBtn.addEventListener("click", () => {
             this.drawForm.clear();
             this.drawForm.addTask();
-            const form = document.querySelector('form');
-            const overlay = document.querySelector('.face-mask');
-            form.style.visibility = 'visible';
-            overlay.style.visibility = 'visible';
+            document.querySelector('form').style.visibility = "visible";
+            document.querySelector('.face-mask').style.visibility = "visible";
         })
     }
 

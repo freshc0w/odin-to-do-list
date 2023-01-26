@@ -364,14 +364,14 @@ input[type="checkbox"]:checked::after {
 	cursor: pointer;
 }
 
-.uniqueBtn.details:hover {
+.uniqueBtn:hover {
 	color: #82ffc9;
 	box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.6),
 		0 0 9px 3px rgba(27, 253, 156, 0.2);
     transform: scale(1.1);
 }
 
-.uniqueBtn.details::before {
+.uniqueBtn::before {
 	content: "";
 	position: absolute;
 	left: -4em;
@@ -450,7 +450,7 @@ input {
 }
 
 form {
-	--height: 32rem;
+	--height: 35rem;
 	--width: calc(var(--height)*1.625);
 	position: absolute;
 	height: var(--height);
@@ -464,11 +464,11 @@ form {
 	left: 50%;
 	right: 50%;
 	top: 50%;
-	margin-top: -15.5rem;
-	margin-left: -26rem;
+	margin-top: -17.5rem;
+	margin-left: -28.44rem;
 	bottom: 50%;
 
-	background-color: rgba(12, 12, 12, .7);
+	background-color: rgba(12, 12, 12, .8);
 	backdrop-filter: blur(4px);
 	border: 2px rgba(0, 0, 0, 0.7) solid;
 	box-shadow: 0 0 3px white, 
@@ -595,6 +595,15 @@ input[type="radio"]:checked+.highPrio {
 	color: var(--neon-red);
 }
 
+.uniqueBtn.appendTaskBtn {
+	position: absolute;
+	bottom: 2rem;
+	right: 2rem;
+	padding: .75rem 1.5rem;
+	border-radius: 1.5rem;
+	font-family: luminari, fantasy, sans-serif;
+	font-size: 1.4rem;
+}
 
 
 
