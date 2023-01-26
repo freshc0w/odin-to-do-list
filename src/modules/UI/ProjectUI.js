@@ -51,11 +51,10 @@ class TaskUI {
 		// 	"taskDate",
 		// 	`${today.toLocaleDateString()}`
 		// );
-		const dateFormat = this.
 		const date = this.renderInfo(
 			"div",
 			"taskDate",
-			this.task.dueDateFormatted();
+			this.task.dueDateFormatted
 		)
 
 		// icons
