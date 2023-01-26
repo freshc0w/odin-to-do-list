@@ -33,12 +33,35 @@ const DrawForm = () => {
         };
 
         // Add submit btn.
+        const appendTaskBtn = addAppendTaskBtn()
+        
+        formContainer.appendChild(appendTaskBtn);
+    };
+    
+    const addAppendTaskBtn = () => {
         const appendTaskBtn = document.createElement('button');
         appendTaskBtn.classList.add('uniqueBtn');
         appendTaskBtn.classList.add('appendTaskBtn');
-        appendTaskBtn.textContent = 'Add Task'
-        formContainer.appendChild(appendTaskBtn);
-    };
+        appendTaskBtn.textContent = 'Add Task';
+        
+        appendTaskBtn.addEventListener("click", appendTaskFunction)
+
+        return appendTaskBtn;
+    }
+    const appendTaskFunction = () => {
+        const taskInfo = collectTaskInfo();
+        console.log(taskInfo['title'])
+        }
+    
+    const collectTaskInfo = () => {
+        // Collect all relevant information based on user input and return
+        // it in an obj.
+        const taskTitle = document.getElementById('inputTaskTitle');
+        const taskInfo = {
+            'title': taskTitle.value,
+        };
+        return taskInfo; 
+    }
 
     const addCloseFormFunction = () => {
         const closeForm = document.createElement('img');
@@ -175,7 +198,7 @@ const DrawForm = () => {
         input.appendChild(inputText);
         return input;
     }
-    return { addTask, clear};
+    return { addTask, clear };
 
 
 }

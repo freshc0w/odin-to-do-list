@@ -53,8 +53,9 @@ export default class UI {
             this.drawForm.addTask();
             document.querySelector('form').style.visibility = "visible";
             document.querySelector('.face-mask').style.visibility = "visible";
-        })
-    }
+        });
+    };
+
 
     /* SideBar functionalities */
     loadSideBar() {
