@@ -15,7 +15,6 @@ export default class UI {
     };
 
     loadHomePage() {
-        console.log(this.toDoList.getProject('Inbox'));
 
         // Add a task to inbox.
         this.toDoList.getProject('Inbox').addTask(new Task(
@@ -23,15 +22,14 @@ export default class UI {
             'medium', this.toDoList.getProject('Inbox').tasks.length
         ));
         
-        // get the task from inbox
-    
 
-        const projectDisplay = new ProjectUI(this.toDoList.getProject('Inbox'));
-        projectDisplay.draw();
+        // const projectDisplay = new ProjectUI(this.toDoList.getProject('Inbox'));
+        // projectDisplay.draw();
 
+        this.drawPage(this.currentProjectPage);
 
         this.loadSideBar();
-        this.addTaskFunction();
+        // this.addTaskFunction();
     }
 
     /* Button functionalities */
@@ -51,6 +49,7 @@ export default class UI {
             const appendTaskBtn = document.querySelector(
                             '.uniqueBtn.appendTaskBtn');
             this.drawNewTask(appendTaskBtn, "Inbox");
+
             });
         };
 
@@ -66,20 +65,30 @@ export default class UI {
                 info['priority'],
                 this.toDoList.getProject(projectName).length 
             ));
+
+            const taskId = this.toDoList.getProject(projectName).tasks.find(info['title']).id;
+
+            // Collect the latest 
             this.drawPage(projectName);
 
             document.querySelector('form').style.visibility = "hidden";
             document.querySelector('.face-mask').style.visibility = "hidden";
             event.preventDefault();
-        })
+        });
     };
 
     drawPage(projectName) {
         const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
         projectDisplay.draw();
         this.addTaskFunction(); // Reinitialise add task function for new page's btn.
-        
     }
+
+    // Need a get task by ID function. 
+    addDeleteTaskFunction(projectName, delTaskImg, taskId) {
+        delTaskImg.addEventListener("click", () => {
+            this.toDoList.getProject(projectName).deleteTask(taskId);
+        });
+    };
 
     /* SideBar functionalities */
     loadSideBar() {

@@ -51,6 +51,7 @@ class TaskUI {
 		// 	"taskDate",
 		// 	`${today.toLocaleDateString()}`
 		// );
+
 		const date = this.renderInfo(
 			"div",
 			"taskDate",
@@ -64,6 +65,13 @@ class TaskUI {
 
 		const taskDel = this.renderInfo("div", "taskDel");
 		const delIcon = this.renderInfo("i", "material-icons", "delete");
+			
+		// Add class identifer.
+		taskDel.classList.add(this.task.id);
+
+		// Create Dataset??
+		// delIcon.dataset.id = this.task.id;
+
 		taskDel.appendChild(delIcon);
 
 		return [statusCheck, name, detailsBtn, priority, date, edit, taskDel];
