@@ -44,21 +44,35 @@ const DrawForm = () => {
         appendTaskBtn.classList.add('appendTaskBtn');
         appendTaskBtn.textContent = 'Add Task';
         
-        appendTaskBtn.addEventListener("click", appendTaskFunction)
+        appendTaskBtn.addEventListener("click", (event) => {
+            appendTaskFunction(event)
+        });
 
         return appendTaskBtn;
     }
-    const appendTaskFunction = () => {
+    const appendTaskFunction = (event) => {
         const taskInfo = collectTaskInfo();
-        console.log(taskInfo['title'])
+        console.log(taskInfo['title']);
+        console.log(taskInfo['details']);
+        console.log(taskInfo['priority']);
+        console.log(taskInfo['date']);
+
+        event.preventDefault();
         }
     
     const collectTaskInfo = () => {
         // Collect all relevant information based on user input and return
         // it in an obj.
         const taskTitle = document.getElementById('inputTaskTitle');
+        const taskDetails = document.getElementById('inputTaskDetails');
+        const prioChosen = document.querySelector(
+            'input[name="prio"]:checked');
+        const date = document.querySelector('#inputDueDate');
         const taskInfo = {
             'title': taskTitle.value,
+            'details': taskDetails.value,
+            'priority': prioChosen.value,
+            'date': date.value,
         };
         return taskInfo; 
     }
@@ -92,11 +106,6 @@ const DrawForm = () => {
         inputDueDate.setAttribute('id', 'inputDueDate');
         inputDueDate.setAttribute('name', 'trip-start');
 
-        // Set default value to today's date.
-        window.addEventListener('DOMContentLoaded', event => {
-            inputDueDate.valueAsDate = new Date();
-        });
-
         dueDate.appendChild(dateLabel);
         dueDate.appendChild(inputDueDate);
         return dueDate;
@@ -113,9 +122,9 @@ const DrawForm = () => {
 
         label.classList.add('prioLabel');
         label.textContent = "How important is this task?";
-        const lowPrio = createRadioInputAndLabel('lowPrio', 'Low');
-        const medPrio = createRadioInputAndLabel('medPrio', 'Med');
-        const highPrio = createRadioInputAndLabel('highPrio', 'High');
+        const lowPrio = createRadioInputAndLabel('lowPrio', 'low');
+        const medPrio = createRadioInputAndLabel('medPrio', 'medium');
+        const highPrio = createRadioInputAndLabel('highPrio', 'high');
 
         for(let prioOptions of [lowPrio, medPrio, highPrio]) {
             prioOptionsContainer.appendChild(prioOptions);
@@ -132,6 +141,7 @@ const DrawForm = () => {
                 "type": "radio",
                 "id": id,
                 "name": 'prio',
+                "value": value,
             };
             for(let attr in attributes) {
                 input.setAttribute(attr, attributes[attr]);

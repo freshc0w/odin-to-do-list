@@ -53,6 +53,9 @@ export default class UI {
             this.drawForm.addTask();
             document.querySelector('form').style.visibility = "visible";
             document.querySelector('.face-mask').style.visibility = "visible";
+
+            // Set default date input to current day.
+            inputDueDate.valueAsDate = new Date();
         });
     };
 
