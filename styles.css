@@ -15,6 +15,11 @@
 	src: url(../fonts/Roboto/Roboto-MediumItalic.ttf);
 }
 
+@font-face {
+	font-family: 'Porcelain';
+	src: url(../fonts/Porcelain/Porcelain.ttf);
+}
+
 body,
 html {
 	/* temp min-width for editing */
@@ -431,6 +436,9 @@ input[type="checkbox"]:checked::after {
 
 
 /* Forms */
+input {
+	all: unset;
+}
 .face-mask {
     visibility: hidden;
     position: absolute;
@@ -477,13 +485,22 @@ form {
 	display: flex;
 	flex-flow: column nowrap;
 	gap: 1rem;
-	align-items: flex-start;
+	align-items: center;
 }
 
-.inputTaskTitle,
-.inputTaskDetails {
+.form-container > div {
 	display: flex;
 	flex-flow: column nowrap;
+	align-items: center;
+	width: max(200px, 400px);
+	gap: 0.5rem;
+}
+
+.prioBtns {
+	display: flex;
+	flex: 1;
+	justify-content: space-around;
+	width: 100%;
 }
 
 .closeFormBtn {
@@ -497,4 +514,22 @@ form {
 	transform: scale(1.4);
 }
 
-/* Input task title styling */
+/* Input styling */
+input[type="text"],
+textarea {
+	width: 100%;
+	padding: 5px 1rem;
+	border-radius: 0.5rem;
+	background-color: #333;
+	color: white;
+	font-family: 'Porcelain', 'Montseratt', sans-serif;
+	font-size: 1.35rem;
+	letter-spacing: 2px;
+}
+input[type='text'] {
+	text-align: center;
+	text-transform: capitalize;
+}
+textarea {
+	resize: none;
+}
