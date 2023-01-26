@@ -64,38 +64,49 @@ const DrawForm = () => {
         dueDate.appendChild(dateLabel);
         dueDate.appendChild(inputDueDate);
         return dueDate;
-
     }
 
     const addPriorityOptions = () => {
-        const inputPriority = document.createElement('div');
+        const inputPrioWrapper = document.createElement('div');
+        const label = document.createElement('div');
+        const prioOptionsContainer = document.createElement('div');
 
-        const prioLabel = document.createElement('div');
-        prioLabel.classList.add('prioLabel');
-        prioLabel.textContent = "Level of Importance:"
+        label.classList.add('prioLabel');
+        label.textContent = "How important is this task?";
+        const lowPrio = createRadioInputAndLabel('lowPrio', 'Low');
+        const medPrio = createRadioInputAndLabel('medPrio', 'Med');
+        const highPrio = createRadioInputAndLabel('highPrio', 'High');
 
-        const lowBtn = document.createElement('button');
-        const medBtn = document.createElement('button');
-        const highBtn = document.createElement('button');
-        
-        lowBtn.classList.add('lowBtn');
-        medBtn.classList.add('medBtn');
-        highBtn.classList.add('highBtn');
-        
-        lowBtn.textContent = 'Low';
-        medBtn.textContent = 'Med';
-        highBtn.textContent = 'High';
-
-        inputPriority.appendChild(prioLabel);
-        for(let btn of [lowBtn, medBtn, highBtn]) {
-            btn.addEventListener("click", (event) => {
-                event.preventDefault();
-            })
-            inputPriority.appendChild(btn);
+        for(let prioOptions of [lowPrio, medPrio, highPrio]) {
+            prioOptionsContainer.appendChild(prioOptions);
         };
 
-        return inputPriority;
+        inputPrioWrapper.appendChild(label);
+        inputPrioWrapper.appendChild(prioOptionsContainer);
+        return inputPrioWrapper;
 
+        function createRadioInputAndLabel(id, value) {
+            const radioOptionContainer = document.createElement('div');
+            const input = document.createElement('input');
+            const attributes = {
+                "type": "radio",
+                "id": id,
+                "name": id,
+                "value": value,
+            };
+            for(let attr in attributes) {
+                input.setAttribute(attr, attributes[attr]);
+            };
+
+            const label = document.createElement('label');
+            label.setAttribute('for', id);
+            label.classList.add(id);
+            label.textContent = value;
+            
+            radioOptionContainer.appendChild(input);
+            radioOptionContainer.appendChild(label);
+            return radioOptionContainer;
+        };
     }
 
     const addTextArea = (labelName, placeholder, id, required=true) => {

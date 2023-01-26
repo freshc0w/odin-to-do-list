@@ -496,13 +496,6 @@ form {
 	gap: 0.5rem;
 }
 
-.prioBtns {
-	display: flex;
-	flex: 1;
-	justify-content: space-around;
-	width: 100%;
-}
-
 .closeFormBtn {
 	position: absolute;
 	top: .65rem;
