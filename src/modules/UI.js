@@ -66,7 +66,14 @@ export default class UI {
                 this.toDoList.getProject(projectName).length 
             ));
 
-            const taskId = this.toDoList.getProject(projectName).tasks.find(info['title']).id;
+            // const taskId = this.toDoList.getProject(projectName).tasks.find(info['title']).id;
+            
+            const task = this.toDoList.getProject(projectName).tasks
+            console.log(task);
+
+            const delImg = document.querySelector(`.taskDel.${taskId}`);
+
+            this.addDeleteTaskFunction(projectName, delImg, taskId);
 
             // Collect the latest 
             this.drawPage(projectName);
@@ -87,6 +94,7 @@ export default class UI {
     addDeleteTaskFunction(projectName, delTaskImg, taskId) {
         delTaskImg.addEventListener("click", () => {
             this.toDoList.getProject(projectName).deleteTask(taskId);
+            this.drawPage(projectName);
         });
     };
 
