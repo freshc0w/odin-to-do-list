@@ -67,9 +67,13 @@ const DrawForm = () => {
     }
 
     const addPriorityOptions = () => {
+        // A wrapper is going to wrap the label and a container consisting of
+        // the radio options. 
         const inputPrioWrapper = document.createElement('div');
         const label = document.createElement('div');
         const prioOptionsContainer = document.createElement('div');
+        inputPrioWrapper.classList.add('prioWrapper')
+        prioOptionsContainer.classList.add('prioOptions');
 
         label.classList.add('prioLabel');
         label.textContent = "How important is this task?";
@@ -91,8 +95,7 @@ const DrawForm = () => {
             const attributes = {
                 "type": "radio",
                 "id": id,
-                "name": id,
-                "value": value,
+                "name": 'prio',
             };
             for(let attr in attributes) {
                 input.setAttribute(attr, attributes[attr]);

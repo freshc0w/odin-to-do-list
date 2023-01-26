@@ -31,7 +31,8 @@ export default class UI {
 
         this.loadSideBar();
         const form = DrawForm()
-        const addTaskForm = form.addTask();
+        const addTaskForm = form.addTask;
+        addTaskForm();
     }
 
     /* Button functionalities */

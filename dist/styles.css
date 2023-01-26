@@ -437,7 +437,7 @@ input[type="checkbox"]:checked::after {
 
 /* Forms */
 input {
-	all: unset;
+	/* all: unset; */
 }
 .face-mask {
     visibility: hidden;
@@ -526,3 +526,76 @@ input[type='text'] {
 textarea {
 	resize: none;
 }
+
+/* Radio Label styling */
+.prioOptions {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+}
+
+.prioLabel {
+	margin-bottom: 8px;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+
+input[type="radio"]+label {
+	font-family: luminari, fantasy;
+	font-size: 1.3rem;
+	letter-spacing: 1px;
+	color: rgb(241, 241, 241);
+	text-shadow: 0 0 1px white;
+	cursor: pointer;
+	background-color: rgb(125, 125, 125);
+	padding: 0.35rem 1.75rem;
+	border-radius: 0.5rem;
+	border: 0 0 1px white;
+	box-shadow: 0 0 2px whitesmoke,
+	0 0 6px var(--neon-blue),
+	0 0 7px var(--neon-green),
+	0 0 8px var(--neon-red);
+}
+
+input[type="radio"]+.lowPrio:hover {
+	background-color: black;
+	box-shadow: 0 0 0.5rem var(--neon-green),
+	0 0 0.75rem var(--neon-green);
+}
+input[type="radio"]+.medPrio:hover {
+	background-color: black;
+	box-shadow: 0 0 0.5rem var(--neon-orange),
+	0 0 0.75rem var(--neon-orange);
+}
+input[type="radio"]+.highPrio:hover {
+	background-color: black;
+	box-shadow: 0 0 0.5rem var(--neon-red),
+	0 0 0.75rem var(--neon-red);
+}
+
+input[type="radio"]:checked+.lowPrio {
+	background-color: black;
+	box-shadow: 0 0 0.5rem var(--neon-green),
+	0 0 0.75rem var(--neon-green);
+	color: var(--neon-green);
+}
+input[type="radio"]:checked+.medPrio {
+	background-color: black;
+	box-shadow: 0 0 0.5rem var(--neon-orange),
+	0 0 0.75rem var(--neon-orange);
+	color: var(--neon-orange);
+}
+input[type="radio"]:checked+.highPrio {
+	background-color: black;
+	box-shadow: 0 0 0.5rem var(--neon-red),
+	0 0 0.75rem var(--neon-red);
+	color: var(--neon-red);
+}
+
+
+
+
+
