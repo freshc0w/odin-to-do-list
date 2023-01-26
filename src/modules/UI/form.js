@@ -43,14 +43,17 @@ const DrawForm = () => {
         appendTaskBtn.classList.add('uniqueBtn');
         appendTaskBtn.classList.add('appendTaskBtn');
         appendTaskBtn.textContent = 'Add Task';
+        appendTaskBtn.setAttribute("type", "submit");
         
-        appendTaskBtn.addEventListener("click", (event) => {
-            appendTaskFunction(event)
-        });
+        // appendTaskBtn.addEventListener("click", (event) => {
+        //     appendTaskFunction(event)
+        // });
 
         return appendTaskBtn;
     }
     const appendTaskFunction = (event) => {
+
+        // call back function to collect the info?
         const taskInfo = collectTaskInfo();
         console.log(taskInfo['title']);
         console.log(taskInfo['details']);
@@ -208,7 +211,7 @@ const DrawForm = () => {
         input.appendChild(inputText);
         return input;
     }
-    return { addTask, clear };
+    return { addTask, clear, collectTaskInfo };
 
 
 }

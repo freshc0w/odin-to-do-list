@@ -20,10 +20,7 @@ export default class UI {
         ));
         
         // get the task from inbox
-        for(let task of this.toDoList.getProject('Inbox').tasks) {
-            const newTask = new TaskUI(task);
-            const newTaskDisplay = newTask.draw()
-        };
+    
 
         const projectDisplay = new ProjectUI(this.toDoList.getProject('Inbox'));
         projectDisplay.draw();
@@ -38,9 +35,11 @@ export default class UI {
         const form = DrawForm();
         const clear = form.clear;
         const addTask = form.addTask;
+        const collectTaskInfo = form.collectTaskInfo;
         return {
             clear,
             addTask,
+            collectTaskInfo,
         };
     })();
 
@@ -56,6 +55,35 @@ export default class UI {
 
             // Set default date input to current day.
             inputDueDate.valueAsDate = new Date();
+
+            // Add functionality to appendTaskBtn
+            const appendTaskBtn = document.querySelector(
+                            '.uniqueBtn.appendTaskBtn')
+            appendTaskBtn.addEventListener("click", (event) => {
+                
+                // Collect all information based on user inputs.
+                const info = this.drawForm.collectTaskInfo();
+                console.log(info);
+                
+                // Add a new task to the specific project based on user inputs.
+                this.toDoList.getProject('Inbox').addTask(
+                    new Task(
+                    info['title'],
+                    info['details'],
+                    info['date'],
+                    info['priority'],
+                    this.toDoList.getProject('Inbox').length 
+                ));
+                
+                // Use projectUI class to draw the whole project again on 
+                // the display.
+                const projectDisplay = new ProjectUI(this.toDoList.getProject(
+                    'Inbox'));
+                projectDisplay.draw();
+
+                this.addTaskFunction();
+                event.preventDefault();
+            })
         });
     };
 
