@@ -84,12 +84,14 @@ export default class UI {
 
 	submitTaskFunction(btn, projectName) {
 		btn.addEventListener("click", (event) => {
-			const taskInfo = this.currentForm.collectTaskInfo();
-			this.addNewTask(projectName, taskInfo);
-
-			document.querySelector("form").style.visibility = "hidden";
-			document.querySelector(".face-mask").style.visibility = "hidden";
-			event.preventDefault();
+			if(document.querySelector('form').checkValidity()){
+				const taskInfo = this.currentForm.collectTaskInfo();
+				this.addNewTask(projectName, taskInfo);
+	
+				document.querySelector("form").style.visibility = "hidden";
+				document.querySelector(".face-mask").style.visibility = "hidden";		
+				event.preventDefault();
+			}
 		});
 	}
 
