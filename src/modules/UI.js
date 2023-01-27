@@ -1,3 +1,4 @@
+import format from "date-fns/format";
 import Task from "./task";
 import Project from "./project";
 import AllProjects from "./AllProjects";
@@ -15,13 +16,25 @@ export default class UI {
 
 	loadHomePage() {
 		// Initialise first dummy task:
+		const dateToday = format(new Date(), 'dd/MM/yyyy')
 		const task1 = {
 			title: "Walking the dog",
 			details: "He is asking for it so this task is a must",
 			priority: "medium",
-			date: "2023-05-23",
+			date: dateToday,
 		};
 		this.addNewTask(this.currentProjectPage, task1);
+
+		const task2 = {
+			title: "Walking the dog2",
+			details: "He is asking for it so this task is a must",
+			priority: "medium",
+			date: '01/29/2023',
+		};
+		this.addNewTask(this.currentProjectPage, task2);
+		// this.loadPage("Today");
+		// this.loadPage("This Week");
+		this.loadPage("Inbox");
 
 		this.loadSideBar();
 	}
@@ -37,6 +50,8 @@ export default class UI {
 		this.addTaskFunction(projectName);
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelTaskFunction(projectName);
+
+		this.updateTasksToday();
 	}
 
 	drawPage(projectName) {
@@ -79,7 +94,7 @@ export default class UI {
 					this.toDoList.getProject(projectName).tasks.length
 				)
 			);
-		this.loadPage(projectName);
+		// this.loadPage(projectName);
 	}
 
 	submitTaskFunction(btn, projectName) {
@@ -90,6 +105,7 @@ export default class UI {
 	
 				document.querySelector("form").style.visibility = "hidden";
 				document.querySelector(".face-mask").style.visibility = "hidden";		
+				this.loadPage(projectName);
 				event.preventDefault();
 			}
 		});
@@ -109,13 +125,30 @@ export default class UI {
 		this.toDoList.getProject(projectName).tasks.map((task) => {
 			this.removeTaskFunction(projectName, task.id);
 		});
+	};
+
+	
+	updateTasksToday() {
+		const allTasksToday = this.toDoList.getAllTasksToday();
+
+		for(let taskToday of allTasksToday) {
+			if(!this.toDoList.getProject('Today').tasks.includes(taskToday)) {
+				this.toDoList.getProject('Today').addTask(taskToday);
+			}
+		};
+		console.log(this.toDoList.getProject("Today").tasks);
+		console.log(this.toDoList.getProject('This Week').tasks);
 	}
+
+
+
 
 	/* SideBar functionalities */
 	loadSideBar() {
 		this.addSlideInOut();
 		this.drawInboxTabs();
 		this.drawProjectTabs();
+		this.loadSwitchPageEvents();
 	}
 
 	drawInboxTabs() {
@@ -171,6 +204,23 @@ export default class UI {
 		});
 		sideBar.addEventListener("mouseout", () => {
 			sideBar.style.width = "65px";
+		});
+	};
+
+	loadSwitchPageEvents() {
+		const inboxIcons = document.querySelectorAll("#inbox");
+		inboxIcons.forEach(icon => {
+			icon.addEventListener("click", () => {
+				this.currentProjectPage = "Inbox";
+				this.loadPage(this.currentProjectPage);
+			});
+		});
+		const allTabs = document.querySelectorAll("li");
+		allTabs.forEach(tab => {
+			tab.addEventListener("click", () => {
+				this.currentProjectPage = tab.innerText;
+				this.loadPage(this.currentProjectPage);
+			});
 		});
 	}
 }

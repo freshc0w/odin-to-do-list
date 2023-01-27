@@ -38,7 +38,16 @@ export default class AllProjects {
         this.projects.splice(this.projects.indexOf(projectToDelete),
                                 1)
     };
-    
+    getAllTasksToday() {
+        // Iterate thru each project and use getTasksToday() on each.
+        const tasksToday = [];
+        for(let project of this.projects) {
+            for(let tasks of project.getTasksToday()) {
+                tasksToday.push(tasks);
+            };
+        };
+        return tasksToday;
+    }
 
     // Can add today's and this week's functionality.
 };

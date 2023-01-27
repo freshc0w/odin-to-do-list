@@ -1,4 +1,5 @@
 export {DrawForm}
+import format from "date-fns/format";
 
 const DrawForm = () => {
     // When user presses add task, pop up a form that asks for all req input.
@@ -61,12 +62,13 @@ const DrawForm = () => {
         const prioChosen = document.querySelector(
             'input[name="prio"]:checked');
         const date = document.querySelector('#inputDueDate');
+        const dateFormat = format(new Date(date.value), 'dd/MM/yyyy');
 
         const taskInfo = {
             'title': taskTitle.value,
             'details': taskDetails.value,
             'priority': prioChosen.value,
-            'date': date.value,
+            'date': dateFormat,
         };
         return taskInfo; 
     }
