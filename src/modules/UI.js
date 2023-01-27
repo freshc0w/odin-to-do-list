@@ -19,7 +19,7 @@ export default class UI {
 			title: "Walking the dog",
 			details: "He is asking for it so this task is a must",
 			priority: "medium",
-			date: "25-02-2002",
+			date: "2023-05-23",
 		};
 		this.addNewTask(this.currentProjectPage, task1);
 

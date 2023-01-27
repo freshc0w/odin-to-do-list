@@ -24,7 +24,7 @@ class TaskUI {
 		if (this.task.status) {
 			statusCheck.checked = true;
 			taskContainer.style.opacity = "40%";
-		};
+		}
 
 		statusCheck.addEventListener("change", (event) => {
 			if (event.target.checked) {
@@ -61,11 +61,7 @@ class TaskUI {
 		// 	`${today.toLocaleDateString()}`
 		// );
 
-		const date = this.renderInfo(
-			"div",
-			"taskDate",
-			this.task.dueDateFormatted
-		)
+		const date = this.renderInfo("div", "taskDate", this.task.dueDateFormatted);
 
 		// icons
 		const edit = this.renderInfo("div", "taskEdit");
@@ -74,9 +70,9 @@ class TaskUI {
 
 		const taskDel = this.renderInfo("div", "taskDel");
 		const delIcon = this.renderInfo("i", "material-icons", "delete");
-			
+
 		// Add unique id identifer based on task id for bin icon.
-		taskDel.setAttribute("id", `delTask-${this.task.id}`)
+		taskDel.setAttribute("id", `delTask-${this.task.id}`);
 
 		// Create Dataset??
 		// delIcon.dataset.id = this.task.id;
@@ -105,30 +101,29 @@ class ProjectUI {
 
 		// Loop through all the tasks and give it a TaskUI class.
 		// Use the draw method to get the div container and append it to
-        // mainContent container.
+		// mainContent container.
 		this.drawTasks(mainContent, this.project.tasks);
 
-        const addTaskOption = this.addTaskOption();
+		const addTaskOption = this.addTaskOption();
 		mainContent.appendChild(addTaskOption);
 	}
-    addTaskOption() {
-        // Draw an add task option beneath all tasks
-        const addTaskContainer = document.createElement("div");
-        addTaskContainer.classList.add("task-container");
-        addTaskContainer.classList.add("add");
-    
-        const addTaskBtn = document.createElement("button");
-        addTaskBtn.classList.add("uniqueBtn");
-        addTaskBtn.classList.add("add");
-        addTaskBtn.textContent = "ADD";
-    
-        addTaskContainer.appendChild(addTaskBtn);
-        return addTaskContainer
-        
-    }
+	addTaskOption() {
+		// Draw an add task option beneath all tasks
+		const addTaskContainer = document.createElement("div");
+		addTaskContainer.classList.add("task-container");
+		addTaskContainer.classList.add("add");
+
+		const addTaskBtn = document.createElement("button");
+		addTaskBtn.classList.add("uniqueBtn");
+		addTaskBtn.classList.add("add");
+		addTaskBtn.textContent = "ADD";
+
+		addTaskContainer.appendChild(addTaskBtn);
+		return addTaskContainer;
+	}
 	drawTasks(container, tasks) {
-        for (let task of tasks) {
-            const taskDisplay = new TaskUI(task);
+		for (let task of tasks) {
+			const taskDisplay = new TaskUI(task);
 			container.appendChild(taskDisplay.draw());
 		}
 	}
