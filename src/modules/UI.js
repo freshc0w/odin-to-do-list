@@ -48,9 +48,13 @@ export default class UI {
 	addTaskFunction(projectName) {
 		const addTaskBtn = document.querySelector(".uniqueBtn.add");
 		addTaskBtn.addEventListener("click", () => {
+
+			// Clear any current form and draw the add task form.
 			this.currentForm.clear();
 			this.currentForm.addTask();
-
+			// Set the default checked radio button to Medium Priority.
+			document.getElementById("medPrio").checked = true;
+			
 			document.querySelector("form").style.visibility = "visible";
 			document.querySelector(".face-mask").style.visibility = "visible";
 

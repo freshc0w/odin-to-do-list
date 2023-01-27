@@ -33,9 +33,10 @@ const DrawForm = () => {
         };
 
         // Add submit btn.
-        const appendTaskBtn = addAppendTaskBtn()
+        const appendTaskBtn = addAppendTaskBtn();
         
         formContainer.appendChild(appendTaskBtn);
+        document.getElementById("medPrio").checked = true;
     };
     
     const addAppendTaskBtn = () => {
