@@ -27,10 +27,19 @@ export default class UI {
 				)
 			);
 
+        // Initialise first dummy task:
+        const task1 = {
+            'title': "Walking the dog",
+            "details": "He is asking for it so this task is a must",
+            "priority": "medium",
+            "date": "25-02-2002",
+        };
+        this.addNewTask(this.currentProjectPage, task1);
+
 		// const projectDisplay = new ProjectUI(this.toDoList.getProject('Inbox'));
 		// projectDisplay.draw();
 
-		this.drawPage(this.currentProjectPage);
+		// this.drawPage(this.currentProjectPage);
 
 		this.loadSideBar();
 		// this.addTaskFunction();
@@ -39,12 +48,11 @@ export default class UI {
 	drawPage(projectName) {
 		const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
 		projectDisplay.draw();
-		this.addTaskFunction(); // Reinitialise add task function for new page's btn.
-		// this.addDeleteTaskFunction(this.currentProjectPage);
+		this.addTaskFunction(projectName); // Reinitialise add task function for new page's btn.
 	}
 
 	/* Button functionalities */
-	addTaskFunction() {
+	addTaskFunction(projectName) {
 		const addTaskBtn = document.querySelector(".uniqueBtn.add");
 		addTaskBtn.addEventListener("click", () => {
 			this.currentForm.clear();
@@ -58,29 +66,32 @@ export default class UI {
 
 			// Add draw new task functionality to appendTaskBtn on the form.
 			const appendTaskBtn = document.querySelector(".uniqueBtn.appendTaskBtn");
-			this.drawNewTask(appendTaskBtn, "Inbox");
+			this.submitTaskFunction(appendTaskBtn, projectName);
 		});
 	}
 
-	drawNewTask(btn, projectName) {
+	addNewTask(projectName, taskInfo) {
+		this.toDoList
+			.getProject(projectName)
+			.addTask(
+				new Task(
+					taskInfo["title"],
+					taskInfo["details"],
+					taskInfo["date"],
+					taskInfo["priority"],
+					this.toDoList.getProject(projectName).tasks.length
+				)
+			);
+		const currentTaskId =
+			this.toDoList.getProject(projectName).tasks.length - 1;
+		this.drawPage(projectName);
+		this.addDeleteTaskFunction(projectName, currentTaskId);
+	}
+
+	submitTaskFunction(btn, projectName) {
 		btn.addEventListener("click", (event) => {
-			const info = this.currentForm.collectTaskInfo();
-
-			this.toDoList
-				.getProject(projectName)
-				.addTask(
-					new Task(
-						info["title"],
-						info["details"],
-						info["date"],
-						info["priority"],
-						this.toDoList.getProject(projectName).tasks.length
-					)
-				);
-
-			// Collect the latest
-			this.drawPage(projectName);
-			this.addDeleteTaskFunction(this.currentProjectPage);
+			const taskInfo = this.currentForm.collectTaskInfo();
+			this.addNewTask(projectName, taskInfo);
 
 			document.querySelector("form").style.visibility = "hidden";
 			document.querySelector(".face-mask").style.visibility = "hidden";
@@ -88,15 +99,9 @@ export default class UI {
 		});
 	}
 
-	// Need a get task by ID function.
-	addDeleteTaskFunction(projectName) {
-		// Add "click" delete eventListener for the specific
-		// bin img ont the TaskUI.
-		const taskId = this.toDoList.getProject(projectName).tasks.length - 1;
+	addDeleteTaskFunction(projectName, taskId) {
 
-		// const delImg = document.querySelector(`.taskDel.${taskId}`);
 		const delImg = document.getElementById(`delTask-${taskId}`);
-		delImg.classList.add("bat");
 		delImg.addEventListener("click", () => {
 			this.toDoList.getProject(projectName).deleteTask(taskId);
 			this.drawPage(projectName);

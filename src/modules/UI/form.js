@@ -51,18 +51,7 @@ const DrawForm = () => {
 
         return appendTaskBtn;
     }
-    const appendTaskFunction = (event) => {
 
-        // call back function to collect the info?
-        const taskInfo = collectTaskInfo();
-        console.log(taskInfo['title']);
-        console.log(taskInfo['details']);
-        console.log(taskInfo['priority']);
-        console.log(taskInfo['date']);
-
-        event.preventDefault();
-        }
-    
     const collectTaskInfo = () => {
         // Collect all relevant information based on user input and return
         // it in an obj.
