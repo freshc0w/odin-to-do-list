@@ -20,7 +20,7 @@ export default class Project {
         this._tasks.push(task);        
     };
     deleteTask(taskId) {
-        this._tasks = this._tasks.filter(task => task.getId() !== taskId);
+        this._tasks = this._tasks.filter(task => task.id !== taskId);
     };
 
     // To be added: Get today's and this week's tasks. 

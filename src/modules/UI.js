@@ -4,164 +4,167 @@ import AllProjects from "./AllProjects";
 import { TaskUI, ProjectUI } from "./UI/ProjectUI";
 import { DrawForm } from "./UI/form";
 
-
 export default class UI {
-    constructor() {
-        this.toDoList = new AllProjects();
-        
-        // Initialise first homePage to be on the "Inbox" page.
-        this.currentProjectPage = 'Inbox';
-        this.currentForm = DrawForm();
-    };
+	constructor() {
+		this.toDoList = new AllProjects();
 
-    loadHomePage() {
+		// Initialise first homePage to be on the "Inbox" page.
+		this.currentProjectPage = "Inbox";
+		this.currentForm = DrawForm();
+	}
 
-        // Add a task to inbox.
-        this.toDoList.getProject('Inbox').addTask(new Task(
-            'Walking the dog', 'He is asking for it so this task is a must', '25-02-2002',
-            'medium', this.toDoList.getProject('Inbox').tasks.length
-        ));
-        
+	loadHomePage() {
+		// Add a task to inbox.
+		this.toDoList
+			.getProject("Inbox")
+			.addTask(
+				new Task(
+					"Walking the dog",
+					"He is asking for it so this task is a must",
+					"25-02-2002",
+					"medium",
+					this.toDoList.getProject("Inbox").tasks.length
+				)
+			);
 
-        // const projectDisplay = new ProjectUI(this.toDoList.getProject('Inbox'));
-        // projectDisplay.draw();
+		// const projectDisplay = new ProjectUI(this.toDoList.getProject('Inbox'));
+		// projectDisplay.draw();
 
-        this.drawPage(this.currentProjectPage);
+		this.drawPage(this.currentProjectPage);
 
-        this.loadSideBar();
-        // this.addTaskFunction();
-    }
+		this.loadSideBar();
+		// this.addTaskFunction();
+	}
 
-    /* Button functionalities */
-    addTaskFunction() {
-        const addTaskBtn = document.querySelector('.uniqueBtn.add');
-        addTaskBtn.addEventListener("click", () => {
-            this.currentForm.clear();
-            this.currentForm.addTask();
+	drawPage(projectName) {
+		const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
+		projectDisplay.draw();
+		this.addTaskFunction(); // Reinitialise add task function for new page's btn.
+		// this.addDeleteTaskFunction(this.currentProjectPage);
+	}
 
-            document.querySelector('form').style.visibility = "visible";
-            document.querySelector('.face-mask').style.visibility = "visible";
+	/* Button functionalities */
+	addTaskFunction() {
+		const addTaskBtn = document.querySelector(".uniqueBtn.add");
+		addTaskBtn.addEventListener("click", () => {
+			this.currentForm.clear();
+			this.currentForm.addTask();
 
-            // Set default date input to current day.
-            inputDueDate.valueAsDate = new Date();
+			document.querySelector("form").style.visibility = "visible";
+			document.querySelector(".face-mask").style.visibility = "visible";
 
-            // Add draw new task functionality to appendTaskBtn on the form. 
-            const appendTaskBtn = document.querySelector(
-                            '.uniqueBtn.appendTaskBtn');
-            this.drawNewTask(appendTaskBtn, "Inbox");
+			// Set default date input to current day.
+			inputDueDate.valueAsDate = new Date();
 
-            });
-        };
+			// Add draw new task functionality to appendTaskBtn on the form.
+			const appendTaskBtn = document.querySelector(".uniqueBtn.appendTaskBtn");
+			this.drawNewTask(appendTaskBtn, "Inbox");
+		});
+	}
 
-    drawNewTask(btn, projectName) {
-        btn.addEventListener("click", (event) => {
-            const info = this.currentForm.collectTaskInfo();
+	drawNewTask(btn, projectName) {
+		btn.addEventListener("click", (event) => {
+			const info = this.currentForm.collectTaskInfo();
 
-            this.toDoList.getProject(projectName).addTask(
-                new Task(
-                info['title'],
-                info['details'],
-                info['date'],
-                info['priority'],
-                this.toDoList.getProject(projectName).length 
-            ));
+			this.toDoList
+				.getProject(projectName)
+				.addTask(
+					new Task(
+						info["title"],
+						info["details"],
+						info["date"],
+						info["priority"],
+						this.toDoList.getProject(projectName).tasks.length
+					)
+				);
 
-            // const taskId = this.toDoList.getProject(projectName).tasks.find(info['title']).id;
-            
-            const task = this.toDoList.getProject(projectName).tasks
-            console.log(task);
+			// Collect the latest
+			this.drawPage(projectName);
+			this.addDeleteTaskFunction(this.currentProjectPage);
 
-            const delImg = document.querySelector(`.taskDel.${taskId}`);
+			document.querySelector("form").style.visibility = "hidden";
+			document.querySelector(".face-mask").style.visibility = "hidden";
+			event.preventDefault();
+		});
+	}
 
-            this.addDeleteTaskFunction(projectName, delImg, taskId);
+	// Need a get task by ID function.
+	addDeleteTaskFunction(projectName) {
+		// Add "click" delete eventListener for the specific
+		// bin img ont the TaskUI.
+		const taskId = this.toDoList.getProject(projectName).tasks.length - 1;
 
-            // Collect the latest 
-            this.drawPage(projectName);
+		// const delImg = document.querySelector(`.taskDel.${taskId}`);
+		const delImg = document.getElementById(`delTask-${taskId}`);
+		delImg.classList.add("bat");
+		delImg.addEventListener("click", () => {
+			this.toDoList.getProject(projectName).deleteTask(taskId);
+			this.drawPage(projectName);
+		});
+	}
 
-            document.querySelector('form').style.visibility = "hidden";
-            document.querySelector('.face-mask').style.visibility = "hidden";
-            event.preventDefault();
-        });
-    };
+	/* SideBar functionalities */
+	loadSideBar() {
+		this.addSlideInOut();
+		this.drawInboxTabs();
+		this.drawProjectTabs();
+	}
 
-    drawPage(projectName) {
-        const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
-        projectDisplay.draw();
-        this.addTaskFunction(); // Reinitialise add task function for new page's btn.
-    }
+	drawInboxTabs() {
+		// Add today and this week's task beneath Inbox tab sidebar.
+		const inboxTabs = document.createElement("ul");
 
-    // Need a get task by ID function. 
-    addDeleteTaskFunction(projectName, delTaskImg, taskId) {
-        delTaskImg.addEventListener("click", () => {
-            this.toDoList.getProject(projectName).deleteTask(taskId);
-            this.drawPage(projectName);
-        });
-    };
+		this.addTab(inboxTabs, "Today");
+		this.addTab(inboxTabs, "This Week");
 
-    /* SideBar functionalities */
-    loadSideBar() {
-        this.addSlideInOut();
-        this.drawInboxTabs();
-        this.drawProjectTabs();
-    }
+		const inboxBar = document.querySelector(".inbox-bar");
+		inboxBar.appendChild(inboxTabs);
+		this.addDropDownMenu(inboxBar, inboxTabs);
+	}
 
-    drawInboxTabs() {
-        // Add today and this week's task beneath Inbox tab sidebar.
-        const inboxTabs = document.createElement('ul');
+	drawProjectTabs() {
+		// Find all other projects.
+		const inboxProjects = ["Inbox", "Today", "This Week"];
+		const customProjects = this.toDoList.projects.filter(
+			(project) => !inboxProjects.includes(project.name)
+		);
 
-        this.addTab(inboxTabs, 'Today');
-        this.addTab(inboxTabs, 'This Week');
+		const projectTabs = document.createElement("ul");
+		for (let project of customProjects) {
+			this.addTab(projectTabs, project.name);
+		}
 
-        const inboxBar = document.querySelector('.inbox-bar');
-        inboxBar.appendChild(inboxTabs);
-        this.addDropDownMenu(inboxBar, inboxTabs)
-    };
+		const projectBar = document.querySelector(".project-bar");
+		projectBar.appendChild(projectTabs);
+		this.addDropDownMenu(projectBar, projectTabs);
+	}
 
-    drawProjectTabs() {
-        // Find all other projects.
-        const inboxProjects = ['Inbox', 'Today', 'This Week']
-        const customProjects = this.toDoList.projects.filter(
-            project => !inboxProjects.includes(project.name)
-            );
+	addDropDownMenu(menuBar, tabs) {
+		// Tabs will be elongated based on tab hovered.
+		menuBar.addEventListener("mouseover", () => {
+			tabs.style.display = "block";
+		});
+		menuBar.addEventListener("mouseout", () => {
+			tabs.style.display = "none";
+		});
+	}
+	addTab(menuTab, projectName) {
+		// Create li and append it to given param elem.
+		const tab = document.createElement("li");
 
-        const projectTabs = document.createElement('ul');
-        for(let project of customProjects) {
-            this.addTab(projectTabs, project.name)
-        };
+		tab.textContent = this.toDoList.getProject(projectName).name;
+		menuTab.appendChild(tab);
+	}
 
-        const projectBar = document.querySelector('.project-bar');
-        projectBar.appendChild(projectTabs);
-        this.addDropDownMenu(projectBar, projectTabs);
-    }
-
-
-    addDropDownMenu(menuBar, tabs) {
-        // Tabs will be elongated based on tab hovered.
-        menuBar.addEventListener('mouseover', () => {
-            tabs.style.display = "block";
-        });
-        menuBar.addEventListener('mouseout', () => {
-            tabs.style.display = "none";
-        })
-    }
-    addTab(menuTab, projectName) {
-        // Create li and append it to given param elem.
-        const tab = document.createElement('li');
-        
-        tab.textContent = this.toDoList.getProject(projectName).name;
-        menuTab.appendChild(tab);
-    }
-
-    addSlideInOut() {
-        const sideBar = document.getElementById('sideBar');
-        const materialIcons = document.querySelectorAll('.material-icons');
-        const iconText = document.querySelectorAll('.icon-text');
-        sideBar.addEventListener('mouseover', () => {
-            sideBar.style.width = '200px';
-        });
-        sideBar.addEventListener('mouseout', () => {
-            sideBar.style.width = '65px';
-        });
-
-    };
-};
+	addSlideInOut() {
+		const sideBar = document.getElementById("sideBar");
+		const materialIcons = document.querySelectorAll(".material-icons");
+		const iconText = document.querySelectorAll(".icon-text");
+		sideBar.addEventListener("mouseover", () => {
+			sideBar.style.width = "200px";
+		});
+		sideBar.addEventListener("mouseout", () => {
+			sideBar.style.width = "65px";
+		});
+	}
+}
