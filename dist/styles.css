@@ -197,11 +197,17 @@ img[src$="gif"]:hover {
 }
 
 .task-container {
-	display: flex;
+	/* display: flex;
 	flex-flow: row nowrap;
-	justify-content: flex-end;
+	justify-content: space-between;
 	align-items: center;
-	gap: 1.85rem;
+	gap: 1.85rem; */
+
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 0.1fr 0.5fr 0.2fr 0.1fr 0.15fr 0.1fr 0.1fr;
+	place-items: center;
+
 	width: 96.5%;
     padding: 0.65rem 1.5px;
 	font-size: 1.5rem;
@@ -217,6 +223,7 @@ img[src$="gif"]:hover {
 
 /* Task display */
 .task-container.add {
+	display: flex;
 	justify-content: center;
 	align-items: center;
 	box-shadow: 4px 4px 2px var(--neon-blue),
@@ -238,10 +245,14 @@ img[src$="gif"]:hover {
 	text-shadow: 0 0 5px rgb(255, 49, 49);
 }
 
-.taskName {
-    margin-right: auto;
+.taskName,
+.statusCheck {
+	/* margin-right: auto; */
 	text-shadow: 0 0 3px white;
-}
+	/* how to shrink when input is too much? */
+	overflow: hidden; 
+	justify-self: start;
+};
 
 .taskDate {
     text-shadow: 0 0 4px white,
@@ -262,9 +273,8 @@ img[src$="gif"]:hover {
     transform: scale(1.3);
 }
 
-.taskEdit,
-.statusPrio {
-    margin-right: -30px;
+.taskEdit {
+    margin-right: -60%;
 }
 
 .material-icons.high {
