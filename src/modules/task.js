@@ -5,6 +5,7 @@ export default class Task {
         this.dueDate = dueDate;
         this.priority = priority;
         this.id = id; // To allow deletion of task with the same name;
+        this.status = false;
         
     }
     set name(value) {
@@ -48,4 +49,10 @@ export default class Task {
 
         return `${day}/${month}/${year}`;
     };
+    get status() {
+        return this._status;
+    };
+    set status(value) {
+        this._status = value;
+    }
 };

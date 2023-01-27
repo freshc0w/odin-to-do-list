@@ -19,11 +19,20 @@ class TaskUI {
 		const statusCheck = this.renderInfo("input", "statusCheck");
 		statusCheck.setAttribute("type", "checkbox");
 		statusCheck.setAttribute("id", "statusCheck");
+
+		// Check if task has already been checked off before.
+		if (this.task.status) {
+			statusCheck.checked = true;
+			taskContainer.style.opacity = "40%";
+		};
+
 		statusCheck.addEventListener("change", (event) => {
 			if (event.target.checked) {
+				this.task.status = true;
 				taskContainer.style.opacity = "40%";
 				// taskContainer.style.transform = 'scale(0.985)';
 			} else {
+				this.task.status = false;
 				taskContainer.style.opacity = "100%";
 				// taskContainer.style.transform = 'scale(1)';
 			}
