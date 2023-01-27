@@ -67,7 +67,7 @@ class TaskUI {
 		const delIcon = this.renderInfo("i", "material-icons", "delete");
 			
 		// Add unique id identifer based on task id for bin icon.
-		delIcon.setAttribute("id", `delTask-${this.task.id}`)
+		taskDel.setAttribute("id", `delTask-${this.task.id}`)
 
 		// Create Dataset??
 		// delIcon.dataset.id = this.task.id;

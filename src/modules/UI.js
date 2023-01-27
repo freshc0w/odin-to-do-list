@@ -14,41 +14,34 @@ export default class UI {
 	}
 
 	loadHomePage() {
-		// Add a task to inbox.
-		this.toDoList
-			.getProject("Inbox")
-			.addTask(
-				new Task(
-					"Walking the dog",
-					"He is asking for it so this task is a must",
-					"25-02-2002",
-					"medium",
-					this.toDoList.getProject("Inbox").tasks.length
-				)
-			);
-
-        // Initialise first dummy task:
-        const task1 = {
-            'title': "Walking the dog",
-            "details": "He is asking for it so this task is a must",
-            "priority": "medium",
-            "date": "25-02-2002",
-        };
-        this.addNewTask(this.currentProjectPage, task1);
-
-		// const projectDisplay = new ProjectUI(this.toDoList.getProject('Inbox'));
-		// projectDisplay.draw();
-
-		// this.drawPage(this.currentProjectPage);
+		// Initialise first dummy task:
+		const task1 = {
+			title: "Walking the dog",
+			details: "He is asking for it so this task is a must",
+			priority: "medium",
+			date: "25-02-2002",
+		};
+		this.addNewTask(this.currentProjectPage, task1);
 
 		this.loadSideBar();
-		// this.addTaskFunction();
+	}
+
+	loadPage(projectName) {
+		// We need to reset all ids on all tasks to prevent
+		// deletion of two tasks with the same id at once.
+		this.toDoList.getProject(projectName).reInitialiseId();
+
+		this.drawPage(projectName);
+
+		// Reinitialise add task function for new page's btn.
+		this.addTaskFunction(projectName);
+		// Apply eventlisteners for each corresponding bin icons.
+		this.applyDelTaskFunction(projectName);
 	}
 
 	drawPage(projectName) {
 		const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
 		projectDisplay.draw();
-		this.addTaskFunction(projectName); // Reinitialise add task function for new page's btn.
 	}
 
 	/* Button functionalities */
@@ -82,10 +75,7 @@ export default class UI {
 					this.toDoList.getProject(projectName).tasks.length
 				)
 			);
-		const currentTaskId =
-			this.toDoList.getProject(projectName).tasks.length - 1;
-		this.drawPage(projectName);
-		this.addDeleteTaskFunction(projectName, currentTaskId);
+		this.loadPage(projectName);
 	}
 
 	submitTaskFunction(btn, projectName) {
@@ -99,12 +89,19 @@ export default class UI {
 		});
 	}
 
-	addDeleteTaskFunction(projectName, taskId) {
-
+	removeTaskFunction(projectName, taskId) {
+		// Add delete task functions for each existing taskUI.
 		const delImg = document.getElementById(`delTask-${taskId}`);
 		delImg.addEventListener("click", () => {
 			this.toDoList.getProject(projectName).deleteTask(taskId);
-			this.drawPage(projectName);
+			this.loadPage(projectName);
+		});
+	}
+	applyDelTaskFunction(projectName) {
+		// For all the tasks in the project, add removeTask functionality for
+		// each task.
+		this.toDoList.getProject(projectName).tasks.map((task) => {
+			this.removeTaskFunction(projectName, task.id);
 		});
 	}
 
@@ -163,8 +160,6 @@ export default class UI {
 
 	addSlideInOut() {
 		const sideBar = document.getElementById("sideBar");
-		const materialIcons = document.querySelectorAll(".material-icons");
-		const iconText = document.querySelectorAll(".icon-text");
 		sideBar.addEventListener("mouseover", () => {
 			sideBar.style.width = "200px";
 		});

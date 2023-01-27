@@ -22,6 +22,11 @@ export default class Project {
     deleteTask(taskId) {
         this._tasks = this._tasks.filter(task => task.id !== taskId);
     };
+    reInitialiseId() {
+        for(let newId = 0; newId < this.tasks.length; newId++) {
+            this.tasks[newId].id = newId; 
+        }
+    }
 
     // To be added: Get today's and this week's tasks. 
 };

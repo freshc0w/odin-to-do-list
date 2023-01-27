@@ -60,6 +60,7 @@ const DrawForm = () => {
         const prioChosen = document.querySelector(
             'input[name="prio"]:checked');
         const date = document.querySelector('#inputDueDate');
+
         const taskInfo = {
             'title': taskTitle.value,
             'details': taskDetails.value,
