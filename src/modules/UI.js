@@ -26,10 +26,10 @@ export default class UI {
 		this.addNewTask(this.currentProjectPage, task1);
 
 		const task2 = {
-			title: "Walking the dog2",
+			title: "Walking the dog 2",
 			details: "He is asking for it so this task is a must",
 			priority: "medium",
-			date: '01/29/2023',
+			date: '30/01/2023',
 		};
 		this.addNewTask(this.currentProjectPage, task2);
 		// this.loadPage("Today");
@@ -52,6 +52,7 @@ export default class UI {
 		this.applyDelTaskFunction(projectName);
 
 		this.updateTasksToday();
+		this.updateTasksThisWeek();
 	}
 
 	drawPage(projectName) {
@@ -131,14 +132,24 @@ export default class UI {
 	updateTasksToday() {
 		const allTasksToday = this.toDoList.getAllTasksToday();
 
+		// Prevent duplicate tasks from getting added.
 		for(let taskToday of allTasksToday) {
 			if(!this.toDoList.getProject('Today').tasks.includes(taskToday)) {
 				this.toDoList.getProject('Today').addTask(taskToday);
 			}
 		};
-		console.log(this.toDoList.getProject("Today").tasks);
-		console.log(this.toDoList.getProject('This Week').tasks);
-	}
+	};
+
+	updateTasksThisWeek() {
+		const allTasksThisWeek = this.toDoList.getAllTasksThisWeek();
+
+		// Prevent adding dups
+		for(let taskThisWeek of allTasksThisWeek) {
+			if(!this.toDoList.getProject('This Week').tasks.includes(taskThisWeek)) {
+				this.toDoList.getProject('This Week').addTask(taskThisWeek);
+			};
+		};
+	};
 
 
 

@@ -47,7 +47,16 @@ export default class AllProjects {
             };
         };
         return tasksToday;
-    }
+    };
+    getAllTasksThisWeek() {
+        const tasksThisWeek = [];
+        for(let project of this.projects) {
+            for(let tasks of project.getTasksThisWeek()) {
+                tasksThisWeek.push(tasks);
+            };
+        };
+        return tasksThisWeek;
+    };
 
     // Can add today's and this week's functionality.
 };
