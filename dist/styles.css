@@ -61,7 +61,7 @@ html {
 
 	position: relative;
 	display: grid;
-	grid-template-rows: 3.25rem auto;
+	grid-template-rows: 7.25% 92.6%;
 	grid-row: 1 / -1;
 	justify-self: center;
 
@@ -82,6 +82,7 @@ html {
 .main {
 	display: flex;
 	flex-flow: row nowrap;
+	max-height: 50rem;
 }
 
 .sideBar {
@@ -165,7 +166,6 @@ li:hover {
 .statusBar {
     /* border: 1px white solid; */
 	height: max(15%, 110px);
-    margin-bottom: 15px;
     display: flex;
     justify-content: center;
 }
@@ -194,6 +194,7 @@ img[src$="gif"]:hover {
     overflow: auto;
     overflow-x: hidden;
 	gap: 2rem;
+	max-height: 100%;
 }
 
 .task-container {
@@ -663,3 +664,21 @@ input[type="date"]:focus {
     border-radius: 3px;
 }
 
+/* scrollbar styling */
+*::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background-color: rgba(0, 21, 41, 0.05);
+    border-radius: 3em;
+	box-shadow: 0 0 4px white;
+    
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+	box-shadow: 0 0 5px var(--neon-green)
+  }
