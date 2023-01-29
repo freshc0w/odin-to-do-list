@@ -78,6 +78,21 @@ html {
 
 .navBar {
 	background-color: var(--default-bg-color);
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.control-icons {
+	display: flex;
+	gap: 1rem;
+	margin-right: 1.5rem;
+	transform: scale(1.05);
+}
+.control-icons > img {
+	cursor: pointer;
+}
+.control-icons > img:hover {
+	transform: scale(1.15);
 }
 
 .main {
