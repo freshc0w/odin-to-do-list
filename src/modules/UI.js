@@ -51,6 +51,7 @@ export default class UI {
 
 		// Reinitialise add task function for new page's btn.
 		this.addTaskFunction(projectName);
+
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelTaskFunction(projectName);
 
@@ -63,7 +64,7 @@ export default class UI {
 
 	/* Button functionalities */
 	addTaskFunction(projectName) {
-		const addTaskBtn = document.querySelector(".uniqueBtn.add");
+		const addTaskBtn = document.querySelector(".uniqueBtn.addTask");
 		addTaskBtn.addEventListener("click", () => {
 
 			// Clear any current form and draw the add task form.

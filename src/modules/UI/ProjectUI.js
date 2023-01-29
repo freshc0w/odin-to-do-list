@@ -115,8 +115,19 @@ class ProjectUI {
 
 		const addTaskBtn = document.createElement("button");
 		addTaskBtn.classList.add("uniqueBtn");
-		addTaskBtn.classList.add("add");
-		addTaskBtn.textContent = "ADD";
+		addTaskBtn.classList.add("alter");
+		addTaskBtn.classList.add("addTask");
+
+		// const addSymbolDiv = document.createElement("div");
+        // const addSymbol = document.createElement('i');
+        // addSymbol.classList.add("material-icons");
+        // addSymbol.textContent = "add_circle";
+
+        // addSymbolDiv.appendChild(addSymbol);
+		// addTaskBtn.append(addSymbolDiv);
+		addTaskBtn.innerHTML = '<i class="material-icons">add_task</i>ADD TASK'
+
+		// addTaskBtn.textContent = "ADD";
 
 		addTaskContainer.appendChild(addTaskBtn);
 		return addTaskContainer;
