@@ -60,6 +60,10 @@ export default class UI {
 	drawPage(projectName) {
 		const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
 		projectDisplay.draw();
+		
+		// Update navBar text displaying project's title page
+		const titleText = document.querySelector('.title-page-text');
+		titleText.textContent = projectName;
 	}
 
 	/* Button functionalities */

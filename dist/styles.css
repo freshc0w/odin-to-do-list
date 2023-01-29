@@ -97,14 +97,18 @@ html {
 }
 
 .title-page-text {
-	--width: 1rem;
-	--height: 1rem;
+	--width: 10rem;
+	--height: 2rem;
 	width: var(--width);
 	height: var(--height);
 	position: absolute;
-	top: calc(50% - var(--height)/1.5);
-	right: calc(50% - var(--height)/2);
+	top: 50%;
+	right: 50%;
+	margin-right: -5rem;
+	margin-top: -0.7rem;
 	font-size: 1.2rem;
+	/* border: 1px white solid; */
+	text-align: center;
 }
 
 
