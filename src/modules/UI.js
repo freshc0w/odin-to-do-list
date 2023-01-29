@@ -44,6 +44,9 @@ export default class UI {
 		// deletion of two tasks with the same id at once.
 		this.toDoList.getProject(projectName).reInitialiseId();
 
+		// Update today's, this week's and important tasks.
+		this.updateAllTasks();
+
 		this.drawPage(projectName);
 
 		// Reinitialise add task function for new page's btn.
@@ -51,7 +54,6 @@ export default class UI {
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelTaskFunction(projectName);
 
-		this.updateAllTasks();
 	}
 
 	drawPage(projectName) {
@@ -85,19 +87,31 @@ export default class UI {
 	}
 
 	addNewTask(projectName, taskInfo) {
-		this.toDoList
-			.getProject(projectName)
-			.addTask(
-				new Task(
-					taskInfo["title"],
-					taskInfo["details"],
-					taskInfo["date"],
-					taskInfo["priority"],
-					this.toDoList.getProject(projectName).tasks.length
-				)
-			);
+		// Add all tasks to Inbox by default.
+		this.addTaskTo("Inbox", taskInfo);
+
+		// Prevent adding to Today or This Week's or important projects since 
+		// they are updated by default.
+		const preventAddTask = ["Inbox", "Today", "This Week", "Important"];
+		if(!preventAddTask.includes(projectName)) {
+			this.addTaskTo(projectName, taskInfo);
+		};
 		// this.loadPage(projectName);
 	}
+
+	addTaskTo(projectName, taskInfo) {
+		this.toDoList
+		.getProject(projectName)
+		.addTask(
+			new Task(
+				taskInfo["title"],
+				taskInfo["details"],
+				taskInfo["date"],
+				taskInfo["priority"],
+				this.toDoList.getProject(projectName).tasks.length
+			)
+		);
+	};
 
 	submitTaskFunction(btn, projectName) {
 		btn.addEventListener("click", (event) => {

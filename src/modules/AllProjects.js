@@ -42,28 +42,22 @@ export default class AllProjects {
     getAllTasksToday() {
         // Iterate thru each project and use getTasksToday() on each.
         const tasksToday = [];
-        for(let project of this.projects) {
-            for(let tasks of project.getTasksToday()) {
-                tasksToday.push(tasks);
-            };
+        for(let tasks of this.getProject("Inbox").getTasksToday()) {
+            tasksToday.push(tasks);
         };
         return tasksToday;
     };
     getAllTasksThisWeek() {
         const tasksThisWeek = [];
-        for(let project of this.projects) {
-            for(let tasks of project.getTasksThisWeek()) {
-                tasksThisWeek.push(tasks);
-            };
+        for(let tasks of this.getProject("Inbox").getTasksThisWeek()) {
+            tasksThisWeek.push(tasks);
         };
         return tasksThisWeek;
     };
     getAllImportantTasks() {
         const importantTasks = [];
-        for(let project of this.projects) {
-            for(let tasks of project.getImportantTasks()) {
-                importantTasks.push(tasks);
-            };
+        for(let tasks of this.getProject("Inbox").getImportantTasks()) {
+            importantTasks.push(tasks);
         };
         return importantTasks
     };
