@@ -174,8 +174,6 @@ export default class UI {
 	};
 
 
-
-
 	/* SideBar functionalities */
 	loadSideBar() {
 		this.addSlideInOut();
