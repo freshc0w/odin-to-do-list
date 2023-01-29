@@ -51,8 +51,7 @@ export default class UI {
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelTaskFunction(projectName);
 
-		this.updateTasksToday();
-		this.updateTasksThisWeek();
+		this.updateAllTasks();
 	}
 
 	drawPage(projectName) {
@@ -67,6 +66,8 @@ export default class UI {
 
 			// Clear any current form and draw the add task form.
 			this.currentForm.clear();
+
+			// Need to specify the project name in the addTask to append to t he specified project.			
 			this.currentForm.addTask();
 			// Set the default checked radio button to Medium Priority.
 			document.getElementById("medPrio").checked = true;
@@ -151,6 +152,31 @@ export default class UI {
 		};
 	};
 
+	updateAllTasks() {
+		const allTasksToday = this.toDoList.getAllTasksToday();
+		const allTasksThisWeek = this.toDoList.getAllTasksThisWeek();
+		const allImportantTasks = this.toDoList.getAllImportantTasks();
+
+		const allSetTasks = {
+			"Today": allTasksToday,
+			"This Week": allTasksThisWeek,
+			"Important": allImportantTasks,
+		};
+		for(let projectName in allSetTasks) {
+			for(let task of allSetTasks[projectName]) {
+
+				// Prevent adding duplicate tasks to project. 
+				if(!this.toDoList.getProject(projectName).tasks.includes(task)) {
+					this.toDoList.getProject(projectName).addTask(task);
+				};
+			};
+		};
+	};
+
+	// updateImportantTasks() {
+		
+	// };
+
 
 
 
@@ -176,7 +202,7 @@ export default class UI {
 
 	drawProjectTabs() {
 		// Find all other projects.
-		const inboxProjects = ["Inbox", "Today", "This Week"];
+		const inboxProjects = ["Inbox", "Today", "This Week", "Important"];
 		const customProjects = this.toDoList.projects.filter(
 			(project) => !inboxProjects.includes(project.name)
 		);
@@ -219,14 +245,12 @@ export default class UI {
 	};
 
 	loadSwitchPageEvents() {
-		const inboxIcons = document.querySelectorAll("#inbox");
-		inboxIcons.forEach(icon => {
-			icon.addEventListener("click", () => {
-				this.currentProjectPage = "Inbox";
-				this.loadPage(this.currentProjectPage);
-			});
-		});
-		const allTabs = document.querySelectorAll("li");
+		this.addSwitchPageFunc("span#inbox");
+		this.addSwitchPageFunc("span#important")
+		this.addSwitchPageFunc("li");
+	};
+	addSwitchPageFunc(tabQuery) {
+		const allTabs = document.querySelectorAll(tabQuery);
 		allTabs.forEach(tab => {
 			tab.addEventListener("click", () => {
 				this.currentProjectPage = tab.innerText;

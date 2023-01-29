@@ -7,6 +7,7 @@ export default class AllProjects {
         this.projects.push(new Project('Inbox'));
         this.projects.push(new Project('Today'));
         this.projects.push(new Project('This Week'));
+        this.projects.push(new Project('Important'));
         this.projects.push(new Project('React'));
     };
 
@@ -57,6 +58,14 @@ export default class AllProjects {
         };
         return tasksThisWeek;
     };
-
-    // Can add today's and this week's functionality.
+    getAllImportantTasks() {
+        const importantTasks = [];
+        for(let project of this.projects) {
+            for(let tasks of project.getImportantTasks()) {
+                importantTasks.push(tasks);
+            };
+        };
+        return importantTasks
+    };
+    
 };

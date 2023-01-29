@@ -29,7 +29,7 @@ export default class Project {
         }
     }
 
-    // To be added: Get today's and this week's tasks. 
+    // To be added: Get today's, this week's and important tasks. 
     getTasksToday() {
         return this.tasks.filter(task => {
             const taskDate = new Date(task.dueDateFormatted);
@@ -41,5 +41,11 @@ export default class Project {
             const taskDate = new Date(task.dueDateFormatted);
             return isThisWeek(toDate(taskDate), 1)
         })
-    }
+    };
+    getImportantTasks() {
+        return this.tasks.filter(task => {
+            return task.status === "High";
+        });
+    };
+
 };
