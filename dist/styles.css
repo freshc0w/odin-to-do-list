@@ -62,7 +62,7 @@ html {
 
 	position: relative;
 	display: grid;
-	grid-template-rows: 7.25% 92.6%;
+	grid-template-rows: 7.25% 92.75%;
 	grid-row: 1 / -1;
 	justify-self: center;
 
@@ -104,7 +104,7 @@ html {
 	position: absolute;
 	top: 50%;
 	right: 50%;
-	margin-right: -5rem;
+	margin-right: calc(-5rem - 32.5px);
 	margin-top: -0.7rem;
 	font-size: 1.2rem;
 	/* border: 1px white solid; */
@@ -115,7 +115,8 @@ html {
 .main {
 	display: flex;
 	flex-flow: row nowrap;
-	max-height: 50rem;
+	/* max-height: 50rem; */
+	height: 100%;
 }
 
 .sideBar {
@@ -129,7 +130,7 @@ html {
 	padding-top: 60px;
 	white-space: nowrap;
 	width: 65px;
-	/* height: 100%; */
+	height: 92%;
 	border-bottom-left-radius: 1rem;
 
 	background-color: rgb(10, 10, 10);
