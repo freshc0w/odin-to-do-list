@@ -77,8 +77,36 @@ html {
 }
 
 .navBar {
+	position: relative;
 	background-color: var(--default-bg-color);
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
 }
+.mac-icons {
+	display: flex;
+	gap: 1.1rem;
+	margin-right: 1.5rem;
+	transform: scale(1.15);
+}
+.mac-icons > img {
+	cursor: pointer;
+}
+.mac-icons > img:hover {
+	transform: scale(1.15);
+}
+
+.title-page-text {
+	--width: 1rem;
+	--height: 1rem;
+	width: var(--width);
+	height: var(--height);
+	position: absolute;
+	top: calc(50% - var(--height)/1.5);
+	right: calc(50% - var(--height)/2);
+	font-size: 1.2rem;
+}
+
 
 .main {
 	display: flex;
