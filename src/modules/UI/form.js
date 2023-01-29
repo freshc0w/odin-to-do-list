@@ -70,6 +70,7 @@ const DrawForm = () => {
             'priority': prioChosen.value,
             'date': dateFormat,
         };
+        console.log(prioChosen.value)
         return taskInfo; 
     }
 

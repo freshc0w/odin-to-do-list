@@ -28,7 +28,7 @@ export default class UI {
 		const task2 = {
 			title: "Walking the dog 2",
 			details: "He is asking for it so this task is a must",
-			priority: "medium",
+			priority: "high",
 			date: '30/01/2023',
 		};
 		this.addNewTask(this.currentProjectPage, task2);
@@ -172,10 +172,6 @@ export default class UI {
 			};
 		};
 	};
-
-	// updateImportantTasks() {
-		
-	// };
 
 
 

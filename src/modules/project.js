@@ -44,7 +44,7 @@ export default class Project {
     };
     getImportantTasks() {
         return this.tasks.filter(task => {
-            return task.status === "High";
+            return task.priority === "high";
         });
     };
 
