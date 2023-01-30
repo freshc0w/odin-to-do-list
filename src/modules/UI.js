@@ -161,6 +161,7 @@ export default class UI {
 				// Reset sideBar custom Project tabs.
 				this.clearProjectTabs();
 				this.drawProjectTabs();
+				this.loadSwitchPageEvents();
 
 				event.preventDefault();
 				this.loadPage(newProjTitle.value);
@@ -173,8 +174,16 @@ export default class UI {
 	removeTaskFunction(projectName, taskId) {
 		// Add delete task functions for each existing taskUI.
 		const delImg = document.getElementById(`delTask-${taskId}`);
+		let taskName = this.toDoList.getProject(projectName).getTaskNameById(taskId);
 		delImg.addEventListener("click", () => {
-			this.toDoList.getProject(projectName).deleteTask(taskId);
+			// Check all projects for the specified task and delete them when event is executed.
+			for(let project of this.toDoList.projects) {
+				for(let task of project.tasks) {
+					if(task.name === taskName) {
+						project.deleteTask(task.id);
+					}
+				}
+			}
 			this.loadPage(projectName);
 		});
 	}

@@ -47,5 +47,11 @@ export default class Project {
             return task.priority === "high";
         });
     };
-
+    getTaskNameById(id) {
+        for(let task of this.tasks) {
+            if(task.id === id) {
+                return task.name
+            };
+        };
+    }
 };

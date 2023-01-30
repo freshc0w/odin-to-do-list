@@ -24,7 +24,7 @@
 body,
 html {
 	/* temp min-width for editing */
-	min-width: 2100px;
+	/* min-width: 2100px; */
 	position: relative;
 	/* min-width: 2100px; */
 	height: 100%;
@@ -130,7 +130,6 @@ html {
 	padding-top: 60px;
 	white-space: nowrap;
 	width: 65px;
-	height: 92%;
 	border-bottom-left-radius: 1rem;
 
 	background-color: rgb(10, 10, 10);
