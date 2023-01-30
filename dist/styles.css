@@ -563,7 +563,7 @@ form {
 	margin-left: -28.44rem;
 	bottom: 50%;
 
-	background-color: rgba(12, 12, 12, .8);
+	background-color: rgba(12, 12, 12, .85);
 	backdrop-filter: blur(4px);
 	border: 2px rgba(0, 0, 0, 0.7) solid;
 	box-shadow: 0 0 3px white, 
@@ -778,4 +778,12 @@ input[type="date"]:focus {
   #inputProjTitle {
 	padding: 0.5rem;
 	font-size: 2.5rem;
+  }
+
+  /* Task details Btn */
+  .taskDetails {
+	font-size: 3rem;
+	font-family: 'Porcelain', sans-serif;
+	margin: 0.5rem;
+	align-self: flex-start;
   }

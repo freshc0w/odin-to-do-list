@@ -1,5 +1,7 @@
 import Task from "../task";
 import Project from "../project";
+import format from "date-fns/format";
+import { DrawForm } from "./form";
 
 class TaskUI {
 	// Purpose of this class it to take in a task obj, and turn it into
@@ -43,6 +45,9 @@ class TaskUI {
 		// When clicked, pop up a form where the details of the task is displayed.
 		const detailsBtn = this.renderInfo("button", "uniqueBtn", "Details");
 		detailsBtn.classList.add("details");
+		detailsBtn.addEventListener("click", () => {
+			this.drawDetailsPopUp(this.task);
+		});
 
 		// Priority icon
 		const priority = this.renderInfo("div", "statusPrio");
@@ -88,6 +93,46 @@ class TaskUI {
 			taskContainer.appendChild(elem);
 		}
 		return taskContainer;
+	}
+	drawDetailsPopUp(task) {
+		const currentForm = DrawForm();
+		currentForm.clear();
+		document.querySelector('form').style.visibility = "visible";
+		document.querySelector('.face-mask').style.visibility = "visible";
+		this.drawDetails(task);
+		
+		// Add closeForm btn
+		const closeFormBtn = document.createElement('img');
+        closeFormBtn.classList.add("closeFormBtn");
+        closeFormBtn.src = '../../../imgs/mac-close-btn.png';
+        closeFormBtn.alt = 'A button that closes the form.';
+        closeFormBtn.addEventListener("click", () => {
+            document.querySelector('form').style.visibility = "hidden";
+            document.querySelector('.face-mask').style.visibility = "hidden";
+        })
+		document.querySelector('.form-container').appendChild(closeFormBtn);
+		
+
+	};
+	drawDetails(task) {
+		const taskName = document.createElement('p');
+		const taskDescription = document.createElement('p');
+		const taskDueDate = document.createElement('p');
+		const taskPriority = document.createElement('p');
+		const dateFormat = format(new Date(task.dueDateFormatted), 'dd/MM/yyyy')
+
+		taskName.textContent = `Task Name: "${task.name}"`;
+		taskDescription.textContent = `Task Details: "${task.description}"`;
+		taskDueDate.textContent = `Task Due Date: "${dateFormat}"`;
+		taskPriority.textContent = `Task Priority: "${task.priority}"`;
+
+		taskPriority.style.textTransform = "capitalize";
+		taskName.style.fontWeight = "900";
+		
+		for(let info of [taskName, taskDescription, taskDueDate, taskPriority]) {
+			info.classList.add('taskDetails');
+			document.querySelector('.form-container').appendChild(info);
+		}
 	}
 }
 
