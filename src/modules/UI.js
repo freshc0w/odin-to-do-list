@@ -16,7 +16,7 @@ export default class UI {
 
 	loadHomePage() {
 		// Initialise first dummy task:
-		const dateToday = format(new Date(), 'dd/MM/yyyy')
+		const dateToday = format(new Date(), "dd/MM/yyyy");
 		const task1 = {
 			title: "Walking the dog",
 			details: "He is asking for it so this task is a must",
@@ -29,7 +29,7 @@ export default class UI {
 			title: "Walking the dog 2",
 			details: "He is asking for it so this task is a must",
 			priority: "high",
-			date: '30/01/2023',
+			date: "30/01/2023",
 		};
 		this.addNewTask(this.currentProjectPage, task2);
 		// this.loadPage("Today");
@@ -55,15 +55,14 @@ export default class UI {
 
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelTaskFunction(projectName);
-
 	}
 
 	drawPage(projectName) {
 		const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
 		projectDisplay.draw();
-		
+
 		// Update navBar text displaying project's title page
-		const titleText = document.querySelector('.title-page-text');
+		const titleText = document.querySelector(".title-page-text");
 		titleText.textContent = projectName;
 	}
 
@@ -71,15 +70,14 @@ export default class UI {
 	addTaskFunction(projectName) {
 		const addTaskBtn = document.querySelector(".uniqueBtn.addTask");
 		addTaskBtn.addEventListener("click", () => {
-
 			// Clear any current form and draw the add task form.
 			this.currentForm.clear();
 
-			// Need to specify the project name in the addTask to append to t he specified project.			
+			// Need to specify the project name in the addTask to append to t he specified project.
 			this.currentForm.addTask();
 			// Set the default checked radio button to Medium Priority.
 			document.getElementById("medPrio").checked = true;
-			
+
 			document.querySelector("form").style.visibility = "visible";
 			document.querySelector(".face-mask").style.visibility = "visible";
 
@@ -96,47 +94,49 @@ export default class UI {
 		// Add all tasks to Inbox by default.
 		this.addTaskTo("Inbox", taskInfo);
 
-		// Prevent adding to Today or This Week's or important projects since 
+		// Prevent adding to Today or This Week's or important projects since
 		// they are updated by default.
 		const preventAddTask = ["Inbox", "Today", "This Week", "Important"];
-		if(!preventAddTask.includes(projectName)) {
+		if (!preventAddTask.includes(projectName)) {
 			this.addTaskTo(projectName, taskInfo);
-		};
+		}
 		// this.loadPage(projectName);
 	}
 
 	addTaskTo(projectName, taskInfo) {
 		this.toDoList
-		.getProject(projectName)
-		.addTask(
-			new Task(
-				taskInfo["title"],
-				taskInfo["details"],
-				taskInfo["date"],
-				taskInfo["priority"],
-				this.toDoList.getProject(projectName).tasks.length
-			)
-		);
-	};
+			.getProject(projectName)
+			.addTask(
+				new Task(
+					taskInfo["title"],
+					taskInfo["details"],
+					taskInfo["date"],
+					taskInfo["priority"],
+					this.toDoList.getProject(projectName).tasks.length
+				)
+			);
+	}
 
 	submitTaskFunction(btn, projectName) {
 		btn.addEventListener("click", (event) => {
-			if(document.querySelector('form').checkValidity()){
+			if (document.querySelector("form").checkValidity()) {
 				const taskInfo = this.currentForm.collectTaskInfo();
-				
+
 				// If task name has already been used, send custom msg error.
-				for(let project of this.toDoList.projects) {
-					for(let task of project.tasks) {
-						if(task.name === taskInfo["title"]) {
-							document.getElementById('inputTaskTitle').setCustomValidity("Name has already been used!");
+				for (let project of this.toDoList.projects) {
+					for (let task of project.tasks) {
+						if (task.name === taskInfo["title"]) {
+							document
+								.getElementById("inputTaskTitle")
+								.setCustomValidity("Name has already been used!");
 							return;
-						};
-					};
-				};
+						}
+					}
+				}
 				this.addNewTask(projectName, taskInfo);
-	
+
 				document.querySelector("form").style.visibility = "hidden";
-				document.querySelector(".face-mask").style.visibility = "hidden";		
+				document.querySelector(".face-mask").style.visibility = "hidden";
 				this.loadPage(projectName);
 				event.preventDefault();
 			}
@@ -145,29 +145,29 @@ export default class UI {
 
 	/* Add project Btn functionalities */
 	addProjFunction() {
-		const addProjBtn = document.querySelector('.addProj');
+		const addProjBtn = document.querySelector(".addProj");
 		addProjBtn.addEventListener("click", () => {
 			this.currentForm.clear();
 			this.currentForm.addProj();
 
-			const form = document.querySelector('form');
-			const faceMask = document.querySelector('.face-mask')
+			const form = document.querySelector("form");
+			const faceMask = document.querySelector(".face-mask");
 			form.style.visibility = "visible";
 			faceMask.style.visibility = "visible";
 			this.addSubmitProjFunction();
 		});
-	};
+	}
 	addSubmitProjFunction() {
 		const newProjTitle = document.getElementById("inputProjTitle");
 		const submitProjBtn = document.querySelector(".appendProjBtn");
 
 		submitProjBtn.addEventListener("click", (event) => {
-			if(document.querySelector('form').checkValidity()) {
+			if (document.querySelector("form").checkValidity()) {
 				this.toDoList.addProject(newProjTitle.value);
 
-				document.querySelector('form').style.visibility = "hidden";
-				document.querySelector('.face-mask').style.visibility = "hidden";
-				
+				document.querySelector("form").style.visibility = "hidden";
+				document.querySelector(".face-mask").style.visibility = "hidden";
+
 				// Reset sideBar custom Project tabs.
 				this.clearProjectTabs();
 				this.drawProjectTabs();
@@ -176,20 +176,21 @@ export default class UI {
 				event.preventDefault();
 				this.loadPage(newProjTitle.value);
 			}
-		})
+		});
 	}
-
 
 	/* Remove tasks Btn functionalities */
 	removeTaskFunction(projectName, taskId) {
 		// Add delete task functions for each existing taskUI.
 		const delImg = document.getElementById(`delTask-${taskId}`);
-		let taskName = this.toDoList.getProject(projectName).getTaskNameById(taskId);
+		let taskName = this.toDoList
+			.getProject(projectName)
+			.getTaskNameById(taskId);
 		delImg.addEventListener("click", () => {
 			// Check all projects for the specified task and delete them when event is executed.
-			for(let project of this.toDoList.projects) {
-				for(let task of project.tasks) {
-					if(task.name === taskName) {
+			for (let project of this.toDoList.projects) {
+				for (let task of project.tasks) {
+					if (task.name === taskName) {
 						project.deleteTask(task.id);
 					}
 				}
@@ -203,7 +204,7 @@ export default class UI {
 		this.toDoList.getProject(projectName).tasks.map((task) => {
 			this.removeTaskFunction(projectName, task.id);
 		});
-	};
+	}
 
 	/* Update Today's, This Week's and important tasks */
 	updateAllTasks() {
@@ -212,24 +213,22 @@ export default class UI {
 		const allImportantTasks = this.toDoList.getAllImportantTasks();
 
 		const allSetTasks = {
-			"Today": allTasksToday,
+			Today: allTasksToday,
 			"This Week": allTasksThisWeek,
-			"Important": allImportantTasks,
+			Important: allImportantTasks,
 		};
-		for(let projectName in allSetTasks) {
-			for(let task of allSetTasks[projectName]) {
-
-				// Prevent adding duplicate tasks to project. 
-				if(!this.toDoList.getProject(projectName).tasks.includes(task)) {
+		for (let projectName in allSetTasks) {
+			for (let task of allSetTasks[projectName]) {
+				// Prevent adding duplicate tasks to project.
+				if (!this.toDoList.getProject(projectName).tasks.includes(task)) {
 					this.toDoList.getProject(projectName).addTask(task);
-				};
-			};
-		};
-	};
-
+				}
+			}
+		}
+	}
 
 	/* SideBar functionalities */
-	
+
 	loadSideBar() {
 		this.addSlideInOut();
 		this.drawInboxTabs();
@@ -257,7 +256,7 @@ export default class UI {
 		);
 
 		const projectTabs = document.createElement("ul");
-		projectTabs.classList.add("customProj")
+		projectTabs.classList.add("customProj");
 		for (let project of customProjects) {
 			this.addTab(projectTabs, project.name);
 		}
@@ -265,7 +264,7 @@ export default class UI {
 		const projectBar = document.querySelector(".project-bar");
 		projectBar.appendChild(projectTabs);
 		this.addDropDownMenu(projectBar, projectTabs);
-	};
+	}
 
 	clearProjectTabs() {
 		const customProjTabs = document.querySelector(".customProj");
@@ -297,16 +296,16 @@ export default class UI {
 		sideBar.addEventListener("mouseout", () => {
 			sideBar.style.width = "65px";
 		});
-	};
+	}
 
 	loadSwitchPageEvents() {
 		this.addSwitchPageFunc("span#inbox");
-		this.addSwitchPageFunc("span#important")
+		this.addSwitchPageFunc("span#important");
 		this.addSwitchPageFunc("li");
-	};
+	}
 	addSwitchPageFunc(tabQuery) {
 		const allTabs = document.querySelectorAll(tabQuery);
-		allTabs.forEach(tab => {
+		allTabs.forEach((tab) => {
 			tab.addEventListener("click", () => {
 				this.currentProjectPage = tab.innerText;
 				this.loadPage(this.currentProjectPage);
