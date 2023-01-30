@@ -111,7 +111,6 @@ export default class UI {
 		if (!preventAddTask.includes(projectName)) {
 			this.addTaskTo(projectName, taskInfo);
 		}
-		// this.loadPage(projectName);
 	}
 
 	addTaskTo(projectName, taskInfo) {

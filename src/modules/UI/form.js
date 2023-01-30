@@ -31,9 +31,19 @@ const DrawForm = () => {
         inputProjTitle.classList.add("inputProjTitle"); 
         inputProjTitle.required = true;
 
+        const closeFormBtn = document.createElement('img');
+        closeFormBtn.classList.add("closeFormBtn");
+        closeFormBtn.src = '../../../imgs/mac-close-btn.png';
+        closeFormBtn.alt = 'A button that closes the form.';
+        closeFormBtn.addEventListener("click", () => {
+            document.querySelector('form').style.visibility = "hidden";
+            document.querySelector('.face-mask').style.visibility = "hidden";
+        })
+
         formContainer.appendChild(promptProjTitle);
         formContainer.appendChild(inputProjTitle);
-        formContainer.appendChild(addAppendProjBtn())
+        formContainer.appendChild(addAppendProjBtn());
+        formContainer.appendChild(closeFormBtn)
     };
 
     const addAppendProjBtn = () => {
@@ -100,7 +110,6 @@ const DrawForm = () => {
             'priority': prioChosen.value,
             'date': dateFormat,
         };
-        console.log(prioChosen.value)
         return taskInfo; 
     }
 
