@@ -30,7 +30,7 @@ export default class AllProjects {
     addProject(newProjectName) {
         // Cannot have same project names.
         if (this.contains(newProjectName)) return;
-        this.projects.push(new Project(newProjectName));
+        this._projects.push(new Project(newProjectName));
     };
 
     deleteProject(projectName) {

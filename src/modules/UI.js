@@ -13,6 +13,12 @@ export default class UI {
 		this.currentProjectPage = "Inbox";
 		this.currentForm = DrawForm();
 	}
+	get currentProjectPage() {
+		return this._currentProjectPage;
+	}
+	set currentProjectPage(value) {
+		this._currentProjectPage = value;
+	}
 
 	loadHomePage() {
 		// Initialise first dummy task:
@@ -36,6 +42,7 @@ export default class UI {
 		// this.loadPage("This Week");
 		this.loadPage("Inbox");
 		this.loadSideBar();
+		this.deleteProjFunction();
 	}
 
 	loadPage(projectName) {
@@ -55,7 +62,7 @@ export default class UI {
 
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelTaskFunction(projectName);
-		this.switchDeleteOrClear();
+		this.addClearAllTasksFunction();
 	}
 
 	drawPage(projectName) {
@@ -179,9 +186,25 @@ export default class UI {
 				this.loadSwitchPageEvents();
 
 				event.preventDefault();
+				this.currentProjectPage = newProjTitle.value;
 				this.loadPage(newProjTitle.value);
 			}
 		});
+	};
+	deleteProjFunction() {
+		const deleteBtn = document.querySelector('.deleteProj');
+		const mandatoryProj = ["Inbox", "Today", "This Week", "Important"];
+		deleteBtn.addEventListener("click", () => {
+			if(this.toDoList.getProject(this.currentProjectPage).tasks.length > 0 && mandatoryProj.includes(this.currentProjectPage)) {
+				return;
+			}
+			this.toDoList.deleteProject(this.currentProjectPage);
+			this.clearProjectTabs();
+			this.drawProjectTabs();
+			this.loadSwitchPageEvents();
+			this.currentProjectPage = "Inbox";
+			this.loadPage("Inbox");
+		})
 	}
 
 	/* Remove tasks Btn functionalities */
@@ -214,23 +237,6 @@ export default class UI {
 
 	/* Switch Delete Project or Clear Tasks functionality depending on 
 	 	current project page.*/ 
-	switchDeleteOrClear() {
-
-		//Clear all tasks if in inbox, today's, this week's or important page.
-		// Otherwise, clear all tasks in project and delete project afterwards 
-		const clearTasksOnPageName = ["Inbox", "Today", "This Week", "Important"];
-		const clrOrDelBtn = document.querySelector('.uniqueBtn.clear');
-
-		if(clearTasksOnPageName.includes(this.currentProjectPage)) {
-			clrOrDelBtn.innerHTML = '<i class="material-icons">delete_sweep</i>CLEAR ALL';
-			clrOrDelBtn.style.fontSize = "1.25rem";
-			this.addClearAllTasksFunction();
-		} else {
-			clrOrDelBtn.innerHTML = '<i class = "material-icons">delete_sweep</i>DELETE PROJECT';
-			clrOrDelBtn.style.fontSize = "1rem";
-			this.addDeleteProjFunction();
-		}
-	}
 	addClearAllTasksFunction() {
 		const clearAllTaskBtn = document.querySelector('.uniqueBtn.clear');
 		clearAllTaskBtn.addEventListener("click", () => {
@@ -254,30 +260,6 @@ export default class UI {
 
 			this.drawPage(this.currentProjectPage);
 	})
-	}
-	addDeleteProjFunction() {
-		const deleteProjBtn = document.querySelector('.uniqueBtn.clear');
-		deleteProjBtn.addEventListener("click", () => {
-			const currentProject = this.toDoList.getProject(this.currentProjectPage);
-			let deletedTasks = [];
-
-			for(let task of currentProject.tasks) {
-				currentProject.deleteTask(task.id);
-				deletedTasks.push(task.name);
-			};
-
-			for(let project of this.toDoList.projects) {
-				for(let task of project.tasks) {
-					if(deletedTasks.includes(task.name)) {
-						project.deleteTask(task.id);
-					};
-				};
-			};
-			this.toDoList.deleteProject(this.currentProjectPage);
-			this.clearProjectTabs();
-			this.drawProjectTabs();
-			this.loadPage("Inbox");
-		})
 	}
 
 	/* Update Today's, This Week's and important tasks */
