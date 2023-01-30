@@ -71,10 +71,14 @@ class TaskUI {
 		// icons
 		const edit = this.renderInfo("div", "taskEdit");
 		const editIcon = this.renderInfo("i", "material-icons", "edit");
+		// Add unique id identifer based on task id for bin icon
+		// for individual task edits.
+		edit.setAttribute("id", `editTask-${this.task.id}`);
 		edit.appendChild(editIcon);
-		editIcon.addEventListener("click", () => {
-			this.editDetailsPopUp(this.task);
-		});
+
+		// editIcon.addEventListener("click", () => {
+		// 	this.editDetailsPopUp(this.task);
+		// });
 
 		const taskDel = this.renderInfo("div", "taskDel");
 		const delIcon = this.renderInfo("i", "material-icons", "delete");
