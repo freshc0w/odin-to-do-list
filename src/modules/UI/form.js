@@ -113,21 +113,6 @@ const DrawForm = () => {
         return taskInfo; 
     }
 
-    const addCloseFormFunction = () => {
-        const closeForm = document.createElement('img');
-        closeForm.classList.add('closeFormBtn');
-        closeForm.src = '../../../imgs/mac-close-btn.png';
-        closeForm.alt = 'A button that closes the form.';
-
-        closeForm.addEventListener('click', () => {
-            const form = document.querySelector('form');
-            const overlay = document.querySelector('.face-mask');
-            form.style.visibility = 'hidden';
-            overlay.style.visibility = 'hidden';
-        });
-
-        return closeForm;
-    };
 
     const addInputDueDate = () => {
         const dueDate = document.createElement('div');
@@ -244,6 +229,22 @@ const DrawForm = () => {
         input.appendChild(inputText);
         return input;
     }
+    
+    const addCloseFormFunction = () => {
+        const closeForm = document.createElement('img');
+        closeForm.classList.add('closeFormBtn');
+        closeForm.src = '../../../imgs/mac-close-btn.png';
+        closeForm.alt = 'A button that closes the form.';
+
+        closeForm.addEventListener('click', () => {
+            const form = document.querySelector('form');
+            const overlay = document.querySelector('.face-mask');
+            form.style.visibility = 'hidden';
+            overlay.style.visibility = 'hidden';
+        });
+
+        return closeForm;
+    };
     return { addTask, clear, collectTaskInfo, addProj };
 
 

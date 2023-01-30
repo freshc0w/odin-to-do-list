@@ -94,25 +94,12 @@ class TaskUI {
 		}
 		return taskContainer;
 	}
+	// Details Btn Functionality
 	drawDetailsPopUp(task) {
-		const currentForm = DrawForm();
-		currentForm.clear();
-		document.querySelector('form').style.visibility = "visible";
-		document.querySelector('.face-mask').style.visibility = "visible";
+		this.addPopUp();
 		this.drawDetails(task);
 		
-		// Add closeForm btn
-		const closeFormBtn = document.createElement('img');
-        closeFormBtn.classList.add("closeFormBtn");
-        closeFormBtn.src = '../../../imgs/mac-close-btn.png';
-        closeFormBtn.alt = 'A button that closes the form.';
-        closeFormBtn.addEventListener("click", () => {
-            document.querySelector('form').style.visibility = "hidden";
-            document.querySelector('.face-mask').style.visibility = "hidden";
-        })
-		document.querySelector('.form-container').appendChild(closeFormBtn);
-		
-
+		this.addCloseFormBtn();
 	};
 	drawDetails(task) {
 		const taskName = document.createElement('p');
@@ -133,6 +120,30 @@ class TaskUI {
 			info.classList.add('taskDetails');
 			document.querySelector('.form-container').appendChild(info);
 		}
+	}
+	//Edit Btn Functionality
+	editDetailsPopUp() {
+		this.addPopUp()
+		this.drawDetails(task);
+		
+		this.addCloseFormBtn();
+	}
+	addPopUp() {
+		const currentForm = DrawForm();
+		currentForm.clear();
+		document.querySelector('form').style.visibility = "visible";
+		document.querySelector('.face-mask').style.visibility = "visible";
+	}
+	addCloseFormBtn() {
+		const closeFormBtn = document.createElement('img');
+        closeFormBtn.classList.add("closeFormBtn");
+        closeFormBtn.src = '../../../imgs/mac-close-btn.png';
+        closeFormBtn.alt = 'A button that closes the form.';
+        closeFormBtn.addEventListener("click", () => {
+            document.querySelector('form').style.visibility = "hidden";
+            document.querySelector('.face-mask').style.visibility = "hidden";
+        })
+		document.querySelector('.form-container').appendChild(closeFormBtn);
 	}
 }
 
