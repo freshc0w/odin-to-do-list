@@ -4,11 +4,9 @@ import Project from "./project";
 export default class AllProjects {
     constructor() {
         this.projects = [];
-        this.projects.push(new Project('Inbox'));
-        this.projects.push(new Project('Today'));
-        this.projects.push(new Project('This Week'));
-        this.projects.push(new Project('Important'));
-        this.projects.push(new Project('React'));
+        for(let proj of ["Inbox", "Today", "This Week", "Important"]) {
+            this.projects.push(new Project(proj));
+        };
     };
 
     get projects() {

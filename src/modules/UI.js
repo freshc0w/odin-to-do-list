@@ -19,30 +19,11 @@ export default class UI {
 	set currentProjectPage(value) {
 		this._currentProjectPage = value;
 	}
-
-	loadHomePage() {
-		// Initialise first dummy task:
-		const dateToday = format(new Date(), "dd/MM/yyyy");
-		const task1 = {
-			title: "Walking the dog",
-			details: "He is asking for it so this task is a must",
-			priority: "medium",
-			date: dateToday,
-		};
-		this.addNewTask(this.currentProjectPage, task1);
-
-		const task2 = {
-			title: "Walking the dog 2",
-			details: "He is asking for it so this task is a must",
-			priority: "high",
-			date: "30/01/2023",
-		};
-		this.addNewTask(this.currentProjectPage, task2);
-		// this.loadPage("Today");
-		// this.loadPage("This Week");
-		this.loadPage("Inbox");
-		this.loadSideBar();
-		this.deleteProjFunction();
+	get toDoList() {
+		return this._toDoList;
+	}
+	set toDoList(value) {
+		this._toDoList = value;
 	}
 
 	loadPage(projectName) {
@@ -122,7 +103,8 @@ export default class UI {
 					taskInfo["details"],
 					taskInfo["date"],
 					taskInfo["priority"],
-					this.toDoList.getProject(projectName).tasks.length
+					this.toDoList.getProject(projectName).tasks.length,
+					taskInfo["status"],
 				)
 			);
 	}
@@ -131,7 +113,6 @@ export default class UI {
 		btn.addEventListener("click", (event) => {
 			if (document.querySelector("form").checkValidity()) {
 				const taskInfo = this.currentForm.collectTaskInfo();
-
 				// If task name has already been used, send custom msg error.
 				for (let project of this.toDoList.projects) {
 					for (let task of project.tasks) {
@@ -140,10 +121,11 @@ export default class UI {
 								.getElementById("inputTaskTitle")
 								.setCustomValidity(
 									"Name has already been used!");
-							return;
+								return;
 						}
 					}
-				}
+				};
+		
 				this.addNewTask(projectName, taskInfo);
 
 				document.querySelector("form").style.visibility = "hidden";
