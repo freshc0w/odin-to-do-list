@@ -123,6 +123,16 @@ export default class UI {
 		btn.addEventListener("click", (event) => {
 			if(document.querySelector('form').checkValidity()){
 				const taskInfo = this.currentForm.collectTaskInfo();
+				
+				// If task name has already been used, send custom msg error.
+				for(let project of this.toDoList.projects) {
+					for(let task of project.tasks) {
+						if(task.name === taskInfo["title"]) {
+							document.getElementById('inputTaskTitle').setCustomValidity("Name has already been used!");
+							return;
+						};
+					};
+				};
 				this.addNewTask(projectName, taskInfo);
 	
 				document.querySelector("form").style.visibility = "hidden";
