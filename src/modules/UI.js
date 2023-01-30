@@ -56,13 +56,13 @@ export default class UI {
 		this.drawPage(projectName);
 
 		this.addProjFunction();
+		this.addClearAllTasksFunction();
 
 		// Reinitialise add task function for new page's btn.
 		this.addTaskFunction(projectName);
 
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelTaskFunction(projectName);
-		this.addClearAllTasksFunction();
 	}
 
 	drawPage(projectName) {
@@ -257,8 +257,7 @@ export default class UI {
 					};
 				};
 			};
-
-			this.drawPage(this.currentProjectPage);
+			this.loadPage(this.currentProjectPage);
 	})
 	}
 
