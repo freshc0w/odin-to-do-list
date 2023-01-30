@@ -11,6 +11,40 @@ const DrawForm = () => {
             formContainer.removeChild(formContainer.lastChild);
         };
     }
+
+    const addProj = () => {
+        const promptProjTitle = document.createElement('label');
+        promptProjTitle.setAttribute("for", "inputProjTitle")
+        promptProjTitle.classList.add("promptProjTitle");
+        promptProjTitle.textContent = "Project Title:";
+
+        const inputProjTitle = document.createElement("input");
+        const inputAttributes = {
+            "id": "inputProjTitle",
+            "type": "text",
+            "name": "inputProjTitle",
+            "placeholder": "The Odin Knowin' Codin' ",
+        }
+        for(let attr in inputAttributes) {
+            inputProjTitle.setAttribute(attr, inputAttributes[attr])
+        }
+        inputProjTitle.classList.add("inputProjTitle"); 
+        inputProjTitle.required = true;
+
+        formContainer.appendChild(promptProjTitle);
+        formContainer.appendChild(inputProjTitle);
+        formContainer.appendChild(addAppendProjBtn())
+    };
+
+    const addAppendProjBtn = () => {
+        const appendProjBtn = document.createElement('button');
+        appendProjBtn.classList.add('uniqueBtn');
+        appendProjBtn.classList.add('appendProjBtn');
+        appendProjBtn.textContent = 'Add Project';
+        appendProjBtn.setAttribute("type", "submit");
+
+        return appendProjBtn;
+    }
     
     const addTask = () => {
         const taskTitle = addInputText('Task Title: ', 'e.g. Learn React in ' +
@@ -46,10 +80,6 @@ const DrawForm = () => {
         appendTaskBtn.classList.add('appendTaskBtn');
         appendTaskBtn.textContent = 'Add Task';
         appendTaskBtn.setAttribute("type", "submit");
-        
-        // appendTaskBtn.addEventListener("click", (event) => {
-        //     appendTaskFunction(event)
-        // });
 
         return appendTaskBtn;
     }
@@ -205,7 +235,7 @@ const DrawForm = () => {
         input.appendChild(inputText);
         return input;
     }
-    return { addTask, clear, collectTaskInfo };
+    return { addTask, clear, collectTaskInfo, addProj };
 
 
 }

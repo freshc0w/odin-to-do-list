@@ -35,7 +35,6 @@ export default class UI {
 		// this.loadPage("Today");
 		// this.loadPage("This Week");
 		this.loadPage("Inbox");
-
 		this.loadSideBar();
 	}
 
@@ -48,6 +47,8 @@ export default class UI {
 		this.updateAllTasks();
 
 		this.drawPage(projectName);
+
+		this.addProjFunction();
 
 		// Reinitialise add task function for new page's btn.
 		this.addTaskFunction(projectName);
@@ -66,7 +67,7 @@ export default class UI {
 		titleText.textContent = projectName;
 	}
 
-	/* Button functionalities */
+	/* Add task Btn functionalities */
 	addTaskFunction(projectName) {
 		const addTaskBtn = document.querySelector(".uniqueBtn.addTask");
 		addTaskBtn.addEventListener("click", () => {
@@ -132,6 +133,43 @@ export default class UI {
 		});
 	}
 
+	/* Add project Btn functionalities */
+	addProjFunction() {
+		const addProjBtn = document.querySelector('.addProj');
+		addProjBtn.addEventListener("click", () => {
+			this.currentForm.clear();
+			this.currentForm.addProj();
+
+			const form = document.querySelector('form');
+			const faceMask = document.querySelector('.face-mask')
+			form.style.visibility = "visible";
+			faceMask.style.visibility = "visible";
+			this.addSubmitProjFunction();
+		});
+	};
+	addSubmitProjFunction() {
+		const newProjTitle = document.getElementById("inputProjTitle");
+		const submitProjBtn = document.querySelector(".appendProjBtn");
+
+		submitProjBtn.addEventListener("click", (event) => {
+			if(document.querySelector('form').checkValidity()) {
+				this.toDoList.addProject(newProjTitle.value);
+
+				document.querySelector('form').style.visibility = "hidden";
+				document.querySelector('.face-mask').style.visibility = "hidden";
+				
+				// Reset sideBar custom Project tabs.
+				this.clearProjectTabs();
+				this.drawProjectTabs();
+
+				event.preventDefault();
+				this.loadPage(newProjTitle.value);
+			}
+		})
+	}
+
+
+	/* Remove tasks Btn functionalities */
 	removeTaskFunction(projectName, taskId) {
 		// Add delete task functions for each existing taskUI.
 		const delImg = document.getElementById(`delTask-${taskId}`);
@@ -148,29 +186,7 @@ export default class UI {
 		});
 	};
 
-	
-	updateTasksToday() {
-		const allTasksToday = this.toDoList.getAllTasksToday();
-
-		// Prevent duplicate tasks from getting added.
-		for(let taskToday of allTasksToday) {
-			if(!this.toDoList.getProject('Today').tasks.includes(taskToday)) {
-				this.toDoList.getProject('Today').addTask(taskToday);
-			}
-		};
-	};
-
-	updateTasksThisWeek() {
-		const allTasksThisWeek = this.toDoList.getAllTasksThisWeek();
-
-		// Prevent adding dups
-		for(let taskThisWeek of allTasksThisWeek) {
-			if(!this.toDoList.getProject('This Week').tasks.includes(taskThisWeek)) {
-				this.toDoList.getProject('This Week').addTask(taskThisWeek);
-			};
-		};
-	};
-
+	/* Update Today's, This Week's and important tasks */
 	updateAllTasks() {
 		const allTasksToday = this.toDoList.getAllTasksToday();
 		const allTasksThisWeek = this.toDoList.getAllTasksThisWeek();
@@ -194,6 +210,7 @@ export default class UI {
 
 
 	/* SideBar functionalities */
+	
 	loadSideBar() {
 		this.addSlideInOut();
 		this.drawInboxTabs();
@@ -221,6 +238,7 @@ export default class UI {
 		);
 
 		const projectTabs = document.createElement("ul");
+		projectTabs.classList.add("customProj")
 		for (let project of customProjects) {
 			this.addTab(projectTabs, project.name);
 		}
@@ -228,6 +246,11 @@ export default class UI {
 		const projectBar = document.querySelector(".project-bar");
 		projectBar.appendChild(projectTabs);
 		this.addDropDownMenu(projectBar, projectTabs);
+	};
+
+	clearProjectTabs() {
+		const customProjTabs = document.querySelector(".customProj");
+		customProjTabs.parentNode.removeChild(customProjTabs);
 	}
 
 	addDropDownMenu(menuBar, tabs) {
