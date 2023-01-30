@@ -55,6 +55,7 @@ export default class UI {
 
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelTaskFunction(projectName);
+		this.switchDeleteOrClear();
 	}
 
 	drawPage(projectName) {
@@ -209,6 +210,74 @@ export default class UI {
 		this.toDoList.getProject(projectName).tasks.map((task) => {
 			this.removeTaskFunction(projectName, task.id);
 		});
+	};
+
+	/* Switch Delete Project or Clear Tasks functionality depending on 
+	 	current project page.*/ 
+	switchDeleteOrClear() {
+
+		//Clear all tasks if in inbox, today's, this week's or important page.
+		// Otherwise, clear all tasks in project and delete project afterwards 
+		const clearTasksOnPageName = ["Inbox", "Today", "This Week", "Important"];
+		const clrOrDelBtn = document.querySelector('.uniqueBtn.clear');
+
+		if(clearTasksOnPageName.includes(this.currentProjectPage)) {
+			clrOrDelBtn.innerHTML = '<i class="material-icons">delete_sweep</i>CLEAR ALL';
+			clrOrDelBtn.style.fontSize = "1.25rem";
+			this.addClearAllTasksFunction();
+		} else {
+			clrOrDelBtn.innerHTML = '<i class = "material-icons">delete_sweep</i>DELETE PROJECT';
+			clrOrDelBtn.style.fontSize = "1rem";
+			this.addDeleteProjFunction();
+		}
+	}
+	addClearAllTasksFunction() {
+		const clearAllTaskBtn = document.querySelector('.uniqueBtn.clear');
+		clearAllTaskBtn.addEventListener("click", () => {
+			const currentProject = this.toDoList.getProject(this.currentProjectPage);
+			let deletedTasks = [];
+
+			// Remove all tasks from current project.
+			for(let task of currentProject.tasks) {
+				currentProject.deleteTask(task.id);
+				deletedTasks.push(task.name);
+			};
+
+			// Sync tasks deleted to other projects.
+			for(let project of this.toDoList.projects) {
+				for(let task of project.tasks) {
+					if(deletedTasks.includes(task.name)) {
+						project.deleteTask(task.id);
+					};
+				};
+			};
+
+			this.drawPage(this.currentProjectPage);
+	})
+	}
+	addDeleteProjFunction() {
+		const deleteProjBtn = document.querySelector('.uniqueBtn.clear');
+		deleteProjBtn.addEventListener("click", () => {
+			const currentProject = this.toDoList.getProject(this.currentProjectPage);
+			let deletedTasks = [];
+
+			for(let task of currentProject.tasks) {
+				currentProject.deleteTask(task.id);
+				deletedTasks.push(task.name);
+			};
+
+			for(let project of this.toDoList.projects) {
+				for(let task of project.tasks) {
+					if(deletedTasks.includes(task.name)) {
+						project.deleteTask(task.id);
+					};
+				};
+			};
+			this.toDoList.deleteProject(this.currentProjectPage);
+			this.clearProjectTabs();
+			this.drawProjectTabs();
+			this.loadPage("Inbox");
+		})
 	}
 
 	/* Update Today's, This Week's and important tasks */
