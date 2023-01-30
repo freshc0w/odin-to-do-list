@@ -97,14 +97,14 @@ html {
 }
 
 .title-page-text {
-	--width: 10rem;
+	--width: 20rem;
 	--height: 2rem;
 	width: var(--width);
 	height: var(--height);
 	position: absolute;
 	top: 50%;
 	right: 50%;
-	margin-right: calc(-5rem - 32.5px);
+	margin-right: calc(-10rem - 32.5px);
 	margin-top: -0.7rem;
 	font-size: 1.2rem;
 	font-weight: 800;
@@ -175,6 +175,7 @@ ul {
 	font-size: 1.1rem;
 	display: none;
 	max-width: 100px;
+	word-wrap: break-word;
 }
 li {
 	list-style: none;
