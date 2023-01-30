@@ -23,13 +23,13 @@ class TaskUI {
 		// Check if task has already been checked off before.
 		if (this.task.status) {
 			statusCheck.checked = true;
-			taskContainer.style.opacity = "40%";
+			taskContainer.style.opacity = "35%";
 		}
 
 		statusCheck.addEventListener("change", (event) => {
 			if (event.target.checked) {
 				this.task.status = true;
-				taskContainer.style.opacity = "40%";
+				taskContainer.style.opacity = "35%";
 				// taskContainer.style.transform = 'scale(0.985)';
 			} else {
 				this.task.status = false;
