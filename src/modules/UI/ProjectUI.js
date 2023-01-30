@@ -72,6 +72,9 @@ class TaskUI {
 		const edit = this.renderInfo("div", "taskEdit");
 		const editIcon = this.renderInfo("i", "material-icons", "edit");
 		edit.appendChild(editIcon);
+		editIcon.addEventListener("click", () => {
+			this.editDetailsPopUp(this.task);
+		});
 
 		const taskDel = this.renderInfo("div", "taskDel");
 		const delIcon = this.renderInfo("i", "material-icons", "delete");
@@ -98,15 +101,15 @@ class TaskUI {
 	drawDetailsPopUp(task) {
 		this.addPopUp();
 		this.drawDetails(task);
-		
+
 		this.addCloseFormBtn();
-	};
+	}
 	drawDetails(task) {
-		const taskName = document.createElement('p');
-		const taskDescription = document.createElement('p');
-		const taskDueDate = document.createElement('p');
-		const taskPriority = document.createElement('p');
-		const dateFormat = format(new Date(task.dueDateFormatted), 'dd/MM/yyyy')
+		const taskName = document.createElement("p");
+		const taskDescription = document.createElement("p");
+		const taskDueDate = document.createElement("p");
+		const taskPriority = document.createElement("p");
+		const dateFormat = format(new Date(task.dueDateFormatted), "dd/MM/yyyy");
 
 		taskName.textContent = `Task Name: "${task.name}"`;
 		taskDescription.textContent = `Task Details: "${task.description}"`;
@@ -115,35 +118,73 @@ class TaskUI {
 
 		taskPriority.style.textTransform = "capitalize";
 		taskName.style.fontWeight = "900";
-		
-		for(let info of [taskName, taskDescription, taskDueDate, taskPriority]) {
-			info.classList.add('taskDetails');
-			document.querySelector('.form-container').appendChild(info);
+
+		for (let info of [taskName, taskDescription, taskDueDate, taskPriority]) {
+			info.classList.add("taskDetails");
+			document.querySelector(".form-container").appendChild(info);
 		}
 	}
 	//Edit Btn Functionality
-	editDetailsPopUp() {
-		this.addPopUp()
-		this.drawDetails(task);
-		
+	editDetailsPopUp(task) {
+		this.addPopUp();
+		this.editDetails(task);
+		this.addEditDetailsBtn(task);
+
 		this.addCloseFormBtn();
+	}
+	editDetails(task) {
+		// Draw initial form that adds a task and replace all values with
+		// current task's info.
+		const currentForm = DrawForm();
+		currentForm.addTask();
+
+		document.getElementById("inputTaskTitle").defaultValue = task.name;
+		document.getElementById("inputTaskDetails").defaultValue = task.description;
+
+		const prioLevel = task.priority.substr(0, 3);
+		if (prioLevel === "med" || prioLevel === "low") {
+			document.getElementById(`${prioLevel}Prio`).checked = true;
+		} else {
+			document.getElementById("highPrio").checked = true;
+		}
+
+		document.getElementById("inputDueDate").value = task.dueDate
+			.split("/")
+			.reverse()
+			.join("-");
+	};
+	addEditDetailsBtn(task) {
+		// Change appendTask btn to edit task btn
+		const editDetails = document.querySelector('.appendTaskBtn');
+		editDetails.textContent = "Edit Task";
+
+		// Change current task's details to input's new values 
+		// when click event executes
+		editDetails.addEventListener("click", (event) => {
+			task.name = document.getElementById("inputTaskTitle").value;
+
+			document.querySelector('form').style.visibility = "hidden";
+			document.querySelector('.face-mask').style.visibility = "hidden";
+			event.preventDefault();
+		})
+
 	}
 	addPopUp() {
 		const currentForm = DrawForm();
 		currentForm.clear();
-		document.querySelector('form').style.visibility = "visible";
-		document.querySelector('.face-mask').style.visibility = "visible";
+		document.querySelector("form").style.visibility = "visible";
+		document.querySelector(".face-mask").style.visibility = "visible";
 	}
 	addCloseFormBtn() {
-		const closeFormBtn = document.createElement('img');
-        closeFormBtn.classList.add("closeFormBtn");
-        closeFormBtn.src = '../../../imgs/mac-close-btn.png';
-        closeFormBtn.alt = 'A button that closes the form.';
-        closeFormBtn.addEventListener("click", () => {
-            document.querySelector('form').style.visibility = "hidden";
-            document.querySelector('.face-mask').style.visibility = "hidden";
-        })
-		document.querySelector('.form-container').appendChild(closeFormBtn);
+		const closeFormBtn = document.createElement("img");
+		closeFormBtn.classList.add("closeFormBtn");
+		closeFormBtn.src = "../../../imgs/mac-close-btn.png";
+		closeFormBtn.alt = "A button that closes the form.";
+		closeFormBtn.addEventListener("click", () => {
+			document.querySelector("form").style.visibility = "hidden";
+			document.querySelector(".face-mask").style.visibility = "hidden";
+		});
+		document.querySelector(".form-container").appendChild(closeFormBtn);
 	}
 }
 
@@ -175,13 +216,13 @@ class ProjectUI {
 		addTaskBtn.classList.add("addTask");
 
 		// const addSymbolDiv = document.createElement("div");
-        // const addSymbol = document.createElement('i');
-        // addSymbol.classList.add("material-icons");
-        // addSymbol.textContent = "add_circle";
+		// const addSymbol = document.createElement('i');
+		// addSymbol.classList.add("material-icons");
+		// addSymbol.textContent = "add_circle";
 
-        // addSymbolDiv.appendChild(addSymbol);
+		// addSymbolDiv.appendChild(addSymbol);
 		// addTaskBtn.append(addSymbolDiv);
-		addTaskBtn.innerHTML = '<i class="material-icons">add_task</i>ADD TASK'
+		addTaskBtn.innerHTML = '<i class="material-icons">add_task</i>ADD TASK';
 
 		// addTaskBtn.textContent = "ADD";
 

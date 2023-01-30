@@ -168,7 +168,7 @@ export default class UI {
 
 				event.preventDefault();
 				this.currentProjectPage = newProjTitle.value;
-				this.loadPage(newProjTitle.value);
+				this.loadPage(newProjTitle.value), {once: true};
 			}
 		});
 	};

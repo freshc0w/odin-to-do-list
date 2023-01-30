@@ -56,6 +56,7 @@ const DrawForm = () => {
         return appendProjBtn;
     }
     
+
     const addTask = () => {
         const taskTitle = addInputText('Task Title: ', 'e.g. Learn React in ' +
         '20 days..', 'inputTaskTitle');
