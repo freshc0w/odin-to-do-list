@@ -646,6 +646,9 @@ textarea:not(:placeholder-shown) {
 	inset 0 0 5px var(--neon-green);
 	border: solid 0.25px var(--neon-blue);
 }
+#inputTaskTitle {
+	font-size: 2rem;
+}
 
 /* Radio Label styling */
 .prioOptions {
