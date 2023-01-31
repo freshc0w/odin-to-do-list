@@ -54,6 +54,7 @@ export default class TaskUI {
 		// icons
 		const edit = this.renderInfo("div", "taskEdit");
 		const editIcon = this.renderInfo("i", "material-icons", "edit");
+
 		// Add unique id identifer based on task id for bin icon
 		// for individual task edits.
 		edit.setAttribute("id", `editTask-${this.task.id}`);
