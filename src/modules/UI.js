@@ -248,21 +248,25 @@ export default class UI {
 
 	/* Remove tasks Btn functionalities */
 	removeTaskFunction(projectName, taskId) {
-		// Add delete task functions for each existing taskUI.
+		
+		// Add unique delete task functions for each 
+		// existing taskUI based on task id.
 		const delImg = document.getElementById(`delTask-${taskId}`);
 		let taskName = this.toDoList
 			.getProject(projectName)
 			.getTaskNameById(taskId);
+
 		delImg.addEventListener("click", () => {
-			// Check all projects for the specified task and delete them when
-			// event is executed.
-			for (let project of this.toDoList.projects) {
-				for (let task of project.tasks) {
-					if (task.name === taskName) {
-						project.deleteTask(task.id);
-					}
-				}
-			}
+
+			// Deletion of a task will remove the same task in other projects.
+			this.toDoList.projects.forEach((project) =>
+				project.tasks.find((task) =>
+					task.name === taskName 
+					? project.deleteTask(task.id) 
+					: ""
+				)
+			);
+
 			this.loadPage(projectName);
 		});
 	}
