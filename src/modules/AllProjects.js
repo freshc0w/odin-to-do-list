@@ -41,25 +41,14 @@ export default class AllProjects {
 		this.projects.splice(this.projects.indexOf(projectToDelete), 1);
 	}
 	getAllTasksToday() {
-		// Iterate thru each project and use getTasksToday() on each.
-		const tasksToday = [];
-		for (let tasks of this.getProject("Inbox").getTasksToday()) {
-			tasksToday.push(tasks);
-		}
-		return tasksToday;
-	}
-	getAllTasksThisWeek() {
-		const tasksThisWeek = [];
-		for (let tasks of this.getProject("Inbox").getTasksThisWeek()) {
-			tasksThisWeek.push(tasks);
-		}
-		return tasksThisWeek;
-	}
+      return this.getProject("Inbox").getTasksToday();
+    }
+    
+	getAllTasksThisWeek = () => {
+        return this.getProject("Inbox").getTasksThisWeek();
+    };
+    
 	getAllImportantTasks() {
-		const importantTasks = [];
-		for (let tasks of this.getProject("Inbox").getImportantTasks()) {
-			importantTasks.push(tasks);
-		}
-		return importantTasks;
+		return this.getProject("Inbox").getImportantTasks();
 	}
 }
