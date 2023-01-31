@@ -1,30 +1,46 @@
 # odin-to-do-list
 
-Project is a To Do List that keeps track of all required tasks for the specific user.
+To Do List App
+This is an intermediate level project showcasing HTML, CSS, and JavaScript skills. It's an interactive app with features to add and delete projects and tasks. Additionally, users may maximize the window as required.
 
-Aims of this project is to showcase all relevant foundational Javascript skills learnt
-throughout The Odin Project so far..
+Live Preview:
+
+Requirements
+Basic knowledge of HTML and CSS
+Understanding of the DOM
+Excellent knowledge of JavaScript
+
+Features
+Add and delete projects
+Add and delete tasks
+Hoverable slide-in-out side bar with a drop down menu of each tab.
+Synchronise tasks between projects
+Constant update of today's, this week's or important tasks are available.
+Ability to maximize the window
+
+More info:
+All tasks needs to be deleted for the specified project before the project can be deleted.
+To delete a project, click on the red cross button on the top right corner of the screen.
+To toggle screen size, click on the green expand button on the top right corner.
+
+Languages used
+HTML
+CSS
+JavaScript
+
+HTML
+The HTML for this project is fairly straightforward. It involves the use of basic semantic markup and a form for submission of information. It also requires the ability to understand basic DOM manipulation and the ability to write code related to the form.
+
+CSS
+The CSS for this project will require knowledge of basic properties for elements, such as color and font size. Additionally, knowledge of layout and responsive design is necessary in order to create an attractive and responsive design.
+
+JavaScript
+The JavaScript for this project will involve the use of basic concepts such as functions, objects, and arrays. Additionally, knowledge of working with event listeners and DOM manipulation are necessary to create a complete and functioning application. This will also involve reading data from forms and manipulating the DOM accordingly.
 
 
-Useful Links:
-https://offeo.com/learn/neon-color-pallete -> Choose Space Fortitude?
-https://designshack.net/articles/graphics/neon-colors-web-design/ -> Using lime, neon greens on dark backgrounds.
-https://www.color-meanings.com/shades-of-gray-color-names-html-hex-rgb-codes/ -> Shades of gray. Great for layering.
+Resources
+W3Schools - Comprehensive resource for learning HTML, CSS and JavaScript.
 
+MDN Web Docs - Major source of documentation for web APIs, HTML and CSS.
 
-
-Brainstorm:
-Gray background.
-A slightly smaller container that covers the gray-bg.
-On top there will be a navbar that has the logo and title of the To Do List on the left and contact info on the right. 
-
-Dashboard on the side that outlines:
-    - Home
-        - Maybe can add a Today and This Week kinda functionality beneath this.
-    - Projects
-        - Could further extend by sorting by priority.
-    - Notes 
-
-For each project, it will be added to sideBar.
-So i.e. the Today and This Week will be added beneath the Inbox tab and any other project will be added beneath the projects tab.
-Also need to create a hover effect that when main tab is hovered, the side bars will be visible.
+GitHub Flavored Markdown - A comprehensive guide to GitHub flavored markdown syntax.
