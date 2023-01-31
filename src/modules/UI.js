@@ -11,7 +11,7 @@ export default class UI {
 		// Initialise first homePage to be on the "Inbox" page.
 		this.currentProjectPage = "Inbox";
 		this.currentForm = DrawForm();
-		this.screen = false;
+		this.screen = false; // For fullScreen toggle
 	}
 	get currentProjectPage() {
 		return this._currentProjectPage;
