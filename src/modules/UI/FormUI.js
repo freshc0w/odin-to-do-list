@@ -1,4 +1,4 @@
-export {DrawForm}
+export { DrawForm }
 import format from "date-fns/format";
 
 const DrawForm = () => {
@@ -124,37 +124,40 @@ const DrawForm = () => {
         dateLabel.textContent = 'Due Date:';
 
         const inputDueDate = document.createElement('input');
-        inputDueDate.setAttribute('type', "date");
-        inputDueDate.setAttribute('id', 'inputDueDate');
-        inputDueDate.setAttribute('name', 'trip-start');
+        inputDueDate.type = 'date';
+        inputDueDate.id = 'inputDueDate';
+        inputDueDate.name = 'trip-start';
 
-        dueDate.appendChild(dateLabel);
-        dueDate.appendChild(inputDueDate);
+        dueDate.append(dateLabel, inputDueDate);
         return dueDate;
+
     }
 
     const addPriorityOptions = () => {
-        // A wrapper is going to wrap the label and a container consisting of
-        // the radio options. 
+        // A wrapper is going to wrap the label and a container consisting of the radio options.  
         const inputPrioWrapper = document.createElement('div');
-        const label = document.createElement('div');
+        inputPrioWrapper.classList.add('prioWrapper');
+        
+        const labelDiv = document.createElement('div');
+        labelDiv.classList.add('prioLabel');
+        labelDiv.textContent = "How important is this task?";
+        
         const prioOptionsContainer = document.createElement('div');
-        inputPrioWrapper.classList.add('prioWrapper')
         prioOptionsContainer.classList.add('prioOptions');
-
-        label.classList.add('prioLabel');
-        label.textContent = "How important is this task?";
+        
         const lowPrio = createRadioInputAndLabel('lowPrio', 'low');
         const medPrio = createRadioInputAndLabel('medPrio', 'medium');
         const highPrio = createRadioInputAndLabel('highPrio', 'high');
-
+        
         for(let prioOptions of [lowPrio, medPrio, highPrio]) {
-            prioOptionsContainer.appendChild(prioOptions);
-        };
-
-        inputPrioWrapper.appendChild(label);
+          prioOptionsContainer.appendChild(prioOptions);
+        }
+        
+        inputPrioWrapper.appendChild(labelDiv);
         inputPrioWrapper.appendChild(prioOptionsContainer);
+        
         return inputPrioWrapper;
+        
 
         function createRadioInputAndLabel(id, value) {
             const radioOptionContainer = document.createElement('div');
@@ -210,24 +213,23 @@ const DrawForm = () => {
         const input = document.createElement('div');
 
         const inputLabel = document.createElement('label');
-        inputLabel.setAttribute('for', id);
+        inputLabel.htmlFor = id;
         inputLabel.textContent = labelName;
 
         const inputText = document.createElement('input');
         const attributes = {
-            'type': 'text',
-            'id': id,
-            'name': id,
-            'placeholder': placeholder
+            type: 'text',
+            id,
+            name: id,
+            placeholder
         };
-        for(let attrIdx in attributes) {
-            inputText.setAttribute(attrIdx, attributes[attrIdx])
-        }
+        Object.entries(attributes).forEach(([attr, value]) => {
+            inputText.setAttribute(attr, value)
+        });
 
         inputText.required = required; 
 
-        input.appendChild(inputLabel);
-        input.appendChild(inputText);
+        input.append(inputLabel, inputText);
         return input;
     }
     
