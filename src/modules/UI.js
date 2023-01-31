@@ -1,9 +1,8 @@
 import format from "date-fns/format";
 import Task from "./task";
-import Project from "./project";
 import AllProjects from "./AllProjects";
-import { TaskUI, ProjectUI } from "./UI/ProjectUI";
-import { DrawForm } from "./UI/form";
+import { ProjectUI } from "./UI/ProjectUI";
+import { DrawForm } from "./UI/FormUI";
 
 export default class UI {
 	constructor() {
@@ -28,50 +27,52 @@ export default class UI {
 	}
 
 	toggleScreen() {
-		const main = document.querySelector('.main-container');
-		const sideBar = document.getElementById('sideBar');
-		const titleText = document.querySelector('.title-page-text')
-		if(!this.screen) {
-			mainLarge();
+		const main = document.querySelector(".main-container");
+		const sideBar = document.getElementById("sideBar");
+		const titleText = document.querySelector(".title-page-text");
+		if (!this.screen) {
+			toggleSize(true);
 			this.removeSlideInOut();
 			titleText.style.marginRight = "calc(-10rem - 150px)";
 			sideBarLarge();
 			this.screen = true;
 		} else {
-			mainSmall();
+			toggleSize(false);
 			this.addSlideInOut();
 			titleText.style.marginRight = "calc(-10rem - 32.5px)";
 			sideBarSmall();
 			this.screen = false;
-		};
-		function mainLarge() {
-			main.style.height = "100vh";
-			main.style.width = "100vw";
-			main.style.transform = "translateX(20.5%)";
-			main.style.backgroundColor = "rgba(25, 25, 25, 0.95)";
-			main.style.backdropFilter = "blur(3px)";
-		}
-		function mainSmall() {
-			main.style.height = "max(35rem, 82.5%)";
-			main.style.width = "max(700px, 90%)";
-			main.style.transform = "none";
-			main.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
 		}
 		function sideBarLarge() {
 			sideBar.style.width = "300px";
 			sideBar.style.paddingLeft = "3rem";
 			sideBar.style.boxShadow = "0 12px 8px rgba(255, 255, 255, 0.7)";
-			document.querySelectorAll('a').forEach(link => {
+			document.querySelectorAll("a").forEach((link) => {
 				link.style.transform = "scale(1.2)";
-			})
+			});
 		}
 		function sideBarSmall() {
 			sideBar.style.width = "65px";
 			sideBar.style.paddingLeft = "0";
 			sideBar.style.boxShadow = "none";
-			document.querySelectorAll('a').forEach(link => {
+			document.querySelectorAll("a").forEach((link) => {
 				link.style.transform = "none";
-			})
+			});
+		}
+		// New Function here
+		function toggleSize(size) {
+			if (size) {
+				main.style.height = "100vh";
+				main.style.width = "100vw";
+				main.style.transform = "translateX(20.5%)";
+				main.style.backgroundColor = "rgba(25, 25, 25, 0.95)";
+				main.style.backdropFilter = "blur(3px)";
+			} else {
+				main.style.height = "max(35rem, 82.5%)";
+				main.style.width = "max(700px, 90%)";
+				main.style.transform = "none";
+				main.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
+			}
 		}
 	}
 
@@ -85,15 +86,17 @@ export default class UI {
 
 		this.drawPage(projectName);
 
-		this.addProjFunction();
-		this.addClearAllTasksFunction();
-
 		// Reinitialise add task function for new page's btn.
 		this.addTaskFunction(projectName);
 
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelAndEditFunc(projectName);
+		
+		// Assign functions for the project.
+		this.addProjFunction();
+		this.addClearAllTasksFunction();
 	}
+
 
 	drawPage(projectName) {
 		const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
@@ -104,8 +107,8 @@ export default class UI {
 		titleText.textContent = projectName;
 
 		// Because of date formatting, taskDate style needs to be reInitialised.
-		const allDates = document.querySelectorAll('.taskDate');
-		allDates.forEach(date => date.style.fontSize = '1.3rem');
+		const allDates = document.querySelectorAll(".taskDate");
+		allDates.forEach((date) => (date.style.fontSize = "1.3rem"));
 	}
 
 	/* Add task Btn functionalities */
@@ -163,8 +166,10 @@ export default class UI {
 	submitTaskFunction(btn, projectName) {
 		btn.addEventListener("click", (event) => {
 			if (document.querySelector("form").checkValidity()) {
+				// Create variable to store object of task information
 				const taskInfo = this.currentForm.collectTaskInfo();
-				// If task name has already been used, send custom msg error.
+
+				// Check if task name has already been used
 				for (let project of this.toDoList.projects) {
 					for (let task of project.tasks) {
 						if (task.name === taskInfo["title"]) {
@@ -176,6 +181,7 @@ export default class UI {
 					}
 				}
 
+				// If name has not been used add task
 				this.addNewTask(projectName, taskInfo);
 
 				document.querySelector("form").style.visibility = "hidden";
@@ -330,7 +336,7 @@ export default class UI {
 				this.loadPage(this.currentProjectPage);
 				document.querySelector("form").style.visibility = "hidden";
 				document.querySelector(".face-mask").style.visibility = "hidden";
-				this.loadPage(this.currentProjectPage)
+				this.loadPage(this.currentProjectPage);
 				event.preventDefault();
 			});
 		};
@@ -408,8 +414,8 @@ export default class UI {
 		// Method clears all tasks for today's, this week's and important projects.
 		const setProj = ["Today", "This Week", "Important"];
 		this.toDoList.projects
-		.filter((project) => setProj.includes(project.name))
-		.map((proj) => (proj.tasks = []));
+			.filter((project) => setProj.includes(project.name))
+			.map((proj) => (proj.tasks = []));
 	}
 
 	/* SideBar functionalities */
@@ -485,7 +491,7 @@ export default class UI {
 	}
 	slideOut() {
 		sideBar.style.width = "200px";
-	};
+	}
 	slideIn() {
 		sideBar.style.width = "65px";
 	}
