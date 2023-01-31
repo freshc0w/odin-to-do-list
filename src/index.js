@@ -34,7 +34,8 @@ function loadHomePage() {
 	};
 	const task2 = {
 		title: "Revise Intermediate Git Control",
-		details: "Create sub-branches. Merge with main branch. Execute commands: add, commit, push. Review conflicts & solutions. Unlock advanced features",
+		details:
+			"Create sub-branches. Merge with main branch. Execute commands: add, commit, push. Review conflicts & solutions. Unlock advanced features",
 		priority: "high",
 		date: dateInTwoDays,
 	};
@@ -46,7 +47,8 @@ function loadHomePage() {
 	};
 	const task4 = {
 		title: "Learn about MongoDB and revise SQL",
-		details: "Explain MongoDB Basics, explore SQL fundamentals, revise and improve knowledge.",
+		details:
+			"Explain MongoDB Basics, explore SQL fundamentals, revise and improve knowledge.",
 		priority: "high",
 		date: dateInFourDays,
 	};
@@ -58,13 +60,15 @@ function loadHomePage() {
 	};
 	const task6 = {
 		title: "Start learning node.js",
-		details: "Decide language. Install platform. Choose tutorial. Read docs and guides. Code & practice. Troubleshoot & debug. Expand knowledge",
+		details:
+			"Decide language. Install platform. Choose tutorial. Read docs and guides. Code & practice. Troubleshoot & debug. Expand knowledge",
 		priority: "high",
 		date: dateInTenDays,
 	};
 	const task7 = {
 		title: "Prepare dinner for family",
-		details: "Slice vegetables, Sauté chicken, simmer sauce, grill corn and serve dinner by 7pm.",
+		details:
+			"Slice vegetables, Sauté chicken, simmer sauce, grill corn and serve dinner by 7pm.",
 		priority: "medium",
 		date: dateToday,
 	};
