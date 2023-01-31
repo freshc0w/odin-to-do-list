@@ -30,24 +30,42 @@ export default class UI {
 	toggleScreen() {
 		const main = document.querySelector('.main-container');
 		const sideBar = document.getElementById('sideBar');
+		const titleText = document.querySelector('.title-page-text')
 		if(!this.screen) {
-			main.style.height = "100vh";
-			main.style.width = "100vw";
-			main.style.transform = "translateX(20%)";
-			main.style.backgroundColor = "rgba(0, 0, 0, 0.85)";
+			mainLarge();
 			this.removeSlideInOut();
-			sideBar.style.width = "300px";
-			sideBar.style.paddingLeft = "20px";
-			sideBar.style.boxShadow = "0 12px 16px rgba(255, 255, 255, 0.7)";
+			titleText.style.marginRight = "calc(-10rem - 150px)";
+			sideBarLarge();
 			this.screen = true;
 		} else {
+			mainSmall();
+			this.addSlideInOut();
+			titleText.style.marginRight = "calc(-10rem - 32.5px)";
+			sideBarSmall();
+			this.screen = false;
+		};
+		function mainLarge() {
+			main.style.height = "100vh";
+			main.style.width = "100vw";
+			main.style.transform = "translateX(20.5%)";
+			main.style.backgroundColor = "#121212";
+		}
+		function mainSmall() {
 			main.style.height = "max(35rem, 82.5%)";
 			main.style.width = "max(700px, 90%)";
 			main.style.transform = "none";
 			main.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
-			this.addSlideInOut();
-			this.screen = false;
-		};
+		}
+		function sideBarLarge() {
+			sideBar.style.width = "300px";
+			sideBar.style.paddingLeft = "20px";
+			sideBar.style.boxShadow = "0 12px 8px rgba(255, 255, 255, 0.7)";
+		}
+		function sideBarSmall() {
+			sideBar.style.width = "65px";
+			sideBar.style.paddingLeft = "0";
+			sideBar.style.boxShadow = "none";
+		}
 	}
 
 	loadPage(projectName) {
