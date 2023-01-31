@@ -48,7 +48,8 @@ export default class UI {
 			main.style.height = "100vh";
 			main.style.width = "100vw";
 			main.style.transform = "translateX(20.5%)";
-			main.style.backgroundColor = "#121212";
+			main.style.backgroundColor = "rgba(25, 25, 25, 0.95)";
+			main.style.backdropFilter = "blur(3px)";
 		}
 		function mainSmall() {
 			main.style.height = "max(35rem, 82.5%)";
@@ -58,13 +59,19 @@ export default class UI {
 		}
 		function sideBarLarge() {
 			sideBar.style.width = "300px";
-			sideBar.style.paddingLeft = "20px";
+			sideBar.style.paddingLeft = "3rem";
 			sideBar.style.boxShadow = "0 12px 8px rgba(255, 255, 255, 0.7)";
+			document.querySelectorAll('a').forEach(link => {
+				link.style.transform = "scale(1.2)";
+			})
 		}
 		function sideBarSmall() {
 			sideBar.style.width = "65px";
 			sideBar.style.paddingLeft = "0";
 			sideBar.style.boxShadow = "none";
+			document.querySelectorAll('a').forEach(link => {
+				link.style.transform = "none";
+			})
 		}
 	}
 
