@@ -493,6 +493,7 @@ export default class UI {
 	loadSwitchPageEvents() {
 		this.addSwitchPageFunc("span#inbox");
 		this.addSwitchPageFunc("span#important");
+		this.switchToNotesPageFunc("notes");
 		this.addSwitchPageFunc("li");
 	}
 	addSwitchPageFunc(tabQuery) {
@@ -504,6 +505,12 @@ export default class UI {
 				this.loadPage(this.currentProjectPage);
 			});
 		});
+	}
+	switchToNotesPageFunc(tabQuery) {
+		const notesBar = document.getElementById(tabQuery)
+		notesBar.addEventListener("click", () => {
+			document.querySelector("#main-content").innerHTML = '';
+		})
 	}
 
 	/* Sync statusCheck functionality */
