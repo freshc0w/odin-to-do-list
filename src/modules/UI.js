@@ -285,8 +285,9 @@ export default class UI {
 		editIcon.addEventListener("click", () => {
 			this.currentForm.clear();
 			this.currentForm.addTask();
+
 			document.querySelector("form").style.visibility = "visible";
-			document.querySelector(".face-mask").style.visibility = "hidden";
+			document.querySelector(".face-mask").style.visibility = "visible";
 
 			// Find specified task based on given id to editIcon.
 			let selectedTask, selectedTaskName;
@@ -301,9 +302,10 @@ export default class UI {
 			}
 
 			collectEditDetails(selectedTask);
+
 			// Check all projects that has the specified task so the edits
 			// are applied throughout rather than one individual project.
-			addEditDetailsBtn(selectedTask);
+			addEditDetailsBtn();
 		});
 
 		const collectEditDetails = (task) => {
@@ -311,11 +313,15 @@ export default class UI {
 			document.getElementById("inputTaskDetails").defaultValue =
 				task.description;
 
-			const prioLevel = task.priority.substr(0, 3);
-			if (prioLevel === "med" || prioLevel === "low") {
-				document.getElementById(`${prioLevel}Prio`).checked = true;
-			} else {
-				document.getElementById("highPrio").checked = true;
+			let prioLevel = task.priority.substr(0, 3);
+			switch (prioLevel) {
+				case "med":
+				case "low":
+					document.getElementById(`${prioLevel}Prio`).checked = true;
+					break;
+				default:
+					document.getElementById("highPrio").checked = true;
+					break;
 			}
 
 			document.getElementById("inputDueDate").value = task.dueDate
@@ -323,7 +329,8 @@ export default class UI {
 				.reverse()
 				.join("-");
 		};
-		const addEditDetailsBtn = (task) => {
+
+		const addEditDetailsBtn = () => {
 			// Change appendTask btn to edit task btn
 			const editDetails = document.querySelector(".appendTaskBtn");
 			editDetails.textContent = "Edit Task";
@@ -332,13 +339,15 @@ export default class UI {
 			// when click event executes
 			editDetails.addEventListener("click", (event) => {
 				changeDetailsToAll(taskName);
-				this.loadPage(this.currentProjectPage);
+
 				document.querySelector("form").style.visibility = "hidden";
 				document.querySelector(".face-mask").style.visibility = "hidden";
+
 				this.loadPage(this.currentProjectPage);
 				event.preventDefault();
 			});
 		};
+
 		const changeDetails = (task) => {
 			task.name = document.getElementById("inputTaskTitle").value;
 			task.description = document.getElementById("inputTaskDetails").value;
@@ -348,16 +357,16 @@ export default class UI {
 			const dateFormat = format(new Date(dueDate.value), "dd/MM/yyyy");
 			task.dueDate = dateFormat;
 		};
+
 		const changeDetailsToAll = (taskName) => {
 			// Find the specified task in all projects.
-			for (let proj of currentToDoList.projects) {
-				for (let task of proj.tasks) {
+			currentToDoList.projects.forEach((proj) => {
+				proj.tasks.forEach((task) => {
 					if (task.name === taskName) {
-						console.log(task.name);
 						changeDetails(task);
 					}
-				}
-			}
+				});
+			});
 		};
 	}
 
@@ -370,22 +379,22 @@ export default class UI {
 
 			// Record deleted task names.
 			const deletedTasks = currentProject.tasks.map(({ name }) => name);
-	
+
 			// Delete all tasks from current project.
 			currentProject.tasks.forEach(({ id }) => currentProject.deleteTask(id));
-		
+
 			// Sync deleted tasks to other projects.
-			this.toDoList.projects.forEach(project =>
-				project.tasks.forEach(({ name, id }) => 
-					deletedTasks.includes(name) && project.deleteTask(id)
+			this.toDoList.projects.forEach((project) =>
+				project.tasks.forEach(
+					({ name, id }) =>
+						deletedTasks.includes(name) && project.deleteTask(id)
 				)
 			);
 
-			// Reload current project page.  
+			// Reload current project page.
 			this.loadPage(this.currentProjectPage);
 		});
 	}
-	
 
 	/* Update today's, this week's and important tasks based on existing
 	or addition of new tasks. */
