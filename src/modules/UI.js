@@ -387,38 +387,39 @@ export default class UI {
 		});
 	}
 
-	/* Update Today's, This Week's and important tasks */
+	/* Update today's, this week's and important tasks based on existing
+	or addition of new tasks. */
 	updateAllTasks() {
-		const allTasksToday = this.toDoList.getAllTasksToday();
-		const allTasksThisWeek = this.toDoList.getAllTasksThisWeek();
-		const allImportantTasks = this.toDoList.getAllImportantTasks();
-
-		const allSetTasks = {
-			Today: allTasksToday,
-			"This Week": allTasksThisWeek,
-			Important: allImportantTasks,
+		const allTasksBySet = {
+			Today: this.toDoList.getAllTasksToday(),
+			"This Week": this.toDoList.getAllTasksThisWeek(),
+			Important: this.toDoList.getAllImportantTasks(),
 		};
 
+		// Clear all set tasks before redrawing.
 		this.clearTaskForSetProj();
-		for (let projectName in allSetTasks) {
-			for (let task of allSetTasks[projectName]) {
-				// Prevent adding duplicate tasks to project.
-				if (!this.toDoList.getProject(projectName).tasks.includes(task)) {
-					this.toDoList.getProject(projectName).addTask(task);
-				}
+
+		for (let projectName in allTasksBySet) {
+			const project = this.toDoList.getProject(projectName);
+
+			for (let task of allTasksBySet[projectName]) {
+				// Skip if task is already in the project tasks.
+				if (project.tasks.includes(task)) continue;
+
+				project.addTask(task);
 			}
 		}
 	}
+
 	clearTaskForSetProj() {
-		// Method clears all tasks for today's, this week's and important projects.
+		// Clears all tasks for today's, this week's and important projects.
 		const setProj = ["Today", "This Week", "Important"];
 		this.toDoList.projects
 			.filter((project) => setProj.includes(project.name))
-			.map((proj) => (proj.tasks = []));
+			.forEach((proj) => (proj.tasks.length = 0));
 	}
 
 	/* SideBar functionalities */
-
 	loadSideBar() {
 		this.addSlideInOut();
 		this.drawInboxTabs();
@@ -438,20 +439,20 @@ export default class UI {
 		this.addDropDownMenu(inboxBar, inboxTabs);
 	}
 
-	// Optimize the following code: 
+	// Optimize the following code:
 	drawProjectTabs() {
 		// Find all other projects.
 		const inboxProjects = ["Inbox", "Today", "This Week", "Important"];
 		const customProjects = this.toDoList.projects.filter(
-			project => !inboxProjects.includes(project.name)
+			(project) => !inboxProjects.includes(project.name)
 		);
-	
+
 		const projectTabs = document.createElement("ul");
 		projectTabs.classList.add("customProj");
-	
+
 		// Add tabs to projectTabs
-		customProjects.forEach(project => this.addTab(projectTabs, project.name));
-	
+		customProjects.forEach((project) => this.addTab(projectTabs, project.name));
+
 		// Append the projectTabs to the projectBar and add a dropdown menu
 		const projectBar = document.querySelector(".project-bar");
 		projectBar.appendChild(projectTabs);
@@ -472,7 +473,7 @@ export default class UI {
 			tabs.style.display = "none";
 		});
 	}
-	
+
 	addTab(menuTab, projectName) {
 		const tab = document.createElement("li");
 
@@ -498,9 +499,8 @@ export default class UI {
 	}
 
 	loadSwitchPageEvents() {
-
 		// Add click event listener and Load the page based on the
-		// current title 
+		// current title
 		const tabs = ["span#inbox", "span#important", "li"];
 
 		tabs.forEach((tab) => this.addSwitchPageFunc(tab));
