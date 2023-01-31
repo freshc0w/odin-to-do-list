@@ -29,20 +29,25 @@ export default class UI {
 
 	toggleScreen() {
 		const main = document.querySelector('.main-container');
-		const faceMask = document.querySelector('.face-mask');
+		const sideBar = document.getElementById('sideBar');
 		if(!this.screen) {
 			main.style.height = "100vh";
 			main.style.width = "100vw";
 			main.style.transform = "translateX(20%)";
 			main.style.backgroundColor = "rgba(0, 0, 0, 0.85)";
+			this.removeSlideInOut();
+			sideBar.style.width = "300px";
+			sideBar.style.paddingLeft = "20px";
+			sideBar.style.boxShadow = "0 12px 16px rgba(255, 255, 255, 0.7)";
 			this.screen = true;
 		} else {
 			main.style.height = "max(35rem, 82.5%)";
 			main.style.width = "max(700px, 90%)";
 			main.style.transform = "none";
 			main.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
+			this.addSlideInOut();
 			this.screen = false;
-		}
+		};
 	}
 
 	loadPage(projectName) {
@@ -445,12 +450,19 @@ export default class UI {
 
 	addSlideInOut() {
 		const sideBar = document.getElementById("sideBar");
-		sideBar.addEventListener("mouseover", () => {
-			sideBar.style.width = "200px";
-		});
-		sideBar.addEventListener("mouseout", () => {
-			sideBar.style.width = "65px";
-		});
+		sideBar.addEventListener("mouseover", this.slideOut);
+		sideBar.addEventListener("mouseout", this.slideIn);
+	}
+	removeSlideInOut() {
+		const sideBar = document.getElementById("sideBar");
+		sideBar.removeEventListener("mouseover", this.slideOut);
+		sideBar.removeEventListener("mouseout", this.slideIn);
+	}
+	slideOut() {
+		sideBar.style.width = "200px";
+	};
+	slideIn() {
+		sideBar.style.width = "65px";
 	}
 
 	loadSwitchPageEvents() {
