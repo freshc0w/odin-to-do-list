@@ -169,24 +169,31 @@ export default class UI {
 				const taskInfo = this.currentForm.collectTaskInfo();
 
 				// Check if task name has already been used
+				let taskNameAlreadyUsed = false;
 				for (let project of this.toDoList.projects) {
 					for (let task of project.tasks) {
 						if (task.name === taskInfo["title"]) {
+							taskNameAlreadyUsed = true;
 							document
 								.getElementById("inputTaskTitle")
-								.setCustomValidity("Name has already been used!");
-							return;
+								.setCustomValidity(
+									"Name has already been used!" +
+										"\n Please close and reopen the window!"
+								);
+							break;
 						}
 					}
 				}
-
 				// If name has not been used add task
-				this.addNewTask(projectName, taskInfo);
+				if (!taskNameAlreadyUsed) {
+					this.addNewTask(projectName, taskInfo);
 
-				document.querySelector("form").style.visibility = "hidden";
-				document.querySelector(".face-mask").style.visibility = "hidden";
-				this.loadPage(projectName);
-				event.preventDefault();
+					document.querySelector("form").style.visibility = "hidden";
+					document.querySelector(".face-mask").style.visibility = "hidden";
+
+					this.loadPage(projectName);
+					event.preventDefault();
+				}
 			}
 		});
 	}
@@ -211,6 +218,7 @@ export default class UI {
 
 		submitProjBtn.addEventListener("click", (event) => {
 			if (document.querySelector("form").checkValidity()) {
+				// Add project and submit
 				this.toDoList.addProject(newProjTitle.value);
 
 				document.querySelector("form").style.visibility = "hidden";
@@ -232,6 +240,8 @@ export default class UI {
 		const mandatoryProj = ["Inbox", "Today", "This Week", "Important"];
 		deleteBtn.addEventListener("click", () => {
 			if (
+				// If there are tasks present in current project page,
+				// restrict deletion of project.
 				this.toDoList.getProject(this.currentProjectPage).tasks.length > 0 &&
 				mandatoryProj.includes(this.currentProjectPage)
 			) {
@@ -248,8 +258,7 @@ export default class UI {
 
 	/* Remove tasks Btn functionalities */
 	removeTaskFunction(projectName, taskId) {
-		
-		// Add unique delete task functions for each 
+		// Add unique delete task functions for each
 		// existing taskUI based on task id.
 		const delImg = document.getElementById(`delTask-${taskId}`);
 		let taskName = this.toDoList
@@ -257,13 +266,10 @@ export default class UI {
 			.getTaskNameById(taskId);
 
 		delImg.addEventListener("click", () => {
-
 			// Deletion of a task will remove the same task in other projects.
 			this.toDoList.projects.forEach((project) =>
 				project.tasks.find((task) =>
-					task.name === taskName 
-					? project.deleteTask(task.id) 
-					: ""
+					task.name === taskName ? project.deleteTask(task.id) : ""
 				)
 			);
 
