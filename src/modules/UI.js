@@ -331,7 +331,7 @@ export default class UI {
 			// Change current task's details to input's new values
 			// when click event executes
 			editDetails.addEventListener("click", (event) => {
-				changeDetailsToAll(task);
+				changeDetailsToAll(taskName);
 				this.loadPage(this.currentProjectPage);
 				document.querySelector("form").style.visibility = "hidden";
 				document.querySelector(".face-mask").style.visibility = "hidden";
@@ -348,7 +348,7 @@ export default class UI {
 			const dateFormat = format(new Date(dueDate.value), "dd/MM/yyyy");
 			task.dueDate = dateFormat;
 		};
-		const changeDetailsToAll = (specifiedTask) => {
+		const changeDetailsToAll = (taskName) => {
 			// Find the specified task in all projects.
 			for (let proj of currentToDoList.projects) {
 				for (let task of proj.tasks) {
@@ -367,25 +367,25 @@ export default class UI {
 		const clearAllTaskBtn = document.querySelector(".uniqueBtn.clear");
 		clearAllTaskBtn.addEventListener("click", () => {
 			const currentProject = this.toDoList.getProject(this.currentProjectPage);
-			let deletedTasks = [];
 
-			// Remove all tasks from current project.
-			for (let task of currentProject.tasks) {
-				currentProject.deleteTask(task.id);
-				deletedTasks.push(task.name);
-			}
+			// Record deleted task names.
+			const deletedTasks = currentProject.tasks.map(({ name }) => name);
+	
+			// Delete all tasks from current project.
+			currentProject.tasks.forEach(({ id }) => currentProject.deleteTask(id));
+		
+			// Sync deleted tasks to other projects.
+			this.toDoList.projects.forEach(project =>
+				project.tasks.forEach(({ name, id }) => 
+					deletedTasks.includes(name) && project.deleteTask(id)
+				)
+			);
 
-			// Sync tasks deleted to other projects.
-			for (let project of this.toDoList.projects) {
-				for (let task of project.tasks) {
-					if (deletedTasks.includes(task.name)) {
-						project.deleteTask(task.id);
-					}
-				}
-			}
+			// Reload current project page.  
 			this.loadPage(this.currentProjectPage);
 		});
 	}
+	
 
 	/* Update today's, this week's and important tasks based on existing
 	or addition of new tasks. */
