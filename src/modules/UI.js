@@ -47,8 +47,7 @@ export default class UI {
 	}
 
 	drawPage(projectName) {
-		const projectDisplay = new ProjectUI(this.toDoList.getProject(
-			projectName));
+		const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
 		projectDisplay.draw();
 
 		// Update navBar text displaying project's title page
@@ -63,7 +62,7 @@ export default class UI {
 			// Clear any current form and draw the add task form.
 			this.currentForm.clear();
 
-			// Need to specify the project name in the addTask to append 
+			// Need to specify the project name in the addTask to append
 			// to the specified project.
 			this.currentForm.addTask();
 			// Set the default checked radio button to Medium Priority.
@@ -76,8 +75,7 @@ export default class UI {
 			inputDueDate.valueAsDate = new Date();
 
 			// Add draw new task functionality to appendTaskBtn on the form.
-			const appendTaskBtn = document.querySelector(
-				".uniqueBtn.appendTaskBtn");
+			const appendTaskBtn = document.querySelector(".uniqueBtn.appendTaskBtn");
 			this.submitTaskFunction(appendTaskBtn, projectName);
 		});
 	}
@@ -104,7 +102,7 @@ export default class UI {
 					taskInfo["date"],
 					taskInfo["priority"],
 					this.toDoList.getProject(projectName).tasks.length,
-					taskInfo["status"],
+					taskInfo["status"]
 				)
 			);
 	}
@@ -119,17 +117,16 @@ export default class UI {
 						if (task.name === taskInfo["title"]) {
 							document
 								.getElementById("inputTaskTitle")
-								.setCustomValidity(
-									"Name has already been used!");
-								return;
+								.setCustomValidity("Name has already been used!");
+							return;
 						}
 					}
-				};
-		
+				}
+
 				this.addNewTask(projectName, taskInfo);
 
 				document.querySelector("form").style.visibility = "hidden";
-				document.querySelector(".face-mask").style.visibility ="hidden";
+				document.querySelector(".face-mask").style.visibility = "hidden";
 				this.loadPage(projectName);
 				event.preventDefault();
 			}
@@ -168,15 +165,18 @@ export default class UI {
 
 				event.preventDefault();
 				this.currentProjectPage = newProjTitle.value;
-				this.loadPage(newProjTitle.value), {once: true};
+				this.loadPage(newProjTitle.value), { once: true };
 			}
 		});
-	};
+	}
 	deleteProjFunction() {
-		const deleteBtn = document.querySelector('.deleteProj');
+		const deleteBtn = document.querySelector(".deleteProj");
 		const mandatoryProj = ["Inbox", "Today", "This Week", "Important"];
 		deleteBtn.addEventListener("click", () => {
-			if(this.toDoList.getProject(this.currentProjectPage).tasks.length > 0 && mandatoryProj.includes(this.currentProjectPage)) {
+			if (
+				this.toDoList.getProject(this.currentProjectPage).tasks.length > 0 &&
+				mandatoryProj.includes(this.currentProjectPage)
+			) {
 				return;
 			}
 			this.toDoList.deleteProject(this.currentProjectPage);
@@ -185,7 +185,7 @@ export default class UI {
 			this.loadSwitchPageEvents();
 			this.currentProjectPage = "Inbox";
 			this.loadPage("Inbox");
-		})
+		});
 	}
 
 	/* Remove tasks Btn functionalities */
@@ -215,111 +215,126 @@ export default class UI {
 			this.removeTaskFunction(projectName, task.id);
 			this.editTaskFunction(projectName, task.id);
 		});
-	};
+	}
 
 	/* Edit Btn functionalities */
 	editTaskFunction(projectName, taskId) {
 		const editIcon = document.getElementById(`editTask-${taskId}`);
-		let taskName = this.toDoList.getProject(projectName).getTaskNameById(taskId);
+		let taskName = this.toDoList
+			.getProject(projectName)
+			.getTaskNameById(taskId);
+		const currentToDoList = this.toDoList;
 		editIcon.addEventListener("click", () => {
 			this.currentForm.clear();
 			this.currentForm.addTask();
-			document.querySelector('form').style.visibility = "visible";
-			document.querySelector('.face-mask').style.visibility = "hidden";
+			document.querySelector("form").style.visibility = "visible";
+			document.querySelector(".face-mask").style.visibility = "hidden";
 
 			// Find specified task based on given id to editIcon.
 			let selectedTask, selectedTaskName;
-			for(let task of this.toDoList.getProject(this.currentProjectPage).tasks) {
-				if(task.id === taskId) {
+			for (let task of this.toDoList.getProject(this.currentProjectPage)
+				.tasks) {
+				if (task.id === taskId) {
 					selectedTask = task;
 
 					// Collect name to change other project's same task.
-					selectedTaskName = task.name; 
-				};
-			};
+					selectedTaskName = task.name;
+				}
+			}
 
-			
-			editDetails(selectedTask);
+			collectEditDetails(selectedTask);
 			// Check all projects that has the specified task so the edits
 			// are applied throughout rather than one individual project.
 			addEditDetailsBtn(selectedTask);
-		})
-		
+		});
 
-		const editDetails = (task) => {
+		const collectEditDetails = (task) => {
 			document.getElementById("inputTaskTitle").defaultValue = task.name;
-			document.getElementById("inputTaskDetails").defaultValue = task.description;
-	
+			document.getElementById("inputTaskDetails").defaultValue =
+				task.description;
+
 			const prioLevel = task.priority.substr(0, 3);
 			if (prioLevel === "med" || prioLevel === "low") {
 				document.getElementById(`${prioLevel}Prio`).checked = true;
 			} else {
 				document.getElementById("highPrio").checked = true;
 			}
-	
+
 			document.getElementById("inputDueDate").value = task.dueDate
 				.split("/")
 				.reverse()
 				.join("-");
-		}
+		};
 		const addEditDetailsBtn = (task) => {
 			// Change appendTask btn to edit task btn
-			const editDetails = document.querySelector('.appendTaskBtn');
+			const editDetails = document.querySelector(".appendTaskBtn");
 			editDetails.textContent = "Edit Task";
-	
-			// Change current task's details to input's new values 
+			const selectedTask = task;
+
+			// Change current task's details to input's new values
 			// when click event executes
 			editDetails.addEventListener("click", (event) => {
-				task.name = document.getElementById("inputTaskTitle").value;
-				task.description = document.getElementById("inputTaskDetails").value;
-				const prioChosen = document.querySelector(
-					'input[name="prio"]:checked');
-				task.priority = prioChosen.value;
-				const dueDate = document.querySelector('#inputDueDate');
-				const dateFormat = format(new Date(dueDate.value), 'dd/MM/yyyy');
-				task.dueDate = dateFormat;
-				
+				// for(let proj of currentToDoList.projects) {
+				// 	for(let task of proj.tasks) {
+				// 		if(task.name === taskName) {
+				// 			console.log(task.name);
+				// 			changeDetails(task);
+				// 		}
+				// 	}
+				// }
+				changeDetailsToAll(task);
 				this.loadPage(this.currentProjectPage);
-				document.querySelector('form').style.visibility = "hidden";
-				document.querySelector('.face-mask').style.visibility = "hidden";
+				document.querySelector("form").style.visibility = "hidden";
+				document.querySelector(".face-mask").style.visibility = "hidden";
 				event.preventDefault();
-			})
-		}
+			});
+		};
 		const changeDetails = (task) => {
 			task.name = document.getElementById("inputTaskTitle").value;
 			task.description = document.getElementById("inputTaskDetails").value;
-			const prioChosen = document.querySelector(
-				'input[name="prio"]:checked');
+			const prioChosen = document.querySelector('input[name="prio"]:checked');
 			task.priority = prioChosen.value;
-			const dateFormat = format(new Date(date.value), 'dd/MM/yyyy');
+			const dueDate = document.querySelector("#inputDueDate");
+			const dateFormat = format(new Date(dueDate.value), "dd/MM/yyyy");
 			task.dueDate = dateFormat;
-		}
+		};
+		const changeDetailsToAll = (specifiedTask) => {
+			// Find the specified task in all projects.
+			for (let proj of currentToDoList.projects) {
+				for (let task of proj.tasks) {
+					if (task.name === taskName) {
+						console.log(task.name);
+						changeDetails(task);
+					}
+				}
+			}
+		};
 	}
 
 	/* Switch Delete Project or Clear Tasks functionality depending on 
-	 	current project page.*/ 
+	 	current project page.*/
 	addClearAllTasksFunction() {
-		const clearAllTaskBtn = document.querySelector('.uniqueBtn.clear');
+		const clearAllTaskBtn = document.querySelector(".uniqueBtn.clear");
 		clearAllTaskBtn.addEventListener("click", () => {
 			const currentProject = this.toDoList.getProject(this.currentProjectPage);
 			let deletedTasks = [];
 
 			// Remove all tasks from current project.
-			for(let task of currentProject.tasks) {
+			for (let task of currentProject.tasks) {
 				currentProject.deleteTask(task.id);
 				deletedTasks.push(task.name);
-			};
+			}
 
 			// Sync tasks deleted to other projects.
-			for(let project of this.toDoList.projects) {
-				for(let task of project.tasks) {
-					if(deletedTasks.includes(task.name)) {
+			for (let project of this.toDoList.projects) {
+				for (let task of project.tasks) {
+					if (deletedTasks.includes(task.name)) {
 						project.deleteTask(task.id);
-					};
-				};
-			};
+					}
+				}
+			}
 			this.loadPage(this.currentProjectPage);
-	})
+		});
 	}
 
 	/* Update Today's, This Week's and important tasks */
@@ -336,13 +351,13 @@ export default class UI {
 		for (let projectName in allSetTasks) {
 			for (let task of allSetTasks[projectName]) {
 				// Prevent adding duplicate tasks to project.
-				if (!this.toDoList.getProject(projectName).tasks.includes(
-					task)) {
+				if (!this.toDoList.getProject(projectName).tasks.includes(task)) {
 					this.toDoList.getProject(projectName).addTask(task);
 				}
 			}
 		}
 	}
+	
 
 	/* SideBar functionalities */
 
@@ -429,7 +444,7 @@ export default class UI {
 				this.loadPage(this.currentProjectPage);
 			});
 		});
-	};
+	}
 
 	/* Sync statusCheck functionality */
 	syncStatusCheck(projectName) {
@@ -437,23 +452,23 @@ export default class UI {
 		let taskNotChecked = [];
 
 		// Check for tasked checked off.
-		for(let task of this.toDoList.getProject(projectName).tasks) {
-			if(task.status) {
+		for (let task of this.toDoList.getProject(projectName).tasks) {
+			if (task.status) {
 				taskChecked.push(task.name);
 			} else {
 				taskNotChecked.push(task.name);
-			};
-		};
+			}
+		}
 
 		// Apply tasked checked OR unchecked
-		for(let project of this.toDoList.projects) {
-			for(let task of project.tasks) {
-				if(taskChecked.includes(task.name)) {
+		for (let project of this.toDoList.projects) {
+			for (let task of project.tasks) {
+				if (taskChecked.includes(task.name)) {
 					task.status = true;
-				} else if(taskNotChecked.includes(task.name)) {
+				} else if (taskNotChecked.includes(task.name)) {
 					task.status = false;
-				};
-			};
-		};
-	};
+				}
+			}
+		}
+	}
 }
