@@ -57,16 +57,8 @@ class TaskUI {
 		priorityIcon.classList.add(this.task.priority);
 		priority.appendChild(priorityIcon);
 
-		// Just a mock date for now. Subject to change based on user input.
-		// const timeElapsed = Date.now();
-		// const today = new Date(timeElapsed);
-		// const date = this.renderInfo(
-		// 	"div",
-		// 	"taskDate",
-		// 	`${today.toLocaleDateString()}`
-		// );
-
 		const date = this.renderInfo("div", "taskDate", this.task.dueDateFormatted);
+		date.setAttribute('id', 'taskDate')
 
 		// icons
 		const edit = this.renderInfo("div", "taskEdit");
@@ -127,51 +119,6 @@ class TaskUI {
 			info.classList.add("taskDetails");
 			document.querySelector(".form-container").appendChild(info);
 		}
-	}
-	//Edit Btn Functionality
-	editDetailsPopUp(task) {
-		this.addPopUp();
-		this.editDetails(task);
-		this.addEditDetailsBtn(task);
-
-		this.addCloseFormBtn();
-	}
-	editDetails(task) {
-		// Draw initial form that adds a task and replace all values with
-		// current task's info.
-		const currentForm = DrawForm();
-		currentForm.addTask();
-
-		document.getElementById("inputTaskTitle").defaultValue = task.name;
-		document.getElementById("inputTaskDetails").defaultValue = task.description;
-
-		const prioLevel = task.priority.substr(0, 3);
-		if (prioLevel === "med" || prioLevel === "low") {
-			document.getElementById(`${prioLevel}Prio`).checked = true;
-		} else {
-			document.getElementById("highPrio").checked = true;
-		}
-
-		document.getElementById("inputDueDate").value = task.dueDate
-			.split("/")
-			.reverse()
-			.join("-");
-	};
-	addEditDetailsBtn(task) {
-		// Change appendTask btn to edit task btn
-		const editDetails = document.querySelector('.appendTaskBtn');
-		editDetails.textContent = "Edit Task";
-
-		// Change current task's details to input's new values 
-		// when click event executes
-		editDetails.addEventListener("click", (event) => {
-			task.name = document.getElementById("inputTaskTitle").value;
-
-			document.querySelector('form').style.visibility = "hidden";
-			document.querySelector('.face-mask').style.visibility = "hidden";
-			event.preventDefault();
-		})
-
 	}
 	addPopUp() {
 		const currentForm = DrawForm();

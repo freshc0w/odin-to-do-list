@@ -53,6 +53,10 @@ export default class UI {
 		// Update navBar text displaying project's title page
 		const titleText = document.querySelector(".title-page-text");
 		titleText.textContent = projectName;
+
+		// Because of date formatting, taskDate style needs to be reInitialised.
+		const allDates = document.querySelectorAll('.taskDate');
+		allDates.forEach(date => date.style.fontSize = '1.3rem');
 	}
 
 	/* Add task Btn functionalities */
@@ -269,23 +273,15 @@ export default class UI {
 			// Change appendTask btn to edit task btn
 			const editDetails = document.querySelector(".appendTaskBtn");
 			editDetails.textContent = "Edit Task";
-			const selectedTask = task;
 
 			// Change current task's details to input's new values
 			// when click event executes
 			editDetails.addEventListener("click", (event) => {
-				// for(let proj of currentToDoList.projects) {
-				// 	for(let task of proj.tasks) {
-				// 		if(task.name === taskName) {
-				// 			console.log(task.name);
-				// 			changeDetails(task);
-				// 		}
-				// 	}
-				// }
 				changeDetailsToAll(task);
 				this.loadPage(this.currentProjectPage);
 				document.querySelector("form").style.visibility = "hidden";
 				document.querySelector(".face-mask").style.visibility = "hidden";
+				this.loadPage(this.currentProjectPage)
 				event.preventDefault();
 			});
 		};
@@ -348,6 +344,8 @@ export default class UI {
 			"This Week": allTasksThisWeek,
 			Important: allImportantTasks,
 		};
+
+		this.clearTaskForSetProj();
 		for (let projectName in allSetTasks) {
 			for (let task of allSetTasks[projectName]) {
 				// Prevent adding duplicate tasks to project.
@@ -357,7 +355,13 @@ export default class UI {
 			}
 		}
 	}
-	
+	clearTaskForSetProj() {
+		// Method clears all tasks for today's, this week's and important projects.
+		const setProj = ["Today", "This Week", "Important"];
+		this.toDoList.projects
+		.filter((project) => setProj.includes(project.name))
+		.map((proj) => (proj.tasks = []));
+	}
 
 	/* SideBar functionalities */
 

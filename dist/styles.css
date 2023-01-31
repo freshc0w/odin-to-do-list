@@ -241,7 +241,7 @@ img[src$="gif"]:hover {
 
 	display: grid;
 	grid-auto-flow: column;
-	grid-template-columns: 0.1fr 0.5fr 0.2fr 0.1fr 0.15fr 0.1fr 0.1fr;
+	grid-template-columns: 0.1fr 0.5fr 0.15fr 0.1fr 0.15fr 0.08fr 0.08fr;
 	place-items: center;
 
 	width: 96.5%;
@@ -280,6 +280,9 @@ img[src$="gif"]:hover {
 .taskDel {
 	text-shadow: 0 0 5px rgb(255, 49, 49);
 }
+.taskDel > .material-icons {
+	margin-right: 10px;
+}
 
 .taskName,
 .statusCheck {
@@ -290,10 +293,11 @@ img[src$="gif"]:hover {
 	justify-self: start;
 };
 
-.taskDate {
-    text-shadow: 0 0 4px white,
+#taskDate {
+    text-shadow: 0 0 3px white,
                 0 0 3px rgb(100, 255, 100);
 	letter-spacing: 2px;
+	font-size: 1.25rem;
 }
 
 .task-container .material-icons {
@@ -310,7 +314,14 @@ img[src$="gif"]:hover {
 }
 
 .taskEdit {
-    margin-right: -60%;
+    margin-right: -50%;
+}
+
+.material-icons.high,
+.material-icons.medium,
+.material-icons.low {
+	text-align: center;
+	margin-right: 0;
 }
 
 .material-icons.high {
