@@ -12,6 +12,7 @@ export default class UI {
 		// Initialise first homePage to be on the "Inbox" page.
 		this.currentProjectPage = "Inbox";
 		this.currentForm = DrawForm();
+		this.screen = false;
 	}
 	get currentProjectPage() {
 		return this._currentProjectPage;
@@ -24,6 +25,24 @@ export default class UI {
 	}
 	set toDoList(value) {
 		this._toDoList = value;
+	}
+
+	toggleScreen() {
+		const main = document.querySelector('.main-container');
+		const faceMask = document.querySelector('.face-mask');
+		if(!this.screen) {
+			main.style.height = "100vh";
+			main.style.width = "100vw";
+			main.style.transform = "translateX(20%)";
+			main.style.backgroundColor = "rgba(0, 0, 0, 0.85)";
+			this.screen = true;
+		} else {
+			main.style.height = "max(35rem, 82.5%)";
+			main.style.width = "max(700px, 90%)";
+			main.style.transform = "none";
+			main.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
+			this.screen = false;
+		}
 	}
 
 	loadPage(projectName) {

@@ -1,8 +1,7 @@
 import UI from "./modules/UI";
-import format from "date-fns/format";
+import format from "date-fns/format"; 
 
 loadHomePage();
-
 function loadHomePage() {
 	const userInterface = new UI();
 
@@ -85,4 +84,12 @@ function loadHomePage() {
     userInterface.loadPage(userInterface.currentProjectPage);
 	userInterface.loadSideBar();
 	userInterface.deleteProjFunction();
+
+	addEnlargeMaximise();
+	
+	function addEnlargeMaximise() {
+		document.getElementById('maxMinScreen').addEventListener("click", () => {
+			userInterface.toggleScreen();
+		})
+	}
 }
