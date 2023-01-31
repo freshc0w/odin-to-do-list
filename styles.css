@@ -74,6 +74,7 @@ html {
 
 	background-color: var(--default-bg-color);
 	color: white;
+	transition: ease-out 0.8s;
 }
 
 .navBar {
@@ -447,7 +448,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .uniqueBtn:hover:before {
-	transform: translateX(15em);
+	transform: translateX(600%);
 }
 
 .uniqueBtn.alter {
@@ -553,7 +554,7 @@ input {
     left: 0;
     height: 100vh;
     width: 100vw;
-    background-color: rgba(0,0,0,0.65);
+    background-color: rgba(0,0,0,0.75);
 }
 
 form {
