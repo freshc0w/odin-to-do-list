@@ -59,7 +59,7 @@ export default class UI {
 				link.style.transform = "none";
 			});
 		}
-		// New Function here
+		
 		function toggleSize(size) {
 			if (size) {
 				main.style.height = "100vh";

@@ -41,13 +41,13 @@ export default class AllProjects {
 		this.projects.splice(this.projects.indexOf(projectToDelete), 1);
 	}
 	getAllTasksToday() {
-      return this.getProject("Inbox").getTasksToday();
-    }
-    
+		return this.getProject("Inbox").getTasksToday();
+	}
+
 	getAllTasksThisWeek = () => {
-        return this.getProject("Inbox").getTasksThisWeek();
-    };
-    
+		return this.getProject("Inbox").getTasksThisWeek();
+	};
+
 	getAllImportantTasks() {
 		return this.getProject("Inbox").getImportantTasks();
 	}

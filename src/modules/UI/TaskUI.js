@@ -97,26 +97,53 @@ export default class TaskUI {
 
 		this.addCloseFormBtn();
 	}
+
 	drawDetails(task) {
-		const taskName = document.createElement("p");
-		const taskDescription = document.createElement("p");
-		const taskDueDate = document.createElement("p");
-		const taskPriority = document.createElement("p");
-		const dateFormat = format(new Date(task.dueDateFormatted), "dd/MM/yyyy");
+		let taskItems = [
+			{
+				name: "taskName",
+				textContent: `Task Name: "${task.name}"`,
+				style: {
+					textTransform: "capitalize",
+					fontWeight: "900",
+				},
+			},
+			{
+				name: "taskDescription",
+				textContent: `Task Details: "${task.description}"`,
+			},
+			{
+				name: "taskDueDate",
+				textContent: `Task Due Date: "${format(
+					new Date(task.dueDateFormatted),
+					"dd/MM/yyyy"
+				)}"`,
+			},
+			{
+				name: "taskPriority",
+				textContent: `Task Priority: "${task.priority}"`,
+				style: {
+					textTransform: "uppercase",
+				}
+			},
+		];
+		// creates a <p> element for each task Details and apply
+		// style to text if available.
+		taskItems.forEach((item) => {
+			let node = document.createElement("p");
+			node.textContent = item.textContent;
+			node.classList.add("taskDetails");
 
-		taskName.textContent = `Task Name: "${task.name}"`;
-		taskDescription.textContent = `Task Details: "${task.description}"`;
-		taskDueDate.textContent = `Task Due Date: "${dateFormat}"`;
-		taskPriority.textContent = `Task Priority: "${task.priority}"`;
-
-		taskPriority.style.textTransform = "capitalize";
-		taskName.style.fontWeight = "900";
-
-		for (let info of [taskName, taskDescription, taskDueDate, taskPriority]) {
-			info.classList.add("taskDetails");
-			document.querySelector(".form-container").appendChild(info);
-		}
+			// Condition to check and apply the style, if available
+			if (item.style) {
+				for (let [prop, value] of Object.entries(item.style)) {
+					node.style[prop] = value;
+				}
+			}
+			document.querySelector(".form-container").appendChild(node);
+		});
 	}
+
 	addPopUp() {
 		const currentForm = DrawForm();
 		currentForm.clear();
