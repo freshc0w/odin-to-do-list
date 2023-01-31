@@ -59,7 +59,7 @@ export default class UI {
 				link.style.transform = "none";
 			});
 		}
-		
+
 		function toggleSize(size) {
 			if (size) {
 				main.style.height = "100vh";
@@ -91,12 +91,11 @@ export default class UI {
 
 		// Apply eventlisteners for each corresponding bin icons.
 		this.applyDelAndEditFunc(projectName);
-		
+
 		// Assign functions for the project.
 		this.addProjFunction();
 		this.addClearAllTasksFunction();
 	}
-
 
 	drawPage(projectName) {
 		const projectDisplay = new ProjectUI(this.toDoList.getProject(projectName));
@@ -430,28 +429,30 @@ export default class UI {
 	drawInboxTabs() {
 		// Add today and this week's task beneath Inbox tab sidebar.
 		const inboxTabs = document.createElement("ul");
+		const inboxBar = document.querySelector(".inbox-bar");
 
 		this.addTab(inboxTabs, "Today");
 		this.addTab(inboxTabs, "This Week");
 
-		const inboxBar = document.querySelector(".inbox-bar");
 		inboxBar.appendChild(inboxTabs);
 		this.addDropDownMenu(inboxBar, inboxTabs);
 	}
 
+	// Optimize the following code: 
 	drawProjectTabs() {
 		// Find all other projects.
 		const inboxProjects = ["Inbox", "Today", "This Week", "Important"];
 		const customProjects = this.toDoList.projects.filter(
-			(project) => !inboxProjects.includes(project.name)
+			project => !inboxProjects.includes(project.name)
 		);
-
+	
 		const projectTabs = document.createElement("ul");
 		projectTabs.classList.add("customProj");
-		for (let project of customProjects) {
-			this.addTab(projectTabs, project.name);
-		}
-
+	
+		// Add tabs to projectTabs
+		customProjects.forEach(project => this.addTab(projectTabs, project.name));
+	
+		// Append the projectTabs to the projectBar and add a dropdown menu
 		const projectBar = document.querySelector(".project-bar");
 		projectBar.appendChild(projectTabs);
 		this.addDropDownMenu(projectBar, projectTabs);
@@ -471,8 +472,8 @@ export default class UI {
 			tabs.style.display = "none";
 		});
 	}
+	
 	addTab(menuTab, projectName) {
-		// Create li and append it to given param elem.
 		const tab = document.createElement("li");
 
 		tab.textContent = this.toDoList.getProject(projectName).name;
@@ -497,13 +498,18 @@ export default class UI {
 	}
 
 	loadSwitchPageEvents() {
-		this.addSwitchPageFunc("span#inbox");
-		this.addSwitchPageFunc("span#important");
-		this.addSwitchPageFunc("li");
+
+		// Add click event listener and Load the page based on the
+		// current title 
+		const tabs = ["span#inbox", "span#important", "li"];
+
+		tabs.forEach((tab) => this.addSwitchPageFunc(tab));
 	}
+
 	addSwitchPageFunc(tabQuery) {
 		const allTabs = document.querySelectorAll(tabQuery);
 		allTabs.forEach((tab) => {
+			// Register click event to load page based on sideBar title text.
 			tab.addEventListener("click", () => {
 				this.syncStatusCheck(this.currentProjectPage);
 				this.currentProjectPage = tab.innerText;
@@ -514,26 +520,24 @@ export default class UI {
 
 	/* Sync statusCheck functionality */
 	syncStatusCheck(projectName) {
-		let taskChecked = [];
-		let taskNotChecked = [];
+		// Checks the status of tasks in a given project
+		// against the projects list and updates them accordingly.
+		const taskChecked = [];
+		const taskNotChecked = [];
 
-		// Check for tasked checked off.
 		for (let task of this.toDoList.getProject(projectName).tasks) {
-			if (task.status) {
-				taskChecked.push(task.name);
-			} else {
-				taskNotChecked.push(task.name);
-			}
+			task.status
+				? taskChecked.push(task.name)
+				: taskNotChecked.push(task.name);
 		}
 
-		// Apply tasked checked OR unchecked
 		for (let project of this.toDoList.projects) {
 			for (let task of project.tasks) {
-				if (taskChecked.includes(task.name)) {
-					task.status = true;
-				} else if (taskNotChecked.includes(task.name)) {
-					task.status = false;
-				}
+				taskChecked.includes(task.name)
+					? (task.status = true)
+					: taskNotChecked.includes(task.name)
+					? (task.status = false)
+					: "";
 			}
 		}
 	}
