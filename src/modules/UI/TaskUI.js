@@ -19,22 +19,16 @@ export default class TaskUI {
 		statusCheck.setAttribute("type", "checkbox");
 		statusCheck.setAttribute("id", "statusCheck");
 
-		// Check if task has already been checked off before.
 		if (this.task.status) {
 			statusCheck.checked = true;
 			taskContainer.style.opacity = "35%";
 		}
 
+		// Lower opacity when task has been ticked off. Apply the status based on this
+		// checked value for same tasks in other projects.
 		statusCheck.addEventListener("change", (event) => {
-			if (event.target.checked) {
-				this.task.status = true;
-				taskContainer.style.opacity = "35%";
-				// taskContainer.style.transform = 'scale(0.985)';
-			} else {
-				this.task.status = false;
-				taskContainer.style.opacity = "100%";
-				// taskContainer.style.transform = 'scale(1)';
-			}
+			this.task.status = event.target.checked;
+			taskContainer.style.opacity = this.task.status ? "35%" : "100%";
 		});
 
 		const name = this.renderInfo("div", "taskName", this.task.name);
@@ -50,7 +44,7 @@ export default class TaskUI {
 		const priority = this.renderInfo("div", "statusPrio");
 		const priorityIcon = this.renderInfo("i", "material-icons", "warning");
 
-		// Change color based on priority of task -> ['high', 'medium', 'low']
+		// Change color based on priority of task => ['high', 'medium', 'low']
 		priorityIcon.classList.add(this.task.priority);
 		priority.appendChild(priorityIcon);
 
@@ -65,18 +59,11 @@ export default class TaskUI {
 		edit.setAttribute("id", `editTask-${this.task.id}`);
 		edit.appendChild(editIcon);
 
-		// editIcon.addEventListener("click", () => {
-		// 	this.editDetailsPopUp(this.task);
-		// });
-
 		const taskDel = this.renderInfo("div", "taskDel");
 		const delIcon = this.renderInfo("i", "material-icons", "delete");
 
 		// Add unique id identifer based on task id for bin icon.
 		taskDel.setAttribute("id", `delTask-${this.task.id}`);
-
-		// Create Dataset??
-		// delIcon.dataset.id = this.task.id;
 
 		taskDel.appendChild(delIcon);
 
@@ -84,12 +71,12 @@ export default class TaskUI {
 	}
 	draw() {
 		const taskContainer = this.renderInfo("div", "task-container");
-		const elems = this.createElements(taskContainer);
-		for (let elem of elems) {
-			taskContainer.appendChild(elem);
-		}
-		return taskContainer;
+		return this.createElements(taskContainer).reduce((container, elem) => {
+			container.appendChild(elem);
+			return container;
+		}, taskContainer);
 	}
+
 	// Details Btn Functionality
 	drawDetailsPopUp(task) {
 		this.addPopUp();
@@ -124,7 +111,7 @@ export default class TaskUI {
 				textContent: `Task Priority: "${task.priority}"`,
 				style: {
 					textTransform: "uppercase",
-				}
+				},
 			},
 		];
 		// creates a <p> element for each task Details and apply
