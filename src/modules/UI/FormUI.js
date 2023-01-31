@@ -134,7 +134,7 @@ const DrawForm = () => {
     }
 
     const addPriorityOptions = () => {
-        // A wrapper is going to wrap the label and a container consisting of the radio options.  
+        // A wrapper is going to wrap the label and a container consisting of the radio options.
         const inputPrioWrapper = document.createElement('div');
         inputPrioWrapper.classList.add('prioWrapper');
         
@@ -145,43 +145,41 @@ const DrawForm = () => {
         const prioOptionsContainer = document.createElement('div');
         prioOptionsContainer.classList.add('prioOptions');
         
-        const lowPrio = createRadioInputAndLabel('lowPrio', 'low');
-        const medPrio = createRadioInputAndLabel('medPrio', 'medium');
-        const highPrio = createRadioInputAndLabel('highPrio', 'high');
+        const prioOptions = [
+            { id: 'lowPrio', value: 'low' },
+            { id: 'medPrio', value: 'medium' },
+            { id: 'highPrio', value: 'high' },
+        ];
         
-        for(let prioOptions of [lowPrio, medPrio, highPrio]) {
-          prioOptionsContainer.appendChild(prioOptions);
+        for (let { id, value } of prioOptions) {
+            const radioOptionContainer = document.createElement('div');
+            const input = document.createElement('input');
+        
+            const attributes = {
+            type: 'radio',
+            id,
+            name: 'prio',
+            value
+            };
+            
+            Object.assign(input, attributes); 
+        
+            const label = document.createElement('label');
+            label.setAttribute('for', id);
+            label.classList.add(id);
+            label.textContent = value;
+                    
+            radioOptionContainer.appendChild(input);
+            radioOptionContainer.appendChild(label);
+            prioOptionsContainer.appendChild(radioOptionContainer);
         }
         
         inputPrioWrapper.appendChild(labelDiv);
         inputPrioWrapper.appendChild(prioOptionsContainer);
         
         return inputPrioWrapper;
-        
-
-        function createRadioInputAndLabel(id, value) {
-            const radioOptionContainer = document.createElement('div');
-            const input = document.createElement('input');
-            const attributes = {
-                "type": "radio",
-                "id": id,
-                "name": 'prio',
-                "value": value,
-            };
-            for(let attr in attributes) {
-                input.setAttribute(attr, attributes[attr]);
-            };
-
-            const label = document.createElement('label');
-            label.setAttribute('for', id);
-            label.classList.add(id);
-            label.textContent = value;
-            
-            radioOptionContainer.appendChild(input);
-            radioOptionContainer.appendChild(label);
-            return radioOptionContainer;
-        };
-    }
+        }
+    
 
     const addTextArea = (labelName, placeholder, id, required=true) => {
         const input = document.createElement('div');
@@ -199,15 +197,16 @@ const DrawForm = () => {
             'cols': 50,
         };
 
-        for(let attrIdx in attributes) {
-            inputTextArea.setAttribute(attrIdx, attributes[attrIdx])
-        }
+        Object.entries(attributes).forEach(
+            ([attrIdx, attrValue]) => inputTextArea.setAttribute(attrIdx, attrValue));
+
         inputTextArea.required = required; // Default True
 
         input.appendChild(inputLabel);
         input.appendChild(inputTextArea);
         return input
     }
+
 
     const addInputText = (labelName, placeholder, id, required=true) => {
         const input = document.createElement('div');
