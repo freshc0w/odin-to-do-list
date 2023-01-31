@@ -348,6 +348,7 @@ export default class UI {
 			});
 		};
 
+		/* change task details based on user input */
 		const changeDetails = (task) => {
 			task.name = document.getElementById("inputTaskTitle").value;
 			task.description = document.getElementById("inputTaskDetails").value;
