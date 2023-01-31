@@ -12,6 +12,7 @@ const DrawForm = () => {
 		}
 	};
 
+    // Create a new form with a title, input, close button, and a submit button. 
 	const addProj = () => {
 		const promptProjTitle = document.createElement("label");
 		promptProjTitle.htmlFor = "inputProjTitle";
