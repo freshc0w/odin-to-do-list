@@ -4,6 +4,8 @@ class ProjectUI {
 	constructor(projectObj) {
 		this.project = projectObj;
 	}
+
+	// Render the current task list with an "Add Task" option.
 	draw() {
 		const mainContent = document.querySelector("#main-content");
 		this.clearContent(mainContent);

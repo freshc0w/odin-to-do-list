@@ -8,7 +8,6 @@ export default class AllProjects {
 			(proj) => new Project(proj)
 		);
 
-		//assign the mapped projects to the `projects` property of the class
 		this.projects = projects;
 	}
 
