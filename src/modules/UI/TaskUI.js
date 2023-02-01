@@ -141,7 +141,7 @@ export default class TaskUI {
 	addCloseFormBtn() {
 		const closeFormBtn = document.createElement("img");
 		closeFormBtn.classList.add("closeFormBtn");
-		closeFormBtn.src = "../../dist/imgs/mac-close-btn.png";
+		closeFormBtn.src = "imgs/mac-close-btn.png";
 		closeFormBtn.alt = "A button that closes the form.";
 		closeFormBtn.addEventListener("click", () => {
 			document.querySelector("form").style.visibility = "hidden";

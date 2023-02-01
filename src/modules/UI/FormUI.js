@@ -33,7 +33,7 @@ const DrawForm = () => {
 
 		const closeFormBtn = document.createElement("img");
 		closeFormBtn.classList.add("closeFormBtn");
-		closeFormBtn.src = "../../dist/imgs/mac-close-btn.png";
+		closeFormBtn.src = "imgs/mac-close-btn.png";
 		closeFormBtn.alt = "A button that closes the form.";
 		closeFormBtn.addEventListener("click", () => {
 			document.querySelector("form").style.visibility = "hidden";
@@ -241,7 +241,7 @@ const DrawForm = () => {
 	const addCloseFormFunction = () => {
 		const closeForm = document.createElement("img");
 		closeForm.classList.add("closeFormBtn");
-		closeForm.src = "../../dist/imgs/mac-close-btn.png";
+		closeForm.src = "imgs/mac-close-btn.png";
 		closeForm.alt = "A button that closes the form.";
 
 		closeForm.addEventListener("click", () => {
