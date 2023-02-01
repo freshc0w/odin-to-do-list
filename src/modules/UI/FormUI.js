@@ -131,7 +131,7 @@ const DrawForm = () => {
 
 		const dateLabel = document.createElement("label");
 		dateLabel.classList.add("dateLabel");
-		dateLabel.setAttribute("for", "inputDueDate");
+		dateLabel.htmlFor = "inputDueDate";
 		dateLabel.appendChild(dateLabelTxt);
 
 		const inputDueDate = document.createElement("input");
@@ -172,7 +172,7 @@ const DrawForm = () => {
 			Object.assign(input, attributes);
 
 			const label = document.createElement("label");
-			label.setAttribute("for", id);
+			label.htmlFor = id;
 			label.classList.add(id);
 			label.textContent = value;
 
@@ -191,7 +191,7 @@ const DrawForm = () => {
 		const input = document.createElement("div");
 
 		const inputLabel = document.createElement("label");
-		inputLabel.setAttribute("for", id);
+		inputLabel.htmlFor = id;
 		inputLabel.textContent = labelName;
 
 		const inputTextArea = document.createElement("textarea");
