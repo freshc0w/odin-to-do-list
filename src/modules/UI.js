@@ -63,9 +63,9 @@ export default class UI {
 
 		function toggleSize(size) {
 			if (size) {
-				main.style.height = "100vh";
+				main.style.height = "97vh";
 				main.style.width = "100vw";
-				main.style.transform = "translateX(20.5%)";
+				main.style.transform = "translateX(20.5%) translateY(-2.5vh)";
 				main.style.backgroundColor = "rgba(25, 25, 25, 0.95)";
 				main.style.backdropFilter = "blur(3px)";
 			} else {
