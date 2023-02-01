@@ -802,10 +802,10 @@ input[type="date"]:focus {
 	align-items: center;
 	gap: 0.5rem;
 	width: 100vw;
-	padding: 0.5rem;
+	padding: 0.25rem;
 	background-color: rgba(10, 10, 10, 0.8);
 	color: whitesmoke;
-	font-size: 1.25rem;
+	font-size: 0.75rem;
   }
   .fa-github {
   color: whitesmoke;
