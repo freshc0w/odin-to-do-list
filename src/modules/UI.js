@@ -26,6 +26,7 @@ export default class UI {
 		this._toDoList = value;
 	}
 
+	// Allows user to enlarge or reduce To Do List screen size.
 	toggleScreen() {
 		const main = document.querySelector(".main-container");
 		const sideBar = document.getElementById("sideBar");
@@ -116,10 +117,8 @@ export default class UI {
 		addTaskBtn.addEventListener("click", () => {
 			// Clear any current form and draw the add task form.
 			this.currentForm.clear();
-
-			// Need to specify the project name in the addTask to append
-			// to the specified project.
 			this.currentForm.addTask();
+
 			// Set the default checked radio button to Medium Priority.
 			document.getElementById("medPrio").checked = true;
 
@@ -300,21 +299,15 @@ export default class UI {
 			document.querySelector(".face-mask").style.visibility = "visible";
 
 			// Find specified task based on given id to editIcon.
-			let selectedTask, selectedTaskName;
+			let selectedTask;
 			for (let task of this.toDoList.getProject(this.currentProjectPage)
 				.tasks) {
 				if (task.id === taskId) {
 					selectedTask = task;
-
-					// Collect name to change other project's same task.
-					selectedTaskName = task.name;
 				}
 			}
 
 			collectEditDetails(selectedTask);
-
-			// Check all projects that has the specified task so the edits
-			// are applied throughout rather than one individual project.
 			addEditDetailsBtn();
 		});
 
@@ -348,6 +341,9 @@ export default class UI {
 			// Change current task's details to input's new values
 			// when click event executes
 			editDetails.addEventListener("click", (event) => {
+
+				// Check all projects that has the specified task so the edits
+				// are applied throughout rather than one individual project.
 				changeDetailsToAll(taskName);
 
 				document.querySelector("form").style.visibility = "hidden";
@@ -381,8 +377,7 @@ export default class UI {
 		};
 	}
 
-	/* Switch Delete Project or Clear Tasks functionality depending on 
-	 	current project page.*/
+	// Clear all tasks on current project page
 	addClearAllTasksFunction() {
 		const clearAllTaskBtn = document.querySelector(".uniqueBtn.clear");
 		clearAllTaskBtn.addEventListener("click", () => {

@@ -37,4 +37,4 @@ class ProjectUI {
 	}
 }
 
-export { TaskUI, ProjectUI };
+export { ProjectUI };
