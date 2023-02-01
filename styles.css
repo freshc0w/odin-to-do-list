@@ -9,16 +9,16 @@
 
 @font-face {
 	font-family: 'Roboto Black';
-	src: url(../fonts/Roboto/Roboto-Black.ttf);
+	src: url(fonts/Roboto/Roboto-Black.ttf);
 };
 @font-face {
 	font-family: 'Roboto Italic';
-	src: url(../fonts/Roboto/Roboto-MediumItalic.ttf);
+	src: url(fonts/Roboto/Roboto-MediumItalic.ttf);
 }
 
 @font-face {
 	font-family: 'Porcelain';
-	src: url(../fonts/Porcelain/Porcelain.ttf);
+	src: url(fonts/Porcelain/Porcelain.ttf);
 }
 
 body,
@@ -39,7 +39,7 @@ html {
 	justify-content: center;
 	align-items: center;
 
-	background-image: url(/imgs/gray-background-img.jpg);
+	background-image: url(imgs/gray-background-img.jpg);
 	/* background-size: 100% auto; */
 	background-size: cover;
 	background-repeat: no-repeat;
