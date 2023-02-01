@@ -23,10 +23,7 @@
 
 body,
 html {
-	/* temp min-width for editing */
-	/* min-width: 2100px; */
 	position: relative;
-	/* min-width: 2100px; */
 	height: 100%;
 	width: 100%;
 	font-family: "Montserrat", sans-serif;
@@ -287,10 +284,8 @@ img[src$="gif"]:hover {
 
 .taskName,
 .statusCheck {
-	/* margin-right: auto; */
 	font-size: 1.25rem;
 	text-shadow: 0 0 3px white;
-	/* how to shrink when input is too much? */
 	overflow: hidden; 
 	justify-self: start;
 };
@@ -543,10 +538,6 @@ input[type="checkbox"]:checked::after {
 	);
 }
 
-/* Forms */
-input {
-	/* all: unset; */
-}
 .face-mask {
     visibility: hidden;
     position: absolute;
