@@ -22,6 +22,8 @@ Ability to maximize the window.
 
 Potential functionalities to add:
 localStorage to save user data on their local machine.
+Add notes section so user can take notes with their corresponding projects.
+Add Project title for corresponding form types.
 
 More info:
 
