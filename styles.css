@@ -803,7 +803,7 @@ input[type="date"]:focus {
 	gap: 0.5rem;
 	width: 100vw;
 	padding: 0.25rem;
-	background-color: rgba(10, 10, 10, 0.8);
+	background-color: rgba(10, 10, 10, 1);
 	color: whitesmoke;
 	font-size: 0.75rem;
   }
