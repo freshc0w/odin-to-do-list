@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/freshc0w/odin-to-do-list#readme",
   "devDependencies": {
-    "webpack": "^5.75.0",
+    "webpack": "^5.76.0",
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
