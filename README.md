@@ -1,4 +1,4 @@
-# odin-to-do-list
+# To-do-list
 
 This is a simple web application for managing your tasks and projects. User can add, delete, and edit tasks as well as projects. User can also check off tasks and maximize the screen with the green button on the top right corner.
 
